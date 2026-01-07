@@ -1,0 +1,7 @@
+name: OnTimeCommand
+version: '${project.version}'
+main: org.VoyagerStar.onTimeCommand.OnTimeCommand
+api-version: '1.21'
+authors: [ VoyagerStar ]
+description: A plugin that allows you to execute commands at a certain time
+website: https://github.com/VoyagerStar3897081534

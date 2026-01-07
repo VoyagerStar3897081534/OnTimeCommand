@@ -1,0 +1,14 @@
+# 定时命令列表配置文件
+# 示例格式：
+# commands:
+#   <命令名称>:
+#     interval: <执行间隔(秒)>
+#     commands:
+#       - "<要执行的命令1>"
+#       - "<要执行的命令2>"
+
+commands:
+  a:
+    interval: 1
+    commands: []
+    disabled: false

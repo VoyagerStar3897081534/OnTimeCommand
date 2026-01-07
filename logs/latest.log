@@ -1,0 +1,9 @@
+[22:49:25] [ServerMain/INFO]: [bootstrap] Running Java 25 (Java HotSpot(TM) 64-Bit Server VM 25.0.1+8-LTS-jvmci-b01; Oracle Corporation Oracle GraalVM 25.0.1+8.1) on Windows 10 10.0 (amd64)
+[22:49:25] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21-130-master@b1b5d4c (2024-08-10T10:02:42Z) for Minecraft 1.21
+[22:49:27] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[22:49:27] [ServerMain/INFO]: [PluginInitializerManager] Initialized 0 plugins
+[22:49:31] [ServerMain/INFO]: [bootstrap] Running Java 25 (Java HotSpot(TM) 64-Bit Server VM 25.0.1+8-LTS-jvmci-b01; Oracle Corporation Oracle GraalVM 25.0.1+8.1) on Windows 10 10.0 (amd64)
+[22:49:31] [ServerMain/INFO]: [bootstrap] Loading Paper 1.21-130-master@b1b5d4c (2024-08-10T10:02:42Z) for Minecraft 1.21
+[22:49:32] [ServerMain/INFO]: [PluginInitializerManager] Initializing plugins...
+[22:49:32] [ServerMain/INFO]: [PluginInitializerManager] Initialized 0 plugins
+[22:49:40] [ServerMain/INFO]: You need to agree to the EULA in order to run the server. Go to eula.txt for more info.

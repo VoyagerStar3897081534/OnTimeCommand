@@ -1,0 +1,26 @@
+# 定时命令列表配置文件
+# 示例格式：
+# commands:
+#   <命令名称>:
+#     interval: <执行间隔(秒)>
+#     commands:
+#       - "<要执行的命令1>"
+#       - "<要执行的命令2>"
+
+commands:
+  # 示例：每30秒向所有玩家发送欢迎信息
+  welcome-message:
+    interval: 30
+    commands:
+      - "say 欢迎来到我们的服务器！"
+      - "title @a title 欢迎!"
+      - "title @a subtitle 祝你游戏愉快"
+    disabled: true
+  
+  # 示例：每5分钟清理掉落物
+  clean-drops:
+    interval: 300
+    commands:
+      - "kill @e[type=item]"
+      - "say 掉落物已清理"
+    disabled: true
