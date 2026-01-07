@@ -12,6 +12,15 @@
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <!-- Version properties - major.minor.patch-packageType+yyyyMMdd+gitnumber -->
+        <version.major>1</version.major>
+        <version.minor>0</version.minor>
+        <version.patch>1</version.patch>
+        <version.packageType>RELEASE</version.packageType>
+        <!-- Custom timestamp format for versioning -->
+        <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+        <!-- Define the project version format as per requirements -->
+        <project.version>${version.major}.${version.minor}.${version.patch}-${version.packageType}+${maven.build.timestamp}+${buildNumber}</project.version>
     </properties>
 
     <build>
@@ -71,6 +80,43 @@
                     </execution>
                 </executions>
             </plugin>
+            <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>3.2.0</version>
+                <executions>
+                    <execution>
+                        <id>get-git-info</id>
+                        <phase>initialize</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                    <getRevisionOnly>true</getRevisionOnly>
+                    <revisionOnScmFailure>unknown</revisionOnScmFailure>
+                    <shortRevisionLength>7</shortRevisionLength>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-jar-plugin</artifactId>
+                <version>3.3.0</version>
+                <configuration>
+                    <archive>
+                        <manifestEntries>
+                            <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+                            <Build-Jdk>${maven.compiler.target}</Build-Jdk>
+                            <Build-OS>${os.name}</Build-OS>
+                            <Created-By>${maven.version}</Created-By>
+                            <Git-Commit-Id>${buildNumber}</Git-Commit-Id>
+                        </manifestEntries>
+                    </archive>
+                </configuration>
+            </plugin>
         </plugins>
         <resources>
             <resource>
@@ -105,6 +151,13 @@
             <groupId>com.google.code.gson</groupId>
             <artifactId>gson</artifactId>
             <version>2.8.9</version>
+        </dependency>
+        <!-- JUnit 5 for testing -->
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter</artifactId>
+            <version>5.10.0</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 </project>

@@ -50,6 +50,9 @@ public final class OnTimeCommand extends JavaPlugin {
         runCommandOnTime.loadAndScheduleCommands();
         
         getLogger().info("OnTimeCommand has been enabled successfully!");
+        getLogger().info("Version: " + VersionInfo.getVersion());
+        getLogger().info("Build Date: " + VersionInfo.getBuildDate());
+        getLogger().info("Git Commit ID: " + VersionInfo.getGitCommitId());
     }
 
     @Override
