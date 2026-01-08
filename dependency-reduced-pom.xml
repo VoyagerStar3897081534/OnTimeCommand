@@ -3,7 +3,12 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.VoyagerStar</groupId>
   <artifactId>ontimecommand</artifactId>
-  <version>1.0.1</version>
+  <version>1.0.1-release</version>
+  <scm>
+    <connection>scm:git:https://github.com/your-username/ontimecommand.git</connection>
+    <developerConnection>scm:git:https://github.com/your-username/ontimecommand.git</developerConnection>
+    <url>https://github.com/your-username/ontimecommand</url>
+  </scm>
   <build>
     <defaultGoal>clean package</defaultGoal>
     <resources>
@@ -65,6 +70,42 @@
           </execution>
         </executions>
       </plugin>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>buildnumber-maven-plugin</artifactId>
+        <version>3.2.0</version>
+        <executions>
+          <execution>
+            <id>get-git-info</id>
+            <phase>initialize</phase>
+            <goals>
+              <goal>create</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <doCheck>false</doCheck>
+          <doUpdate>false</doUpdate>
+          <revisionOnScmFailure>unknown</revisionOnScmFailure>
+          <shortRevisionLength>7</shortRevisionLength>
+          <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-jar-plugin</artifactId>
+        <version>3.3.0</version>
+        <configuration>
+          <archive>
+            <manifestEntries>
+              <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+              <Build-Jdk>${maven.compiler.target}</Build-Jdk>
+              <Build-OS>${os.name}</Build-OS>
+              <Created-By>${maven.version}</Created-By>
+              <Git-Commit-Id>${buildNumber}</Git-Commit-Id>
+            </manifestEntries>
+          </archive>
+        </configuration>
+      </plugin>
     </plugins>
   </build>
   <repositories>
@@ -80,9 +121,31 @@
       <version>1.21-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
+    <dependency>
+      <groupId>org.junit.jupiter</groupId>
+      <artifactId>junit-jupiter</artifactId>
+      <version>5.10.0</version>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <artifactId>junit-jupiter-api</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-params</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+        <exclusion>
+          <artifactId>junit-jupiter-engine</artifactId>
+          <groupId>org.junit.jupiter</groupId>
+        </exclusion>
+      </exclusions>
+    </dependency>
   </dependencies>
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <project.version>${project.version}+${maven.build.timestamp}${buildNumber}</project.version>
     <java.version>21</java.version>
+    <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
   </properties>
 </project>

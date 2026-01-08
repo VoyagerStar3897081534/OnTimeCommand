@@ -16,7 +16,7 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     @Override
-    public boolean onCommand(CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+    public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         // Check if there are enough arguments
         if (args.length < 1) {
             sendHelpMessage(sender);
@@ -252,12 +252,12 @@ public class OTCCommandExecutor implements CommandExecutor {
             String arg = args[i];
             
             if (arg.startsWith("\"") && !arg.endsWith("\"") && !inQuotes) {
-                // 开始一个新的带引号的命令
+                // 开始一个新地带引号的命令
                 inQuotes = true;
                 currentCommand = new StringBuilder(arg.substring(1)); // 移除开始的引号
             } else if (arg.endsWith("\"") && inQuotes) {
                 // 结束当前带引号的命令
-                currentCommand.append(" ").append(arg.substring(0, arg.length() - 1)); // 添加内容并移除结束引号
+                currentCommand.append(" ").append(arg, 0, arg.length() - 1); // 添加内容并移除结束引号
                 commands.add(currentCommand.toString().trim());
                 inQuotes = false;
             } else if (inQuotes) {

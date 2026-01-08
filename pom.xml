@@ -6,21 +6,24 @@
 
     <groupId>org.VoyagerStar</groupId>
     <artifactId>ontimecommand</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.1-release</version>
     <packaging>jar</packaging>
+
+    <scm>
+        <connection>scm:git:https://github.com/your-username/ontimecommand.git</connection>
+        <developerConnection>scm:git:https://github.com/your-username/ontimecommand.git</developerConnection>
+        <url>https://github.com/your-username/ontimecommand</url>
+        <tag>HEAD</tag>
+    </scm>
 
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <!-- Version properties - major.minor.patch-packageType+yyyyMMdd+gitnumber -->
-        <version.major>1</version.major>
-        <version.minor>0</version.minor>
-        <version.patch>1</version.patch>
-        <version.packageType>RELEASE</version.packageType>
         <!-- Custom timestamp format for versioning -->
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
         <!-- Define the project version format as per requirements -->
-        <project.version>${version.major}.${version.minor}.${version.patch}-${version.packageType}+${maven.build.timestamp}+${buildNumber}</project.version>
+        <project.version>${project.version}+${maven.build.timestamp}${buildNumber}</project.version>
     </properties>
 
     <build>
@@ -96,9 +99,9 @@
                 <configuration>
                     <doCheck>false</doCheck>
                     <doUpdate>false</doUpdate>
-                    <getRevisionOnly>true</getRevisionOnly>
                     <revisionOnScmFailure>unknown</revisionOnScmFailure>
                     <shortRevisionLength>7</shortRevisionLength>
+                    <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
                 </configuration>
             </plugin>
             <plugin>
@@ -109,6 +112,7 @@
                     <archive>
                         <manifestEntries>
                             <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
+                            <!--suppress UnresolvedMavenProperty -->
                             <Build-Jdk>${maven.compiler.target}</Build-Jdk>
                             <Build-OS>${os.name}</Build-OS>
                             <Created-By>${maven.version}</Created-By>

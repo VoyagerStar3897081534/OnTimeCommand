@@ -2,7 +2,6 @@ package org.VoyagerStar.onTimeCommand;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
-import org.bukkit.command.PluginCommand;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -32,7 +31,6 @@ public final class OnTimeCommand extends JavaPlugin {
                 "/ontimecommand <disable|enable|add|addcommand|deletecommand|delete>",
                 new String[]{"otc"},
                 "ontimecommand.admin",
-                "You don't have permission to use this command.",
                 OTCCommandExecutor,
                 new OTCTabCompleter(this));
 
@@ -41,7 +39,6 @@ public final class OnTimeCommand extends JavaPlugin {
                 "/seecommand",
                 null,
                 "ontimecommand.player",
-                "You don't have permission to use this command.",
                 new SeeCommandExecutor(),
                 null);
 
@@ -50,6 +47,10 @@ public final class OnTimeCommand extends JavaPlugin {
         runCommandOnTime.loadAndScheduleCommands();
         
         getLogger().info("OnTimeCommand has been enabled successfully!");
+        getLogger().info(" ----------------");
+        getLogger().info("/   VoyagerStar   \\");
+        getLogger().info("\\ On Time Command /");
+        getLogger().info(" ----------------");
         getLogger().info("Version: " + VersionInfo.getVersion());
         getLogger().info("Build Date: " + VersionInfo.getBuildDate());
         getLogger().info("Git Commit ID: " + VersionInfo.getGitCommitId());
@@ -81,8 +82,8 @@ public final class OnTimeCommand extends JavaPlugin {
     }
 
     // 自定义命令注册方法
-    private void registerCustomCommand(String name, String description, String usage, String[] aliases, 
-                                       String permission, String permissionMessage, CommandExecutor executor, TabCompleter tabCompleter) {
+    private void registerCustomCommand(String name, String description, String usage, String[] aliases,
+                                       String permission, CommandExecutor executor, TabCompleter tabCompleter) {
         // 获取命令映射
         org.bukkit.command.CommandMap commandMap = this.getServer().getCommandMap();
         
@@ -90,7 +91,7 @@ public final class OnTimeCommand extends JavaPlugin {
         CustomCommand customCommand = new CustomCommand(name, description, usage, aliases);
         customCommand.setExecutor(executor);
         customCommand.setPermission(permission);
-        customCommand.setPermissionMessage(permissionMessage);
+        customCommand.setPermissionMessage("You don't have permission to use this command.");
         if (tabCompleter != null) {
             customCommand.setTabCompleter(tabCompleter);
         }
@@ -133,9 +134,9 @@ public final class OnTimeCommand extends JavaPlugin {
         }
 
         @Override
-        public java.util.List<String> tabComplete(org.bukkit.command.CommandSender sender, String alias, String[] args) throws IllegalArgumentException {
+        public java.util.@NotNull List<String> tabComplete(org.bukkit.command.@NotNull CommandSender sender, @NotNull String alias, String[] args) throws IllegalArgumentException {
             if (tabCompleter != null) {
-                return tabCompleter.onTabComplete(sender, this, alias, args);
+                return Objects.requireNonNull(tabCompleter.onTabComplete(sender, this, alias, args));
             }
             return super.tabComplete(sender, alias, args);
         }

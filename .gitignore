@@ -1,2 +1,12 @@
 # 项目排除路径
 /target/
+/run
+
+!/run/bukkit.yml
+!/run/eula.txt
+!/run/server.properties
+!/run/download_paper.ps1
+!/run/spigot.yml
+!/run/versions
+!/run/start.bat
+!/run/start.sh
