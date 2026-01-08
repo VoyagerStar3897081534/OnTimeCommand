@@ -1,6 +1,8 @@
 # 项目排除路径
 /target/
 /run
+/run/plugins
+/run/logs
 
 !/run/bukkit.yml
 !/run/eula.txt
