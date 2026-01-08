@@ -12,3 +12,4 @@
 !/run/versions
 !/run/start.bat
 !/run/start.sh
+!/run/cache
