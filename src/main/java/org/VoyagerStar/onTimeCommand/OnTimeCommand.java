@@ -54,6 +54,9 @@ public final class OnTimeCommand extends JavaPlugin {
         getLogger().info("Version: " + VersionInfo.getVersion());
         getLogger().info("Build Date: " + VersionInfo.getBuildDate());
         getLogger().info("Git Commit ID: " + VersionInfo.getGitCommitId());
+
+        // 检查版本更新
+        VersionChecker.printVersionCheckResult();
     }
 
     @Override

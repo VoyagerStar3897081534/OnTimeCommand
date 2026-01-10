@@ -3,11 +3,11 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.VoyagerStar</groupId>
   <artifactId>ontimecommand</artifactId>
-  <version>1.0.1-release</version>
+  <version>0</version>
   <scm>
-    <connection>scm:git:https://github.com/your-username/ontimecommand.git</connection>
-    <developerConnection>scm:git:https://github.com/your-username/ontimecommand.git</developerConnection>
-    <url>https://github.com/your-username/ontimecommand</url>
+    <connection>scm:git:https://github.com/VoyagerStar3897081534/OnTimeCommand.git</connection>
+    <developerConnection>scm:git:https://github.com/VoyagerStar3897081534/OnTimeCommand.git</developerConnection>
+    <url>https://github.com/VoyagerStar3897081534/OnTimeCommand</url>
   </scm>
   <build>
     <defaultGoal>clean package</defaultGoal>
@@ -23,6 +23,24 @@
         <version>3.13.0</version>
         <configuration>
           <release>${java.version}</release>
+          <compilerArgs>
+            <arg>--add-opens</arg>
+            <module>java.base/java.lang=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/java.lang.reflect=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/java.util=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/java.util.concurrent=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/sun.nio.ch=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.management=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/sun.util.calendar=ALL-UNNAMED</module>
+            <arg>--add-opens</arg>
+            <module>java.base/java.security=ALL-UNNAMED</module>
+          </compilerArgs>
         </configuration>
       </plugin>
       <plugin>
@@ -34,41 +52,39 @@
             <goals>
               <goal>shade</goal>
             </goals>
-              <configuration>
-                  <finalName>
-                      ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
-                  </finalName>
-                  <filters>
-                      <filter>
-                          <artifact>*:*</artifact>
-                          <excludes>
-                              <exclude>module-info.class</exclude>
-                              <exclude>META-INF/MANIFEST.MF</exclude>
-                              <exclude>META-INF/maven/**</exclude>
-                          </excludes>
-                      </filter>
-                  </filters>
-              </configuration>
+            <configuration>
+              <finalName>${project.artifactId}-${project.version}</finalName>
+              <filters>
+                <filter>
+                  <artifact>*:*</artifact>
+                  <excludes>
+                    <exclude>module-info.class</exclude>
+                    <exclude>META-INF/MANIFEST.MF</exclude>
+                    <exclude>META-INF/maven/**</exclude>
+                  </excludes>
+                </filter>
+              </filters>
+            </configuration>
           </execution>
         </executions>
       </plugin>
-        <plugin>
-            <groupId>org.codehaus.mojo</groupId>
-            <artifactId>properties-maven-plugin</artifactId>
-            <version>1.2.1</version>
-            <executions>
-                <execution>
-                    <phase>initialize</phase>
-                    <goals>
-                        <goal>read-project-properties</goal>
-                    </goals>
-                    <configuration>
-                        <files>
-                            <file>${project.basedir}/maven.properties</file>
-                        </files>
-                    </configuration>
-                </execution>
-            </executions>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>properties-maven-plugin</artifactId>
+        <version>1.2.1</version>
+        <executions>
+          <execution>
+            <phase>initialize</phase>
+            <goals>
+              <goal>read-project-properties</goal>
+            </goals>
+            <configuration>
+              <files>
+                <file>${project.basedir}/maven.properties</file>
+              </files>
+            </configuration>
+          </execution>
+        </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -87,17 +103,27 @@
           <doCheck>false</doCheck>
           <doUpdate>false</doUpdate>
           <revisionOnScmFailure>unknown</revisionOnScmFailure>
-            <shortRevisionLength>8</shortRevisionLength>
+          <shortRevisionLength>8</shortRevisionLength>
           <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
+        </configuration>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.2.5</version>
+        <configuration>
+          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
+            java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
+            --enable-native-access=ALL-UNNAMED
+          </argLine>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
-            <finalName>
-                ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
-            </finalName>
+          <finalName>
+            ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
+          </finalName>
           <archive>
             <manifestEntries>
               <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
@@ -145,13 +171,28 @@
       </exclusions>
     </dependency>
   </dependencies>
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub VoyagerStar3897081534 Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/VoyagerStar3897081534/OnTimeCommand</url>
+    </repository>
+  </distributionManagement>
   <properties>
-      <project.url>${website}</project.url>
-      <project.description>${description}</project.description>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.url>${website}</project.url>
+    <project.description>${description}</project.description>
     <java.version>21</java.version>
+    <maven.compiler.source>21</maven.compiler.source>
     <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <maven.properties.file>maven.properties</maven.properties.file>
-      <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.properties.file>maven.properties</maven.properties.file>
+    <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
+    <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
+      --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED --add-opens
+      java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management=ALL-UNNAMED --add-opens
+      java.base/sun.util.calendar=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED
+      --enable-native-access=ALL-UNNAMED
+    </maven.compiler.args>
   </properties>
 </project>
