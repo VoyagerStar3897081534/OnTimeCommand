@@ -6,7 +6,7 @@
 
     <groupId>org.VoyagerStar</groupId>
     <artifactId>ontimecommand</artifactId>
-    <version>1.0.1-release</version>
+    <version>1.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <scm>
