@@ -34,20 +34,41 @@
             <goals>
               <goal>shade</goal>
             </goals>
+              <configuration>
+                  <finalName>
+                      ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
+                  </finalName>
+                  <filters>
+                      <filter>
+                          <artifact>*:*</artifact>
+                          <excludes>
+                              <exclude>module-info.class</exclude>
+                              <exclude>META-INF/MANIFEST.MF</exclude>
+                              <exclude>META-INF/maven/**</exclude>
+                          </excludes>
+                      </filter>
+                  </filters>
+              </configuration>
           </execution>
         </executions>
-        <configuration>
-          <filters>
-            <filter>
-              <artifact>*:*</artifact>
-              <excludes>
-                <exclude>module-info.class</exclude>
-                <exclude>META-INF/MANIFEST.MF</exclude>
-                <exclude>META-INF/maven/**</exclude>
-              </excludes>
-            </filter>
-          </filters>
-        </configuration>
+      </plugin>
+        <plugin>
+            <groupId>org.codehaus.mojo</groupId>
+            <artifactId>properties-maven-plugin</artifactId>
+            <version>1.2.1</version>
+            <executions>
+                <execution>
+                    <phase>initialize</phase>
+                    <goals>
+                        <goal>read-project-properties</goal>
+                    </goals>
+                    <configuration>
+                        <files>
+                            <file>${project.basedir}/maven.properties</file>
+                        </files>
+                    </configuration>
+                </execution>
+            </executions>
       </plugin>
       <plugin>
         <groupId>org.codehaus.mojo</groupId>
@@ -66,7 +87,7 @@
           <doCheck>false</doCheck>
           <doUpdate>false</doUpdate>
           <revisionOnScmFailure>unknown</revisionOnScmFailure>
-          <shortRevisionLength>7</shortRevisionLength>
+            <shortRevisionLength>8</shortRevisionLength>
           <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
         </configuration>
       </plugin>
@@ -74,6 +95,9 @@
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
+            <finalName>
+                ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
+            </finalName>
           <archive>
             <manifestEntries>
               <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
@@ -122,9 +146,12 @@
     </dependency>
   </dependencies>
   <properties>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <project.version>${project.version}+${maven.build.timestamp}${buildNumber}</project.version>
+      <project.url>${website}</project.url>
+      <project.description>${description}</project.description>
     <java.version>21</java.version>
     <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+      <maven.properties.file>maven.properties</maven.properties.file>
+      <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
   </properties>
 </project>
