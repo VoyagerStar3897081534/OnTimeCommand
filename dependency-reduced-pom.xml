@@ -111,19 +111,19 @@
         <artifactId>maven-surefire-plugin</artifactId>
         <version>3.2.5</version>
         <configuration>
-          <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
-            java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED
-            --enable-native-access=ALL-UNNAMED
-          </argLine>
+            <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
+                --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens
+                java.base/java.util.concurrent=ALL-UNNAMED --enable-native-access=ALL-UNNAMED
+            </argLine>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
-          <finalName>
-            ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
-          </finalName>
+            <finalName>
+                ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
+            </finalName>
           <archive>
             <manifestEntries>
               <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
@@ -185,14 +185,15 @@
     <java.version>21</java.version>
     <maven.compiler.source>21</maven.compiler.source>
     <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+      <project.versionAPIURL>${versionAPIURL}</project.versionAPIURL>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.properties.file>maven.properties</maven.properties.file>
     <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
-    <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.lang.reflect=ALL-UNNAMED
-      --add-opens java.base/java.util=ALL-UNNAMED --add-opens java.base/java.util.concurrent=ALL-UNNAMED --add-opens
-      java.base/sun.nio.ch=ALL-UNNAMED --add-opens java.management=ALL-UNNAMED --add-opens
-      java.base/sun.util.calendar=ALL-UNNAMED --add-opens java.base/java.security=ALL-UNNAMED
-      --enable-native-access=ALL-UNNAMED
-    </maven.compiler.args>
+      <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens
+          java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
+          java.base/java.util.concurrent=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens
+          java.management=ALL-UNNAMED --add-opens java.base/sun.util.calendar=ALL-UNNAMED --add-opens
+          java.base/java.security=ALL-UNNAMED --enable-native-access=ALL-UNNAMED
+      </maven.compiler.args>
   </properties>
 </project>

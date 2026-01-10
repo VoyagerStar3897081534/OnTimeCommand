@@ -1,14 +1,14 @@
-package org.VoyagerStar.onTimeCommand;
+package org.VoyagerStar.onTimeCommand.init;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Properties;
 
-public class VersionInfo {
+public class Initialize {
     private static final Properties properties = new Properties();
     
     static {
-        try (InputStream input = VersionInfo.class.getClassLoader().getResourceAsStream("version.properties")) {
+        try (InputStream input = Initialize.class.getClassLoader().getResourceAsStream("version.properties")) {
             if (input != null) {
                 properties.load(input);
             } else {
@@ -32,5 +32,9 @@ public class VersionInfo {
     
     public static String getGitCommitId() {
         return properties.getProperty("git.commit.id", "unknown");
+    }
+
+    public static String versionAPIURL() {
+        return properties.getProperty("project.versionAPIURL");
     }
 }

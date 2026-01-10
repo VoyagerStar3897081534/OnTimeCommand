@@ -176,9 +176,11 @@ public class RunCommandOnTime {
         
         // Get existing commands
         List<String> existingCommands = commandConfig.getStringList("commands." + taskName + ".commands");
-        
-        // Add new commands
-        Collections.addAll(existingCommands, commands);
+
+        // Add new commands, converting spaces to underscores for storage
+        for (String cmd : commands) {
+            existingCommands.add(cmd.replace(" ", "_"));
+        }
         
         // Update configuration
         commandConfig.set("commands." + taskName + ".commands", existingCommands);

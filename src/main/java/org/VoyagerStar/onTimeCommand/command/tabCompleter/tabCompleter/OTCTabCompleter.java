@@ -1,5 +1,6 @@
-package org.VoyagerStar.onTimeCommand;
+package org.VoyagerStar.onTimeCommand.command.tabCompleter.tabCompleter;
 
+import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;
@@ -24,7 +25,7 @@ public class OTCTabCompleter implements TabCompleter {
 
         if (args.length == 1) {
             // First argument - suggest subcommands
-            List<String> subCommands = Arrays.asList("add", "delete", "enable", "disable", "addcommand", "deletecommand", "help");
+            List<String> subCommands = Arrays.asList("add", "delete", "enable", "disable", "addcommand", "deletecommand", "seeinfo", "help");
             for (String subCommand : subCommands) {
                 if (subCommand.toLowerCase().startsWith(args[0].toLowerCase())) {
                     completions.add(subCommand);
@@ -77,6 +78,15 @@ public class OTCTabCompleter implements TabCompleter {
                             completions.add(cmdNum);
                         }
                     }
+                }
+            } else if (subCommand.equals("seeinfo") && args.length == 2) {
+                // For 'seeinfo' command, suggest task names
+                if (plugin.getRunCommandOnTime().getConfig().contains("commands")) {
+                    Objects.requireNonNull(plugin.getRunCommandOnTime().getConfig().getConfigurationSection("commands")).getKeys(false).forEach(taskName -> {
+                        if (taskName.toLowerCase().startsWith(args[1].toLowerCase())) {
+                            completions.add(taskName);
+                        }
+                    });
                 }
             }
         }

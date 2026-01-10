@@ -1,5 +1,11 @@
 package org.VoyagerStar.onTimeCommand;
 
+import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.tabCompleter.OTCTabCompleter;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.tabCompleter.SeeTabCompleter;
+import org.VoyagerStar.onTimeCommand.init.Initialize;
+import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -40,7 +46,7 @@ public final class OnTimeCommand extends JavaPlugin {
                 null,
                 "ontimecommand.player",
                 new SeeCommandExecutor(),
-                null);
+                new SeeTabCompleter(this));
 
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
@@ -51,9 +57,9 @@ public final class OnTimeCommand extends JavaPlugin {
         getLogger().info("/   VoyagerStar   \\");
         getLogger().info("\\ On Time Command /");
         getLogger().info(" ----------------");
-        getLogger().info("Version: " + VersionInfo.getVersion());
-        getLogger().info("Build Date: " + VersionInfo.getBuildDate());
-        getLogger().info("Git Commit ID: " + VersionInfo.getGitCommitId());
+        getLogger().info("Version: " + Initialize.getVersion());
+        getLogger().info("Build Date: " + Initialize.getBuildDate());
+        getLogger().info("Git Commit ID: " + Initialize.getGitCommitId());
 
         // 检查版本更新
         VersionChecker.printVersionCheckResult();

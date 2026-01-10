@@ -32,6 +32,8 @@
         <!--suppress UnresolvedMavenProperty -->
         <project.url>${website}</project.url>
         <project.description>${description}</project.description>
+        <!--suppress UnresolvedMavenProperty -->
+        <project.versionAPIURL>${versionAPIURL}</project.versionAPIURL>
         <!-- JVM 参数配置以处理 Java 21 的警告 -->
         <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens
             java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens

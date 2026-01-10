@@ -1,6 +1,13 @@
-package org.VoyagerStar.onTimeCommand;
+package org.VoyagerStar.onTimeCommand.init;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.logging.Logger;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * VersionChecker 类用于检查当前插件版本和最新版本
@@ -15,17 +22,17 @@ public class VersionChecker {
      */
     public static boolean isNewVersionAvailable() {
         try {
-            String currentVersion = VersionInfo.getVersion();
+            String currentVersion = Initialize.getVersion();
             String latestVersion = getLatestVersionFromRemote();
 
             if (currentVersion.equals("unknown") || latestVersion.equals("unknown")) {
-                logger.warning("无法获取版本信息，跳过版本检查");
+                logger.warning("Cannot get version,jump next!");
                 return false;
             }
 
             return compareVersions(latestVersion, currentVersion) > 0;
         } catch (Exception e) {
-            logger.warning("版本检查失败: " + e.getMessage());
+            logger.warning("Version check failed: " + e.getMessage());
             return false;
         }
     }
@@ -36,9 +43,56 @@ public class VersionChecker {
      * @return 最新版本号字符串
      */
     private static String getLatestVersionFromRemote() {
-        // 这里可以实现从GitHub API或其他远程源获取最新版本的逻辑
-        // 暂时返回一个示例版本号
-        return "1.0.0";
+        try {
+            // 使用GitHub API获取最新的发布版本
+            String apiUrl = "https://api.github.com/repos/VoyagerStar3897081534/OnTimeCommand/releases/latest";
+            URL url = new URL(apiUrl);
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Accept", "application/vnd.github.v3+json");
+            connection.setRequestProperty("User-Agent", "OnTimeCommand-VersionChecker");
+
+            int responseCode = connection.getResponseCode();
+
+            if (responseCode == HttpURLConnection.HTTP_OK) {
+                BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+                StringBuilder response = new StringBuilder();
+                String line;
+
+                while ((line = reader.readLine()) != null) {
+                    response.append(line);
+                }
+                reader.close();
+
+                // 从响应中提取版本号 (JSON中的tag_name字段)
+                String responseStr = response.toString();
+                String versionPattern = "\"tag_name\": *\"([^\"]+)\"";
+                Pattern pattern = Pattern.compile(versionPattern);
+                Matcher matcher = pattern.matcher(responseStr);
+
+                if (matcher.find()) {
+                    String version = matcher.group(1);
+                    // 移除可能的 'v' 前缀
+                    if (version.startsWith("v") || version.startsWith("V")) {
+                        version = version.substring(1);
+                    }
+                    return version;
+                } else {
+                    logger.warning("Cannot get version from GitHub API");
+                    return "unknown";
+                }
+            } else {
+                logger.warning("Get lastest version failed,HTTP status code: " + responseCode);
+                return "unknown";
+            }
+        } catch (IOException e) {
+            logger.warning("Failed of connecting Github: " + e.getMessage());
+            return "unknown";
+        } catch (Exception e) {
+            logger.warning("Failed of getting lastest version: " + e.getMessage());
+            return "unknown";
+        }
     }
 
     /**
@@ -50,7 +104,7 @@ public class VersionChecker {
      */
     public static int compareVersions(String version1, String version2) {
         if (version1 == null || version2 == null) {
-            throw new IllegalArgumentException("版本号不能为null");
+            throw new IllegalArgumentException("Version cannot be null");
         }
 
         // 移除可能存在的前缀字符，只保留数字和点
@@ -130,13 +184,13 @@ public class VersionChecker {
      */
     public static void printVersionCheckResult() {
         boolean isNewVersion = isNewVersionAvailable();
-        String currentVersion = VersionInfo.getVersion();
+        String currentVersion = Initialize.getVersion();
 
         if (isNewVersion) {
             String latestVersion = getLatestVersionFromRemote();
-            logger.info("发现新版本! 当前版本: " + currentVersion + ", 最新版本: " + latestVersion);
+            logger.info("Find new version! Your version: " + currentVersion + ", the lastest version: " + latestVersion);
         } else {
-            logger.info("当前版本是最新的: " + currentVersion);
+            logger.info("You are the lastest version: " + currentVersion);
         }
     }
 }
