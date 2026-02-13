@@ -25,7 +25,7 @@ public class FishingRodListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerFish(PlayerFishEvent event) {
+    public void onPlayerFish(PlayerFishEvent event) throws InterruptedException {
         Player player = event.getPlayer();
         ItemStack fishingRod = player.getInventory().getItemInMainHand();
 
@@ -49,6 +49,7 @@ public class FishingRodListener implements Listener {
 
         // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
         if (event.getState() != PlayerFishEvent.State.FISHING) {
+            Thread.sleep(500);
             return;
         }
 
@@ -80,20 +81,11 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeDefaultOrbitalTNTBehavior(Location location, Player player) {
-        // 默认行为：生成TNT并播放效果
-        location.getWorld().spawnEntity(location, org.bukkit.entity.EntityType.TNT);
+        for (int i = 0; i < 10; i++) {
+            location.getWorld().spawnEntity(location, org.bukkit.entity.EntityType.TNT);
+        }
 
-        location.getWorld().spawnParticle(
-                org.bukkit.Particle.EXPLOSION,
-                location,
-                10,
-                0.5, 0.5, 0.5,
-                0.1
-        );
-
-        location.getWorld().playSound(location, org.bukkit.Sound.ENTITY_GENERIC_EXPLODE, 1.0f, 1.0f);
-
-        logger.info("执行默认 Orbital TNT 行为在位置: " + locationToString(location));
+        logger.info("Default command location: " + locationToString(location));
     }
 
     private void executeConfiguredCommands(Location location, List<String> commands) {
@@ -115,9 +107,9 @@ public class FishingRodListener implements Listener {
 
             try {
                 Bukkit.dispatchCommand(Bukkit.getConsoleSender(), processedCommand);
-                logger.info("执行 Orbital TNT 命令: " + processedCommand);
+                logger.info("Command: " + processedCommand);
             } catch (Exception e) {
-                logger.severe("执行 Orbital TNT 命令失败: " + processedCommand + " - 错误: " + e.getMessage());
+                logger.severe("Command failed: " + processedCommand + " - fault: " + e.getMessage());
             }
         }
     }
