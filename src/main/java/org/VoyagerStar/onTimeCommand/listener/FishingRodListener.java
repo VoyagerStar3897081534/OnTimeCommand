@@ -27,6 +27,7 @@ public class FishingRodListener implements Listener {
     public void onPlayerFish(PlayerFishEvent event) throws InterruptedException {
         Player player = event.getPlayer();
         ItemStack fishingRod = player.getInventory().getItemInMainHand();
+        int waitTime = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.wait-time", 5000);
 
         // 检查是否是钓鱼竿
         if (fishingRod.getType() != Material.FISHING_ROD) {
@@ -35,7 +36,7 @@ public class FishingRodListener implements Listener {
 
         // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
         if (event.getState() != PlayerFishEvent.State.FISHING) {
-            Thread.sleep(2000);
+            Thread.sleep(waitTime);
             return;
         }
 
@@ -83,15 +84,18 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeDefaultOrbitalTNTBehavior(Location location, Player player) throws InterruptedException {
-        // 在钓竿中心上方20格召唤中心TNT
-        Location centerLocation = location.clone().add(0, 20, 0);
+        int circleHeight = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-height", 20);
+        int circleCount = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-count", 5);
+        int circleInterval = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-interval", 5);
+        int waitTime = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.per-circle-wait-time", 100);
+
+        Location centerLocation = location.clone().add(0, circleHeight, 0);
         location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT);
 
-        // 生成5个圆环，每个圆环间隔3格
-        for (int ring = 1; ring <= 5; ring++) {
-            int radius = ring * 3; // 每个圆环半径递增3格
+        for (int ring = 1; ring <= circleCount; ring++) {
+            int radius = ring * circleInterval;
             spawnTNTRing(centerLocation, radius);
-            Thread.sleep(100); // 圆环之间的小延迟
+            Thread.sleep(waitTime); // 圆环之间的小延迟
         }
 
         logger.info("Orbital TNT launched at: " + locationToString(location));
