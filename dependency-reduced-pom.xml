@@ -3,7 +3,7 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>org.VoyagerStar</groupId>
   <artifactId>ontimecommand</artifactId>
-  <version>1.0.1-SNAPSHOT</version>
+  <version>1.1.0</version>
   <scm>
     <connection>scm:git:https://github.com/VoyagerStar3897081534/OnTimeCommand.git</connection>
     <developerConnection>scm:git:https://github.com/VoyagerStar3897081534/OnTimeCommand.git</developerConnection>
@@ -112,18 +112,15 @@
         <version>3.2.5</version>
         <configuration>
           <argLine>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED
-              --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens
-              java.base/java.util.concurrent=ALL-UNNAMED --enable-native-access=ALL-UNNAMED
-          </argLine>
+                        --add-opens java.base/java.lang.reflect=ALL-UNNAMED --add-opens
+                        java.base/java.util.concurrent=ALL-UNNAMED --enable-native-access=ALL-UNNAMED</argLine>
         </configuration>
       </plugin>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
         <version>3.3.0</version>
         <configuration>
-            <finalName>
-                ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
-            </finalName>
+          <finalName>${project.artifactId}-${versionNumber}-${versionPackageType}${version.suffix}</finalName>
           <archive>
             <manifestEntries>
               <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
@@ -137,6 +134,33 @@
       </plugin>
     </plugins>
   </build>
+  <profiles>
+    <profile>
+      <id>release</id>
+      <properties />
+    </profile>
+    <profile>
+      <id>stable</id>
+      <properties />
+    </profile>
+    <profile>
+      <id>alpha</id>
+      <properties>
+        <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+      </properties>
+    </profile>
+    <profile>
+      <id>beta</id>
+      <properties>
+        <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+      </properties>
+    </profile>
+    <profile>
+      <properties>
+        <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+      </properties>
+    </profile>
+  </profiles>
   <repositories>
     <repository>
       <id>papermc-repo</id>
@@ -179,21 +203,24 @@
     </repository>
   </distributionManagement>
   <properties>
+    <version.suffix.beta>+${maven.build.timestamp}${buildNumber}</version.suffix.beta>
     <project.description>${description}</project.description>
     <project.versionAPIURL>${versionAPIURL}</project.versionAPIURL>
     <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens
-        java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
-        java.base/java.util.concurrent=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens
-        java.management=ALL-UNNAMED --add-opens java.base/sun.util.calendar=ALL-UNNAMED --add-opens
-        java.base/java.security=ALL-UNNAMED --enable-native-access=ALL-UNNAMED
-    </maven.compiler.args>
-      <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
-      <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-      <java.version>21</java.version>
-      <maven.compiler.source>21</maven.compiler.source>
-      <maven.properties.file>maven.properties</maven.properties.file>
-      <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
-      <maven.compiler.target>21</maven.compiler.target>
-      <project.url>${website}</project.url>
+            java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
+            java.base/java.util.concurrent=ALL-UNNAMED --add-opens java.base/sun.nio.ch=ALL-UNNAMED --add-opens
+            java.management=ALL-UNNAMED --add-opens java.base/sun.util.calendar=ALL-UNNAMED --add-opens
+            java.base/java.security=ALL-UNNAMED --enable-native-access=ALL-UNNAMED</maven.compiler.args>
+    <conditional.version.suffix>${version.suffix.${versionPackageType}}</conditional.version.suffix>
+    <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.suffix.alpha>+${maven.build.timestamp}${buildNumber}</version.suffix.alpha>
+    <java.version>21</java.version>
+    <maven.compiler.source>21</maven.compiler.source>
+    <maven.properties.file>maven.properties</maven.properties.file>
+    <project.version>${versionNumber}-${versionPackageType}${conditional.version.suffix}</project.version>
+    <version.suffix.default>+${maven.build.timestamp}${buildNumber}</version.suffix.default>
+    <maven.compiler.target>21</maven.compiler.target>
+    <project.url>${website}</project.url>
   </properties>
 </project>

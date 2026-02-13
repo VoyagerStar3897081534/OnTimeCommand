@@ -6,7 +6,7 @@
 
     <groupId>org.VoyagerStar</groupId>
     <artifactId>ontimecommand</artifactId>
-    <version>1.0.1-SNAPSHOT</version>
+    <version>1.1.0</version>
     <packaging>jar</packaging>
 
     <scm>
@@ -27,8 +27,23 @@
         <!-- Custom timestamp format for versioning -->
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
         <!-- Define the project version format as per requirements -->
+        <!-- Conditional version suffix based on package type -->
+        <!-- For release/stable: only version-packageType -->
+        <!-- For alpha/beta: version-packageType+timestamp+buildNumber -->
         <!--suppress UnresolvedMavenProperty -->
-        <project.version>${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}</project.version>
+        <version.suffix.release/>
+        <!--suppress UnresolvedMavenProperty -->
+        <version.suffix.stable/>
+        <!--suppress UnresolvedMavenProperty -->
+        <version.suffix.alpha>+${maven.build.timestamp}${buildNumber}</version.suffix.alpha>
+        <!--suppress UnresolvedMavenProperty -->
+        <version.suffix.beta>+${maven.build.timestamp}${buildNumber}</version.suffix.beta>
+        <!--suppress UnresolvedMavenProperty -->
+        <version.suffix.default>+${maven.build.timestamp}${buildNumber}</version.suffix.default>
+        <!--suppress UnresolvedMavenProperty -->
+        <conditional.version.suffix>${version.suffix.${versionPackageType}}</conditional.version.suffix>
+        <!--suppress UnresolvedMavenProperty -->
+        <project.version>${versionNumber}-${versionPackageType}${conditional.version.suffix}</project.version>
         <!--suppress UnresolvedMavenProperty -->
         <project.url>${website}</project.url>
         <project.description>${description}</project.description>
@@ -157,7 +172,7 @@
                 <configuration>
                     <!--suppress UnresolvedMavenProperty -->
                     <finalName>
-                        ${project.artifactId}-${versionNumber}-${versionPackageType}+${maven.build.timestamp}${buildNumber}
+                        ${project.artifactId}-${versionNumber}-${versionPackageType}${version.suffix}
                     </finalName>
                     <archive>
                         <manifestEntries>
@@ -222,4 +237,73 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <profiles>
+        <!-- Release profile - no timestamp or build number -->
+        <profile>
+            <id>release</id>
+            <activation>
+                <property>
+                    <name>versionPackageType</name>
+                    <value>release</value>
+                </property>
+            </activation>
+            <properties>
+                <version.suffix></version.suffix>
+            </properties>
+        </profile>
+
+        <!-- Stable profile - no timestamp or build number -->
+        <profile>
+            <id>stable</id>
+            <activation>
+                <property>
+                    <name>versionPackageType</name>
+                    <value>stable</value>
+                </property>
+            </activation>
+            <properties>
+                <version.suffix></version.suffix>
+            </properties>
+        </profile>
+
+        <!-- Alpha profile - includes timestamp and build number -->
+        <profile>
+            <id>alpha</id>
+            <activation>
+                <property>
+                    <name>versionPackageType</name>
+                    <value>alpha</value>
+                </property>
+            </activation>
+            <properties>
+                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+            </properties>
+        </profile>
+
+        <!-- Beta profile - includes timestamp and build number -->
+        <profile>
+            <id>beta</id>
+            <activation>
+                <property>
+                    <name>versionPackageType</name>
+                    <value>beta</value>
+                </property>
+            </activation>
+            <properties>
+                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+            </properties>
+        </profile>
+
+        <!-- Default profile - includes timestamp and build number -->
+        <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
+            </properties>
+        </profile>
+    </profiles>
 </project>
