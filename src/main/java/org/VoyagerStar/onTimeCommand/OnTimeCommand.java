@@ -2,8 +2,8 @@ package org.VoyagerStar.onTimeCommand;
 
 import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
-import org.VoyagerStar.onTimeCommand.command.tabCompleter.tabCompleter.OTCTabCompleter;
-import org.VoyagerStar.onTimeCommand.command.tabCompleter.tabCompleter.SeeTabCompleter;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.SeeTabCompleter;
 import org.VoyagerStar.onTimeCommand.init.Initialize;
 import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.bukkit.command.Command;
