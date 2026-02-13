@@ -77,7 +77,7 @@ public class OTCCommandExecutor implements CommandExecutor {
         sender.sendMessage("§e/ontimecommand disable <task>" + "§f" + " - Disable a scheduled task");
         sender.sendMessage("§e/ontimecommand enable <task>" + "§f" + " - Enable a scheduled task");
         sender.sendMessage("§e/ontimecommand add <taskname> <interval>" + "§f" + " - Add a new scheduled task");
-        sender.sendMessage("§e/ontimecommand addcommand <task> [commands...]" + "§f" + " - Add commands to a task");
+        sender.sendMessage("§e/ontimecommand addcommand <task> [commands...]" + "§f" + " - Add commands to a task (Use _ for spaces or wrap commands in double quotes)");
         sender.sendMessage("§e/ontimecommand deletecommand <task> <commandNumber>" + "§f" + " - Delete a command from a task");
         sender.sendMessage("§e/ontimecommand delete <task>" + "§f" + " - Delete a scheduled task");
         sender.sendMessage("§e/ontimecommand seeinfo <task>" + "§f" + " - View detailed information about a task");
@@ -213,7 +213,7 @@ public class OTCCommandExecutor implements CommandExecutor {
 
     private void handleAddCommand(CommandSender sender, String[] args) {
         if (args.length < 3) {
-            sender.sendMessage("§cUsage: /ontimecommand addcommand <task> [command1] [command2] [command3] ...");
+            sender.sendMessage("§cUsage: /ontimecommand addcommand <task> [command1] [command2] [command3] ... (Use _ for spaces or wrap commands in double quotes)");
             sender.sendMessage("§cExample: /ontimecommand addcommand mytask \"say Hello\" \"title @a title Welcome\"");
             return;
         }
