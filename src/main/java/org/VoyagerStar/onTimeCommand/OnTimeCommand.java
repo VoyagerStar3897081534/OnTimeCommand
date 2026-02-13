@@ -1,6 +1,7 @@
 package org.VoyagerStar.onTimeCommand;
 
 import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.ReloadOTCCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.SeeTabCompleter;
@@ -53,6 +54,15 @@ public final class OnTimeCommand extends JavaPlugin {
                 new SeeCommandExecutor(),
                 new SeeTabCompleter(this));
 
+        // 注册reloadotc命令
+        this.registerCustomCommand("reloadotc",
+                "Reload all OnTimeCommand configuration files",
+                "/reloadotc",
+                null,
+                "ontimecommand.admin",
+                new ReloadOTCCommandExecutor(this),
+                null);
+
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
         runCommandOnTime.loadAndScheduleCommands();
@@ -81,8 +91,8 @@ public final class OnTimeCommand extends JavaPlugin {
             runCommandOnTime.cancelAllTasks();
         }
     }
-    
-    private void loadCommandConfig() {
+
+    public void loadCommandConfig() {
         // Load command.yml from jar resources only (do not save to plugin data folder)
         InputStream defaultStream = getResource("command.yml");
         if (defaultStream != null) {
@@ -130,8 +140,8 @@ public final class OnTimeCommand extends JavaPlugin {
     public YamlConfiguration getOrbitalTNTConfig() {
         return orbitalTNTConfig;
     }
-    
-    private void loadOrbitalTNTConfig() {
+
+    public void loadOrbitalTNTConfig() {
         // Check if orbital-tnt-config.yml exists in plugin data folder
         File configFile = new File(getDataFolder(), "orbital-tnt-config.yml");
 
