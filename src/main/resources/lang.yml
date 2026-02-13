@@ -12,14 +12,14 @@ zh:
   
   # 帮助命令
   help_title: "§6--- OnTimeCommand 帮助 ---"
-  help_disable: "§e/ontimecommand disable <任务>" + "§f" + " - 禁用定时任务"
-  help_enable: "§e/ontimecommand enable <任务>" + "§f" + " - 启用定时任务"
-  help_add: "§e/ontimecommand add <任务名> <间隔>" + "§f" + " - 添加新的定时任务"
-  help_addcommand: "§e/ontimecommand addcommand <任务> [命令...]" + "§f" + " - 向任务添加命令 (使用 _ 代替空格或用双引号包裹命令)"
-  help_deletecommand: "§e/ontimecommand deletecommand <任务> <命令编号>" + "§f" + " - 从任务中删除命令"
-  help_delete: "§e/ontimecommand delete <任务>" + "§f" + " - 删除定时任务"
-  help_seeinfo: "§e/ontimecommand seeinfo <任务>" + "§f" + " - 查看任务详细信息"
-  help_help: "§e/ontimecommand help" + "§f" + " - 显示此帮助信息"
+  help_disable: "§e/ontimecommand disable <任务> §f- 禁用定时任务"
+  help_enable: "§e/ontimecommand enable <任务> §f- 启用定时任务"
+  help_add: "§e/ontimecommand add <任务名> <间隔> §f- 添加新的定时任务"
+  help_addcommand: "§e/ontimecommand addcommand <任务> [命令...] §f- 向任务添加命令 (使用 _ 代替空格或用双引号包裹命令)"
+  help_deletecommand: "§e/ontimecommand deletecommand <任务> <命令编号> §f- 从任务中删除命令"
+  help_delete: "§e/ontimecommand delete <任务> §f- 删除定时任务"
+  help_seeinfo: "§e/ontimecommand seeinfo <任务> §f- 查看任务详细信息"
+  help_help: "§e/ontimecommand help §f- 显示此帮助信息"
   
   # 通用错误信息
   usage_seeinfo: "§c用法: /ontimecommand seeinfo <任务>"
@@ -102,14 +102,14 @@ en:
   
   # Help command
   help_title: "§6--- OnTimeCommand Help ---"
-  help_disable: "§e/ontimecommand disable <task>" + "§f" + " - Disable a scheduled task"
-  help_enable: "§e/ontimecommand enable <task>" + "§f" + " - Enable a scheduled task"
-  help_add: "§e/ontimecommand add <taskname> <interval>" + "§f" + " - Add a new scheduled task"
-  help_addcommand: "§e/ontimecommand addcommand <task> [commands...]" + "§f" + " - Add commands to a task (Use _ for spaces or wrap commands in double quotes)"
-  help_deletecommand: "§e/ontimecommand deletecommand <task> <commandNumber>" + "§f" + " - Delete a command from a task"
-  help_delete: "§e/ontimecommand delete <task>" + "§f" + " - Delete a scheduled task"
-  help_seeinfo: "§e/ontimecommand seeinfo <task>" + "§f" + " - View detailed information about a task"
-  help_help: "§e/ontimecommand help" + "§f" + " - Show this help message"
+  help_disable: "§e/ontimecommand disable <task> §f- Disable a scheduled task"
+  help_enable: "§e/ontimecommand enable <task> §f- Enable a scheduled task"
+  help_add: "§e/ontimecommand add <taskname> <interval> §f- Add a new scheduled task"
+  help_addcommand: "§e/ontimecommand addcommand <task> [commands...] §f- Add commands to a task (Use _ for spaces or wrap commands in double quotes)"
+  help_deletecommand: "§e/ontimecommand deletecommand <task> <commandNumber> §f- Delete a command from a task"
+  help_delete: "§e/ontimecommand delete <task> §f- Delete a scheduled task"
+  help_seeinfo: "§e/ontimecommand seeinfo <task> §f- View detailed information about a task"
+  help_help: "§e/ontimecommand help §f- Show this help message"
   
   # Generic error messages
   usage_seeinfo: "§cUsage: /ontimecommand seeinfo <task>"

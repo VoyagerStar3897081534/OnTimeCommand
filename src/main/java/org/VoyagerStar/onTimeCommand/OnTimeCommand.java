@@ -147,6 +147,11 @@ public final class OnTimeCommand extends JavaPlugin {
     }
 
     private void registerPermission(String permission, String description) {
+        // 检查权限是否已经存在
+        if (this.getServer().getPluginManager().getPermission(permission) != null) {
+            return; // 权限已存在，直接返回
+        }
+        
         org.bukkit.permissions.Permission perm = new org.bukkit.permissions.Permission(permission, description);
         // 设置权限拒绝时的默认消息
         perm.setDefault(org.bukkit.permissions.PermissionDefault.OP);
