@@ -249,7 +249,7 @@
                 </property>
             </activation>
             <properties>
-                <version.suffix></version.suffix>
+                <version.suffix/>
             </properties>
         </profile>
 
@@ -263,7 +263,7 @@
                 </property>
             </activation>
             <properties>
-                <version.suffix></version.suffix>
+                <version.suffix/>
             </properties>
         </profile>
 
