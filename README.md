@@ -205,5 +205,5 @@ src/
 ---
 
 <p align="center">
-  Made with ❤️ by VoyagerStar
+  Made by VoyagerStar
 </p>
