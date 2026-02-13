@@ -19,6 +19,7 @@ tiempo establecidos.
 - 🛡️ **Sistema de permisos** - Control de permisos granular
 - 🔄 **Recarga en caliente** - Soporta recarga en caliente de archivos de configuración sin reiniciar el servidor
 - 📊 **Monitoreo en tiempo real** - Visualización del estado y detalles de todas las tareas programadas
+- 📝 **Soporte multilingüe** - Cambiar el idioma usado en cualquier momento
 
 ## 📋 Requisitos del sistema
 
@@ -43,6 +44,7 @@ tiempo establecidos.
 /ontimecommand <subcomando> [parámetros...] - Gestionar comandos programados (alias: /otc)
 /seecommand - Ver todas las listas de comandos programados
 /reloadotc - Recargar todos los archivos de configuración
+/otcsetlang <subcomando> - Cambiar el idioma usado por el plugin del servidor
 ```
 
 #### Detalles de subcomandos

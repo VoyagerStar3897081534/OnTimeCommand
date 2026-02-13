@@ -21,6 +21,7 @@ intervalles de temps définis.
 - 🔄 **Rechargement à chaud** - Prise en charge du rechargement à chaud des fichiers de configuration sans redémarrage du
   serveur
 - 📊 **Surveillance en temps réel** - Affichage de l'état et des détails de toutes les tâches planifiées
+- 📝 **Support multilingue** - Changer la langue utilisée à tout moment
 
 ## 📋 Configuration système requise
 
@@ -45,6 +46,7 @@ intervalles de temps définis.
 /ontimecommand <sous-commande> [paramètres...] - Gérer les commandes planifiées (alias : /otc)
 /seecommand - Voir toutes les listes de commandes planifiées
 /reloadotc - Recharger tous les fichiers de configuration
+/otcsetlang <sous-commande> - Changer la langue utilisée par le plugin serveur
 ```
 
 #### Détails des sous-commandes

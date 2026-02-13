@@ -17,6 +17,7 @@ A powerful Minecraft Paper server plugin that allows you to automatically execut
 - 🛡️ **Permission System** - Fine-grained permission control
 - 🔄 **Hot Reload** - Support configuration file hot reload without server restart
 - 📊 **Real-time Monitoring** - View status and details of all scheduled tasks
+- 📝 **Multi-language Support** - Switch language usage anytime
 
 ## 📋 System Requirements
 
@@ -41,6 +42,7 @@ A powerful Minecraft Paper server plugin that allows you to automatically execut
 /ontimecommand <subcommand> [parameters...] - Manage scheduled commands (alias: /otc)
 /seecommand - View all scheduled command lists
 /reloadotc - Reload all configuration files
+/otcsetlang <subcommand> - Switch the language used by the server plugin
 ```
 
 #### Subcommand Details
