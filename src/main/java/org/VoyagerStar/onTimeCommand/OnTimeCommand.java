@@ -23,13 +23,46 @@ import java.util.Objects;
 
 public final class OnTimeCommand extends JavaPlugin {
     private RunCommandOnTime runCommandOnTime;
-    private FishingRodListener fishingRodListener;
     private YamlConfiguration orbitalTNTConfig;
+
+    /**
+     * 检查发送者是否具有指定权限，如果没有则发送自定义权限拒绝消息
+     *
+     * @param sender            命令发送者
+     * @param permission        权限节点
+     * @param permissionMessage 权限拒绝消息
+     * @return 如果有权限返回true，否则返回false并发送消息
+     */
+    public static boolean checkPermission(org.bukkit.command.CommandSender sender, String permission, String permissionMessage) {
+        if (sender.hasPermission(permission) || sender.isOp()) {
+            return true;
+        }
+        sender.sendMessage(permissionMessage != null ? permissionMessage : "§cYou don't have permission to use this command.");
+        return false;
+    }
+
+    /**
+     * 检查发送者是否具有指定权限（使用默认消息）
+     *
+     * @param sender     命令发送者
+     * @param permission 权限节点
+     * @return 如果有权限返回true，否则返回false并发送默认消息
+     */
+    public static boolean checkPermission(org.bukkit.command.CommandSender sender, String permission) {
+        return checkPermission(sender, permission, null);
+    }
+
+    @Override
+    public void onDisable() {
+        // Plugin shutdown logic
+        if (runCommandOnTime != null) {
+            runCommandOnTime.cancelAllTasks();
+        }
+    }
 
     @Override
     public void onEnable() {
         // Plugin startup logic
-        loadCommandConfig();
         loadOrbitalTNTConfig();
 
         CommandExecutor OTCCommandExecutor = new OTCCommandExecutor(this);
@@ -38,7 +71,7 @@ public final class OnTimeCommand extends JavaPlugin {
         this.registerPermission("ontimecommand.player","Just can see");
 
         // 注册命令
-        this.registerCustomCommand("ontimecommand", 
+        this.registerCustomCommand("ontimecommand",
                 "Manage on-time commands",
                 "/ontimecommand <disable|enable|add|addcommand|deletecommand|delete>",
                 new String[]{"otc"},
@@ -68,9 +101,9 @@ public final class OnTimeCommand extends JavaPlugin {
         runCommandOnTime.loadAndScheduleCommands();
 
         // Register fishing rod listener
-        fishingRodListener = new FishingRodListener(this);
+        FishingRodListener fishingRodListener = new FishingRodListener(this);
         getServer().getPluginManager().registerEvents(fishingRodListener, this);
-        
+
         getLogger().info("OnTimeCommand has been enabled successfully!");
         getLogger().info(" ----------------");
         getLogger().info("/   VoyagerStar   \\");
@@ -84,32 +117,6 @@ public final class OnTimeCommand extends JavaPlugin {
         VersionChecker.printVersionCheckResult();
     }
 
-    @Override
-    public void onDisable() {
-        // Plugin shutdown logic
-        if (runCommandOnTime != null) {
-            runCommandOnTime.cancelAllTasks();
-        }
-    }
-
-    public void loadCommandConfig() {
-        // Load command.yml from jar resources only (do not save to plugin data folder)
-        InputStream defaultStream = getResource("command.yml");
-        if (defaultStream != null) {
-            YamlConfiguration commandConfig = YamlConfiguration.loadConfiguration(
-                new InputStreamReader(defaultStream, StandardCharsets.UTF_8));
-            
-            // Process commands from the config
-            if (commandConfig.contains("commands")) {
-                getLogger().info("Loaded commands configuration:");
-                Objects.requireNonNull(commandConfig.getConfigurationSection("commands")).getKeys(false).forEach(command -> getLogger().info("- " + command + ": " + commandConfig.getString("commands." + command + ".description")));
-            }
-        } else {
-            getLogger().warning("Could not load command.yml from jar resources");
-        }
-    }
-
-
     // 自定义命令注册方法
     private void registerCustomCommand(String name, String description, String usage, String[] aliases,
                                        String permission, CommandExecutor executor, TabCompleter tabCompleter) {
@@ -120,17 +127,23 @@ public final class OnTimeCommand extends JavaPlugin {
         CustomCommand customCommand = new CustomCommand(name, description, usage, aliases);
         customCommand.setExecutor(executor);
         customCommand.setPermission(permission);
-        customCommand.setPermissionMessage("You don't have permission to use this command.");
+        // 不再使用已弃用的 setPermissionMessage 方法
         if (tabCompleter != null) {
             customCommand.setTabCompleter(tabCompleter);
         }
 
         // 注册命令
         commandMap.register(this.getName(), customCommand);
+
+        // 注册权限（权限消息将在 Permission 对象中处理）
+        registerPermission(permission, description);
     }
 
     private void registerPermission(String permission, String description) {
-        this.getServer().getPluginManager().addPermission(new org.bukkit.permissions.Permission(permission, description));
+        org.bukkit.permissions.Permission perm = new org.bukkit.permissions.Permission(permission, description);
+        // 设置权限拒绝时的默认消息
+        perm.setDefault(org.bukkit.permissions.PermissionDefault.OP);
+        this.getServer().getPluginManager().addPermission(perm);
     }
 
     public RunCommandOnTime getRunCommandOnTime() {

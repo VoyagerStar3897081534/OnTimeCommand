@@ -29,14 +29,12 @@ public class OTCCommandExecutor implements CommandExecutor {
         // 检查权限 - seeinfo命令只需要player权限，其他命令需要admin权限
         if (!subCommand.equals("seeinfo")) {
             // 对于非seeinfo命令，需要admin权限
-            if (!sender.hasPermission("ontimecommand.admin") && !(sender.isOp())) {
-                sender.sendMessage("§cYou don't have permission to use this command.");
+            if (!OnTimeCommand.checkPermission(sender, "ontimecommand.admin", "§cYou don't have permission to use this command.")) {
                 return true;
             }
         } else {
             // seeinfo命令只需要player权限
-            if (!sender.hasPermission("ontimecommand.player") && !(sender.isOp())) {
-                sender.sendMessage("§cYou don't have permission to use this command.");
+            if (!OnTimeCommand.checkPermission(sender, "ontimecommand.player", "§cYou don't have permission to use this command.")) {
                 return true;
             }
         }

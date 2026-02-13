@@ -17,6 +17,11 @@ import java.util.List;
 public class SeeCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(org.bukkit.command.@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
+        // 检查权限
+        if (!OnTimeCommand.checkPermission(sender, "ontimecommand.player", "§cYou don't have permission to use this command.")) {
+            return true;
+        }
+        
         OnTimeCommand plugin = (OnTimeCommand) JavaPlugin.getProvidingPlugin(SeeCommandExecutor.class);
         RunCommandOnTime runCommandOnTime = plugin.getRunCommandOnTime();
         YamlConfiguration config = runCommandOnTime.getConfig();

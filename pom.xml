@@ -31,19 +31,7 @@
         <!-- For release/stable: only version-packageType -->
         <!-- For alpha/beta: version-packageType+timestamp+buildNumber -->
         <!--suppress UnresolvedMavenProperty -->
-        <version.suffix.release/>
-        <!--suppress UnresolvedMavenProperty -->
-        <version.suffix.stable/>
-        <!--suppress UnresolvedMavenProperty -->
-        <version.suffix.alpha>+${maven.build.timestamp}${buildNumber}</version.suffix.alpha>
-        <!--suppress UnresolvedMavenProperty -->
-        <version.suffix.beta>+${maven.build.timestamp}${buildNumber}</version.suffix.beta>
-        <!--suppress UnresolvedMavenProperty -->
-        <version.suffix.default>+${maven.build.timestamp}${buildNumber}</version.suffix.default>
-        <!--suppress UnresolvedMavenProperty -->
-        <conditional.version.suffix>${version.suffix.${versionPackageType}}</conditional.version.suffix>
-        <!--suppress UnresolvedMavenProperty -->
-        <project.version>${versionNumber}-${versionPackageType}${conditional.version.suffix}</project.version>
+        <project.version>${versionNumber}-${versionPackageType}${version.suffix}</project.version>
         <!--suppress UnresolvedMavenProperty -->
         <project.url>${website}</project.url>
         <project.description>${description}</project.description>

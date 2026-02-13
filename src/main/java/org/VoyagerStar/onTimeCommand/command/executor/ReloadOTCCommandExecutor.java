@@ -16,8 +16,7 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         // 检查权限
-        if (!sender.hasPermission("ontimecommand.admin") && !(sender.isOp())) {
-            sender.sendMessage("§cYou don't have permission to use this command.");
+        if (!OnTimeCommand.checkPermission(sender, "ontimecommand.admin", "§cYou don't have permission to use this command.")) {
             return true;
         }
 
@@ -31,10 +30,6 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
             // 重新加载Orbital TNT配置
             plugin.loadOrbitalTNTConfig();
             sender.sendMessage("§a✓ Orbital TNT配置已重新加载");
-
-            // 重新加载主命令配置
-            plugin.loadCommandConfig();
-            sender.sendMessage("§a✓ 主命令配置已重新加载");
 
             sender.sendMessage("§6所有配置文件重新加载完成！");
 
