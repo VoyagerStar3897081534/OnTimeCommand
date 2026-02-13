@@ -1,0 +1,186 @@
+# OnTimeCommand 语言配置文件 (Language Configuration)
+# 支持多语言切换
+# 玩家可以通过修改 language 字段或使用 /otcsetlang 命令来切换语言
+# 支持的语言: zh(中文), en(English)
+
+language: zh
+
+# 中文语言配置
+zh:
+  # 权限相关
+  permission_denied: "§c您没有权限使用此命令。"
+  
+  # 帮助命令
+  help_title: "§6--- OnTimeCommand 帮助 ---"
+  help_disable: "§e/ontimecommand disable <任务>" + "§f" + " - 禁用定时任务"
+  help_enable: "§e/ontimecommand enable <任务>" + "§f" + " - 启用定时任务"
+  help_add: "§e/ontimecommand add <任务名> <间隔>" + "§f" + " - 添加新的定时任务"
+  help_addcommand: "§e/ontimecommand addcommand <任务> [命令...]" + "§f" + " - 向任务添加命令 (使用 _ 代替空格或用双引号包裹命令)"
+  help_deletecommand: "§e/ontimecommand deletecommand <任务> <命令编号>" + "§f" + " - 从任务中删除命令"
+  help_delete: "§e/ontimecommand delete <任务>" + "§f" + " - 删除定时任务"
+  help_seeinfo: "§e/ontimecommand seeinfo <任务>" + "§f" + " - 查看任务详细信息"
+  help_help: "§e/ontimecommand help" + "§f" + " - 显示此帮助信息"
+  
+  # 通用错误信息
+  usage_seeinfo: "§c用法: /ontimecommand seeinfo <任务>"
+  task_not_found: "§c任务 '{0}' 未找到！"
+  usage_disable: "§c用法: /ontimecommand disable <任务>"
+  task_already_disabled: "§e任务 '{0}' 已经被禁用！"
+  task_successfully_disabled: "§a成功禁用任务: {0}"
+  task_failed_to_disable: "§c禁用任务失败: {0}"
+  usage_enable: "§c用法: /ontimecommand enable <任务>"
+  task_already_enabled: "§e任务 '{0}' 已经被启用！"
+  task_successfully_enabled: "§a成功启用任务: {0}"
+  task_failed_to_enable: "§c启用任务失败: {0}"
+  usage_add: "§c用法: /ontimecommand add <任务名> <间隔> [命令]"
+  example_add: "§c示例: /ontimecommand add 我的任务 60"
+  interval_must_be_number: "§c间隔必须是数字！"
+  task_already_exists: "§c任务 '{0}' 已存在！"
+  task_successfully_added: "§a成功添加任务: {0}"
+  task_interval: "§e间隔: {0} 秒"
+  task_note: "§e注意: 命令列表为空，需要在配置文件中手动配置。"
+  task_failed_to_add: "§c添加任务失败: {0}"
+  usage_addcommand: "§c用法: /ontimecommand addcommand <任务> [命令1] [命令2] [命令3] ... (使用 _ 代替空格或用双引号包裹命令)"
+  example_addcommand: "§c示例: /ontimecommand addcommand 我的任务 \"say 你好\" \"title @a title 欢迎\""
+  no_commands_to_add: "§c没有要添加的命令！"
+  commands_successfully_added: "§a成功向任务 '{0}' 添加了 {1} 个命令"
+  commands_failed_to_add: "§c向任务 '{0}' 添加命令失败"
+  command_number_must_be_integer: "§c命令编号必须是有效整数！"
+  invalid_command_number: "§c无效的命令编号！请输入 1 到 {0} 之间的数字"
+  command_successfully_deleted: "§a成功从任务 '{0}' 中删除命令 '{1}' (#{2})"
+  failed_to_save_changes: "§c保存更改失败: {0}"
+  usage_delete: "§c用法: /ontimecommand delete <任务>"
+  task_successfully_deleted: "§a成功删除任务: {0}"
+  task_failed_to_delete: "§c删除任务失败: {0}"
+  
+  # 任务详情
+  task_detail_title: "§6--- 任务详情: {0} ---"
+  task_status: "§e状态: {0}"
+  task_interval_display: "§e执行间隔: §f{0} 秒"
+  task_command_count: "§e命令总数: §f{0}"
+  task_command_list: "§e命令列表:"
+  task_command_empty: "§e命令列表: §f空"
+  task_status_enabled: "§a启用"
+  task_status_disabled: "§c禁用"
+  task_command_item: "  §7{0}. §f{1}"
+  
+  # 版本检查
+  version_new_available: "§6[OnTimeCommand] §e发现新版本可用！"
+  version_current: "§7当前版本: §f{0}"
+  version_latest: "§7最新版本: §a{0}"
+  version_download: "§7请前往 §bhttps://github.com/VoyagerStar3897081534/OnTimeCommand/releases §7下载更新"
+  version_up_to_date: "§6[OnTimeCommand] §a您使用的是最新版本！"
+  version_thanks: "§7感谢使用 OnTimeCommand 插件！"
+  version_follow: "§7关注作者: §bhttps://github.com/VoyagerStar3897081534"
+  version_check_complete: "§6[OnTimeCommand] §7版本检查完成 (当前版本: {0})"
+
+  # 语言提示
+  lang_using: "服务器正在使用{0}语言"
+  
+  # 重载命令相关消息
+  reload_start: "§6正在重新加载所有配置文件..."
+  reload_command_success: "§a✓ 定时命令配置已重新加载"
+  reload_orbital_success: "§a✓ Orbital TNT配置已重新加载"
+  reload_language_success: "§a✓ 语言配置已刷新"
+  reload_complete: "§6所有配置文件重新加载完成！"
+  reload_error: "§c✗ 重新加载配置时发生错误: {error}"
+  
+  # 查看命令相关消息
+  see_command_list_title: "§6定时命令列表："
+  see_command_no_commands: "§e没有找到任何定时命令。"
+  see_command_task_status_enabled: "§a[启用]"
+  see_command_task_status_disabled: "§c[禁用]"
+  see_command_task_color_enabled: "§e"
+  see_command_task_color_disabled: "§7"
+  see_command_task_click_hint: "§7点击查看 '{task}' 的详细信息"
+  see_command_task_info: "  §8├ §7间隔: §f{interval}秒 §8| §7命令数量: §f{count}"
+
+# English language configuration
+en:
+  # Permission related
+  permission_denied: "§cYou don't have permission to use this command."
+  
+  # Help command
+  help_title: "§6--- OnTimeCommand Help ---"
+  help_disable: "§e/ontimecommand disable <task>" + "§f" + " - Disable a scheduled task"
+  help_enable: "§e/ontimecommand enable <task>" + "§f" + " - Enable a scheduled task"
+  help_add: "§e/ontimecommand add <taskname> <interval>" + "§f" + " - Add a new scheduled task"
+  help_addcommand: "§e/ontimecommand addcommand <task> [commands...]" + "§f" + " - Add commands to a task (Use _ for spaces or wrap commands in double quotes)"
+  help_deletecommand: "§e/ontimecommand deletecommand <task> <commandNumber>" + "§f" + " - Delete a command from a task"
+  help_delete: "§e/ontimecommand delete <task>" + "§f" + " - Delete a scheduled task"
+  help_seeinfo: "§e/ontimecommand seeinfo <task>" + "§f" + " - View detailed information about a task"
+  help_help: "§e/ontimecommand help" + "§f" + " - Show this help message"
+  
+  # Generic error messages
+  usage_seeinfo: "§cUsage: /ontimecommand seeinfo <task>"
+  task_not_found: "§cTask '{0}' not found!"
+  usage_disable: "§cUsage: /ontimecommand disable <task>"
+  task_already_disabled: "§eTask '{0}' is already disabled!"
+  task_successfully_disabled: "§aSuccessfully disabled task: {0}"
+  task_failed_to_disable: "§cFailed to disable task: {0}"
+  usage_enable: "§cUsage: /ontimecommand enable <task>"
+  task_already_enabled: "§eTask '{0}' is already enabled!"
+  task_successfully_enabled: "§aSuccessfully enabled task: {0}"
+  task_failed_to_enable: "§cFailed to enable task: {0}"
+  usage_add: "§cUsage: /ontimecommand add <taskname> <interval> [commands]"
+  example_add: "§cExample: /ontimecommand add mytask 60"
+  interval_must_be_number: "§cInterval must be a number!"
+  task_already_exists: "§cTask '{0}' already exists!"
+  task_successfully_added: "§aSuccessfully added task: {0}"
+  task_interval: "§eInterval: {0} seconds"
+  task_note: "§eNote: Commands list is empty and needs to be configured manually in the config file."
+  task_failed_to_add: "§cFailed to add task: {0}"
+  usage_addcommand: "§cUsage: /ontimecommand addcommand <task> [command1] [command2] [command3] ... (Use _ for spaces or wrap commands in double quotes)"
+  example_addcommand: "§cExample: /ontimecommand addcommand mytask \"say Hello\" \"title @a title Welcome\""
+  no_commands_to_add: "§cNo commands to add!"
+  commands_successfully_added: "§aSuccessfully added {1} commands to task: {0}"
+  commands_failed_to_add: "§cFailed to add commands to task: {0}"
+  command_number_must_be_integer: "§cCommand number must be a valid integer!"
+  invalid_command_number: "§cInvalid command number! Please enter a number between 1 and {0}"
+  command_successfully_deleted: "§aSuccessfully deleted command '{1}' (#{2}) from task '{0}'"
+  failed_to_save_changes: "§cFailed to save changes: {0}"
+  usage_delete: "§cUsage: /ontimecommand delete <task>"
+  task_successfully_deleted: "§aSuccessfully deleted task: {0}"
+  task_failed_to_delete: "§cFailed to delete task: {0}"
+  
+  # Task details
+  task_detail_title: "§6--- Task Details: {0} ---"
+  task_status: "§eStatus: {0}"
+  task_interval_display: "§eExecution Interval: §f{0} seconds"
+  task_command_count: "§eTotal Commands: §f{0}"
+  task_command_list: "§eCommand List:"
+  task_command_empty: "§eCommand List: §fEmpty"
+  task_status_enabled: "§aEnabled"
+  task_status_disabled: "§cDisabled"
+  task_command_item: "  §7{0}. §f{1}"
+  
+  # Version check
+  version_new_available: "§6[OnTimeCommand] §eNew version available!"
+  version_current: "§7Current version: §f{0}"
+  version_latest: "§7Latest version: §a{0}"
+  version_download: "§7Please visit §bhttps://github.com/VoyagerStar3897081534/OnTimeCommand/releases §7to download the update"
+  version_up_to_date: "§6[OnTimeCommand] §aYou are using the latest version!"
+  version_thanks: "§7Thank you for using the OnTimeCommand plugin!"
+  version_follow: "§7Follow the author: §bhttps://github.com/VoyagerStar3897081534"
+  version_check_complete: "§6[OnTimeCommand] §7Version check completed (Current version: {0})"
+  
+  # 语言提示
+  lang_using: "The server is using the {0} language"
+  
+  # Reload command related messages
+  reload_start: "§6Reloading all configuration files..."
+  reload_command_success: "§a✓ Scheduled commands configuration reloaded"
+  reload_orbital_success: "§a✓ Orbital TNT configuration reloaded"
+  reload_language_success: "§a✓ Language configuration refreshed"
+  reload_complete: "§6All configuration files reloaded successfully!"
+  reload_error: "§c✗ Error occurred while reloading configuration: {error}"
+  
+  # See command related messages
+  see_command_list_title: "§6Scheduled Command List:"
+  see_command_no_commands: "§eNo scheduled commands found."
+  see_command_task_status_enabled: "§a[Enabled]"
+  see_command_task_status_disabled: "§c[Disabled]"
+  see_command_task_color_enabled: "§e"
+  see_command_task_color_disabled: "§7"
+  see_command_task_click_hint: "§7Click to view details of '{task}'"
+  see_command_task_info: "  §8├ §7Interval: §f{interval}s §8| §7Command Count: §f{count}"

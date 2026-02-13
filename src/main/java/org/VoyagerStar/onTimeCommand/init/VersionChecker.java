@@ -42,7 +42,7 @@ public class VersionChecker {
      *
      * @return 最新版本号字符串
      */
-    private static String getLatestVersionFromRemote() {
+    public static String getLatestVersionFromRemote() {
         try {
             // 使用GitHub API获取最新的发布版本
             String apiUrl = "https://api.github.com/repos/VoyagerStar3897081534/OnTimeCommand/releases/latest";
@@ -188,9 +188,10 @@ public class VersionChecker {
 
         if (isNewVersion) {
             String latestVersion = getLatestVersionFromRemote();
-            logger.info("Find new version! Your version: " + currentVersion + ", the lastest version: " + latestVersion);
+            logger.info("New updates! Your version: " + currentVersion + ", the lastest version: " + latestVersion + ". Get new version on https://github.com/VoyagerStar3897081534/OnTimeCommand/releases .");
         } else {
-            logger.info("You are the lastest version: " + currentVersion);
+            logger.info("You are the lastest version: " + currentVersion + ". Follow VoyagerStar3897081534 on Github to know the update immediately!");
+            logger.info("My website: https://github.com/VoyagerStar3897081534");
         }
     }
 }

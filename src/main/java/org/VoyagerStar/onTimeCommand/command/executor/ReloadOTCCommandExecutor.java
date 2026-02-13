@@ -1,10 +1,13 @@
 package org.VoyagerStar.onTimeCommand.command.executor;
 
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+
+import static org.VoyagerStar.onTimeCommand.utils.LanguageManager.reloadLanguageConfig;
 
 public class ReloadOTCCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
@@ -20,21 +23,27 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
             return true;
         }
 
-        sender.sendMessage("§6正在重新加载所有配置文件...");
+        LanguageManager langManager = plugin.getLanguageManager();
+
+        sender.sendMessage(langManager.getMessage("reload_start", new Object[0]));
 
         try {
             // 重新加载定时命令配置
             plugin.getRunCommandOnTime().loadAndScheduleCommands();
-            sender.sendMessage("§a✓ 定时命令配置已重新加载");
+            sender.sendMessage(langManager.getMessage("reload_command_success", new Object[0]));
 
             // 重新加载Orbital TNT配置
             plugin.loadOrbitalTNTConfig();
-            sender.sendMessage("§a✓ Orbital TNT配置已重新加载");
+            sender.sendMessage(langManager.getMessage("reload_orbital_success", new Object[0]));
 
-            sender.sendMessage("§6所有配置文件重新加载完成！");
+            // 刷新语言配置
+            reloadLanguageConfig();
+            sender.sendMessage(langManager.getMessage("reload_language_success", new Object[0]));
+
+            sender.sendMessage(langManager.getMessage("reload_complete", new Object[0]));
 
         } catch (Exception e) {
-            sender.sendMessage("§c✗ 重新加载配置时发生错误: " + e.getMessage());
+            sender.sendMessage(langManager.getMessage("reload_error", e.getMessage()));
             plugin.getLogger().severe("Failed to reload configurations: " + e.getMessage());
             e.printStackTrace();
             return false;

@@ -3,11 +3,14 @@ package org.VoyagerStar.onTimeCommand;
 import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.executor.ReloadOTCCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.SetLanguageCommandExecutor;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.SeeTabCompleter;
 import org.VoyagerStar.onTimeCommand.init.Initialize;
 import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.VoyagerStar.onTimeCommand.listener.FishingRodListener;
+import org.VoyagerStar.onTimeCommand.listener.PlayerJoinListener;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -24,6 +27,7 @@ import java.util.Objects;
 public final class OnTimeCommand extends JavaPlugin {
     private RunCommandOnTime runCommandOnTime;
     private YamlConfiguration orbitalTNTConfig;
+    private LanguageManager languageManager;
 
     /**
      * 检查发送者是否具有指定权限，如果没有则发送自定义权限拒绝消息
@@ -41,17 +45,6 @@ public final class OnTimeCommand extends JavaPlugin {
         return false;
     }
 
-    /**
-     * 检查发送者是否具有指定权限（使用默认消息）
-     *
-     * @param sender     命令发送者
-     * @param permission 权限节点
-     * @return 如果有权限返回true，否则返回false并发送默认消息
-     */
-    public static boolean checkPermission(org.bukkit.command.CommandSender sender, String permission) {
-        return checkPermission(sender, permission, null);
-    }
-
     @Override
     public void onDisable() {
         // Plugin shutdown logic
@@ -63,6 +56,9 @@ public final class OnTimeCommand extends JavaPlugin {
     @Override
     public void onEnable() {
         // Plugin startup logic
+        // Initialize language manager first
+        languageManager = new LanguageManager(this);
+        
         loadOrbitalTNTConfig();
 
         CommandExecutor OTCCommandExecutor = new OTCCommandExecutor(this);
@@ -95,6 +91,13 @@ public final class OnTimeCommand extends JavaPlugin {
                 "ontimecommand.admin",
                 new ReloadOTCCommandExecutor(this),
                 null);
+        this.registerCustomCommand("otcsetlang",
+                "Set plugin's language",
+                "/otcsetlang <zh|en>",
+                null,
+                "ontimecommand.admin",
+                new SetLanguageCommandExecutor(this),
+                null);
 
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
@@ -103,6 +106,10 @@ public final class OnTimeCommand extends JavaPlugin {
         // Register fishing rod listener
         FishingRodListener fishingRodListener = new FishingRodListener(this);
         getServer().getPluginManager().registerEvents(fishingRodListener, this);
+
+        // Register player join listener
+        PlayerJoinListener playerJoinListener = new PlayerJoinListener(this);
+        getServer().getPluginManager().registerEvents(playerJoinListener, this);
 
         getLogger().info("OnTimeCommand has been enabled successfully!");
         getLogger().info(" ----------------");
@@ -183,6 +190,10 @@ public final class OnTimeCommand extends JavaPlugin {
         }
 
         getLogger().info("Loaded Orbital TNT configuration");
+    }
+
+    public LanguageManager getLanguageManager() {
+        return languageManager;
     }
 
 

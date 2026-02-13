@@ -1,6 +1,7 @@
 package org.VoyagerStar.onTimeCommand.command.executor;
 
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
@@ -83,8 +84,10 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     private void handleSeeInfo(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /ontimecommand seeinfo <task>");
+            sender.sendMessage(langManager.getMessage("usage_seeinfo"));
             return;
         }
 
@@ -93,7 +96,7 @@ public class OTCCommandExecutor implements CommandExecutor {
 
         // Check if task exists
         if (!config.contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
 
@@ -104,25 +107,27 @@ public class OTCCommandExecutor implements CommandExecutor {
         boolean disabled = config.getBoolean(taskPath + ".disabled", false);
 
         // Display task information
-        String status = disabled ? "§c禁用" : "§a启用";
-        sender.sendMessage("§6--- 任务详情: " + taskName + " ---");
-        sender.sendMessage("§e状态: " + status);
-        sender.sendMessage("§e执行间隔: §f" + interval + " 秒");
-        sender.sendMessage("§e命令总数: §f" + commands.size());
+        String status = disabled ? langManager.getMessage("task_status_disabled") : langManager.getMessage("task_status_enabled");
+        sender.sendMessage(langManager.getMessage("task_detail_title", taskName));
+        sender.sendMessage(langManager.getMessage("task_status", status));
+        sender.sendMessage(langManager.getMessage("task_interval_display", interval));
+        sender.sendMessage(langManager.getMessage("task_command_count", commands.size()));
 
         if (!commands.isEmpty()) {
-            sender.sendMessage("§e命令列表:");
+            sender.sendMessage(langManager.getMessage("task_command_list"));
             for (int i = 0; i < commands.size(); i++) {
-                sender.sendMessage("  §7" + (i + 1) + ". §f" + commands.get(i));
+                sender.sendMessage(langManager.getMessage("task_command_item", i + 1, commands.get(i)));
             }
         } else {
-            sender.sendMessage("§e命令列表: §f空");
+            sender.sendMessage(langManager.getMessage("task_command_empty"));
         }
     }
 
     private void handleDisable(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /ontimecommand disable <task>");
+            sender.sendMessage(langManager.getMessage("usage_disable"));
             return;
         }
 
@@ -130,21 +135,21 @@ public class OTCCommandExecutor implements CommandExecutor {
         
         // Check if task exists
         if (!plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
         
         // Check if task is already disabled
         if (plugin.getRunCommandOnTime().getConfig().getBoolean("commands." + taskName + ".disabled", false)) {
-            sender.sendMessage("§eTask '" + taskName + "' is already disabled!");
+            sender.sendMessage(langManager.getMessage("task_already_disabled", taskName));
             return;
         }
         
         boolean success = plugin.getRunCommandOnTime().disableTask(taskName);
         if (success) {
-            sender.sendMessage("§aSuccessfully disabled task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_successfully_disabled", taskName));
         } else {
-            sender.sendMessage("§cFailed to disable task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_failed_to_disable", taskName));
         }
     }
 
@@ -210,9 +215,11 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     private void handleAddCommand(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 3) {
-            sender.sendMessage("§cUsage: /ontimecommand addcommand <task> [command1] [command2] [command3] ... (Use _ for spaces or wrap commands in double quotes)");
-            sender.sendMessage("§cExample: /ontimecommand addcommand mytask \"say Hello\" \"title @a title Welcome\"");
+            sender.sendMessage(langManager.getMessage("usage_addcommand"));
+            sender.sendMessage(langManager.getMessage("example_addcommand"));
             return;
         }
         
@@ -220,7 +227,7 @@ public class OTCCommandExecutor implements CommandExecutor {
         
         // Check if task exists
         if (!plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
         
@@ -228,15 +235,15 @@ public class OTCCommandExecutor implements CommandExecutor {
         String[] commandsToAdd = parseCommands(args);
         
         if (commandsToAdd.length == 0) {
-            sender.sendMessage("§cNo commands to add!");
+            sender.sendMessage(langManager.getMessage("no_commands_to_add"));
             return;
         }
         
         boolean success = plugin.getRunCommandOnTime().addCommandsToTask(taskName, commandsToAdd);
         if (success) {
-            sender.sendMessage("§aSuccessfully added " + commandsToAdd.length + " commands to task: " + taskName);
+            sender.sendMessage(langManager.getMessage("commands_successfully_added", taskName, commandsToAdd.length));
         } else {
-            sender.sendMessage("§cFailed to add commands to task: " + taskName);
+            sender.sendMessage(langManager.getMessage("commands_failed_to_add", taskName));
         }
     }
 
@@ -277,9 +284,11 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     private void handleDeleteCommand(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 3) {
-            sender.sendMessage("§cUsage: /ontimecommand deletecommand <task> <commandNumber>");
-            sender.sendMessage("§cExample: /ontimecommand deletecommand mytask 1");
+            sender.sendMessage(langManager.getMessage("usage_deletecommand"));
+            sender.sendMessage(langManager.getMessage("example_addcommand").replace("addcommand", "deletecommand"));
             return;
         }
 
@@ -288,14 +297,14 @@ public class OTCCommandExecutor implements CommandExecutor {
 
         // Check if task exists
         if (!plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
 
         try {
             commandNumber = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            sender.sendMessage("§cCommand number must be a valid integer!");
+            sender.sendMessage(langManager.getMessage("command_number_must_be_integer"));
             return;
         }
 
@@ -304,7 +313,7 @@ public class OTCCommandExecutor implements CommandExecutor {
 
         // Check if command number is valid
         if (commandNumber <= 0 || commandNumber > commands.size()) {
-            sender.sendMessage("§cInvalid command number! Please enter a number between 1 and " + commands.size());
+            sender.sendMessage(langManager.getMessage("invalid_command_number", commands.size()));
             return;
         }
 
@@ -318,15 +327,17 @@ public class OTCCommandExecutor implements CommandExecutor {
             plugin.getRunCommandOnTime().getConfig().save(new File(plugin.getDataFolder(), "on-time-command-list.yml"));
             // Reload tasks to apply changes
             plugin.getRunCommandOnTime().loadAndScheduleCommands();
-            sender.sendMessage("§aSuccessfully deleted command '" + removedCommand + "' (#" + commandNumber + ") from task '" + taskName + "'");
+            sender.sendMessage(langManager.getMessage("command_successfully_deleted", taskName, removedCommand, commandNumber));
         } catch (Exception e) {
-            sender.sendMessage("§cFailed to save changes: " + e.getMessage());
+            sender.sendMessage(langManager.getMessage("failed_to_save_changes", e.getMessage()));
         }
     }
 
     private void handleDelete(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /ontimecommand delete <task>");
+            sender.sendMessage(langManager.getMessage("usage_delete"));
             return;
         }
 
@@ -334,15 +345,15 @@ public class OTCCommandExecutor implements CommandExecutor {
         
         // Check if task exists
         if (!plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
         
         boolean success = plugin.getRunCommandOnTime().deleteTask(taskName);
         if (success) {
-            sender.sendMessage("§aSuccessfully deleted task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_successfully_deleted", taskName));
         } else {
-            sender.sendMessage("§cFailed to delete task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_failed_to_delete", taskName));
         }
     }
 }

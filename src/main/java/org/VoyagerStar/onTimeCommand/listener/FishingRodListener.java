@@ -11,7 +11,6 @@ import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 
-import java.util.List;
 import java.util.logging.Logger;
 
 public class FishingRodListener implements Listener {
@@ -76,9 +75,9 @@ public class FishingRodListener implements Listener {
         }
 
         // 获取配置中的命令列表
-        List<String> commands = plugin.getOrbitalTNTConfig().getStringList("orbital-tnt.commands");
+        plugin.getOrbitalTNTConfig().getStringList("orbital-tnt.commands");
 
-            // 如果没有配置命令，则使用默认行为
+        // 如果没有配置命令，则使用默认行为
             logger.info("No commands configured, using default behavior");
             executeDefaultOrbitalTNTBehavior(location, player);
     }

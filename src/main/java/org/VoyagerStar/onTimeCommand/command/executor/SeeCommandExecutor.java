@@ -5,6 +5,7 @@ import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.VoyagerStar.onTimeCommand.RunCommandOnTime;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.ConfigurationSection;
@@ -25,11 +26,12 @@ public class SeeCommandExecutor implements CommandExecutor {
         OnTimeCommand plugin = (OnTimeCommand) JavaPlugin.getProvidingPlugin(SeeCommandExecutor.class);
         RunCommandOnTime runCommandOnTime = plugin.getRunCommandOnTime();
         YamlConfiguration config = runCommandOnTime.getConfig();
+        LanguageManager langManager = plugin.getLanguageManager();
         
         if (config.contains("commands")) {
             ConfigurationSection commandsSection = config.getConfigurationSection("commands");
             if (commandsSection != null) {
-                sender.sendMessage("§6定时命令列表：");
+                sender.sendMessage(langManager.getMessage("see_command_list_title", new Object[0]));
                 
                 for (String taskName : commandsSection.getKeys(false)) {
                     String taskPath = "commands." + taskName;
@@ -38,23 +40,23 @@ public class SeeCommandExecutor implements CommandExecutor {
                     boolean disabled = config.getBoolean(taskPath + ".disabled", false);
                     
                     // 创建可点击的文本组件
-                    String status = disabled ? "§c[禁用]" : "§a[启用]";
-                    String color = disabled ? "§7" : "§e"; // 禁用的命令显示为灰色，启用的为黄色
+                    String status = disabled ? langManager.getMessage("see_command_task_status_disabled", new Object[0]) : langManager.getMessage("see_command_task_status_enabled", new Object[0]);
+                    String color = disabled ? langManager.getMessage("see_command_task_color_disabled", new Object[0]) : langManager.getMessage("see_command_task_color_enabled", new Object[0]); // 禁用的命令显示为灰色，启用的为黄色
                     
                     Component taskComponent = Component.text(color + "• " + taskName + " " + status)
                             .clickEvent(ClickEvent.runCommand("/ontimecommand seeinfo " + taskName)) // 点击执行查看信息命令
-                            .hoverEvent(HoverEvent.showText(Component.text("§7点击查看 '" + taskName + "' 的详细信息")));
+                            .hoverEvent(HoverEvent.showText(Component.text(langManager.getMessage("see_command_task_click_hint", taskName))));
                     
                     sender.sendMessage(taskComponent);
                     
                     // 显示命令数量和间隔
-                    sender.sendMessage("  §8├ §7间隔: §f" + interval + "秒 §8| §7命令数量: §f" + commands.size());
+                    sender.sendMessage(langManager.getMessage("see_command_task_info", interval, commands.size()));
                 }
             } else {
-                sender.sendMessage("§e没有找到任何定时命令。");
+                sender.sendMessage(langManager.getMessage("see_command_no_commands", new Object[0]));
             }
         } else {
-            sender.sendMessage("§e没有找到任何定时命令。");
+            sender.sendMessage(langManager.getMessage("see_command_no_commands", new Object[0]));
         }
         
         return true;
