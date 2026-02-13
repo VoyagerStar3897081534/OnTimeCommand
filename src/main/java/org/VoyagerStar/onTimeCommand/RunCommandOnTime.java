@@ -179,7 +179,7 @@ public class RunCommandOnTime {
 
         // Add new commands, converting spaces to underscores for storage
         for (String cmd : commands) {
-            existingCommands.add(cmd.replace(" ", "_"));
+            existingCommands.add(cmd.replace("_", " "));
         }
         
         // Update configuration
