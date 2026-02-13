@@ -6,6 +6,7 @@ import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.SeeTabCompleter;
 import org.VoyagerStar.onTimeCommand.init.Initialize;
 import org.VoyagerStar.onTimeCommand.init.VersionChecker;
+import org.VoyagerStar.onTimeCommand.listener.FishingRodListener;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -13,6 +14,7 @@ import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
@@ -20,11 +22,13 @@ import java.util.Objects;
 
 public final class OnTimeCommand extends JavaPlugin {
     private RunCommandOnTime runCommandOnTime;
+    private FishingRodListener fishingRodListener;
 
     @Override
     public void onEnable() {
         // Plugin startup logic
         loadCommandConfig();
+        loadOrbitalTNTConfig();
 
         CommandExecutor OTCCommandExecutor = new OTCCommandExecutor(this);
 
@@ -51,6 +55,10 @@ public final class OnTimeCommand extends JavaPlugin {
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
         runCommandOnTime.loadAndScheduleCommands();
+
+        // Register fishing rod listener
+        fishingRodListener = new FishingRodListener(this);
+        getServer().getPluginManager().registerEvents(fishingRodListener, this);
         
         getLogger().info("OnTimeCommand has been enabled successfully!");
         getLogger().info(" ----------------");
@@ -88,6 +96,37 @@ public final class OnTimeCommand extends JavaPlugin {
         } else {
             getLogger().warning("Could not load command.yml from jar resources");
         }
+    }
+
+    private void loadOrbitalTNTConfig() {
+        // Check if orbital-tnt-config.yml exists in plugin data folder
+        File configFile = new File(getDataFolder(), "orbital-tnt-config.yml");
+
+        // If not exists, copy from jar resources
+        if (!configFile.exists()) {
+            saveResource("orbital-tnt-config.yml", false);
+        }
+
+        // Load the orbital-tnt-config.yml file
+        File orbitalConfigFile = new File(getDataFolder(), "orbital-tnt-config.yml");
+        YamlConfiguration orbitalConfig = YamlConfiguration.loadConfiguration(orbitalConfigFile);
+
+        // Also load default from jar to merge
+        InputStream defaultStream = getResource("orbital-tnt-config.yml");
+        if (defaultStream != null) {
+            YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(
+                    new InputStreamReader(defaultStream, StandardCharsets.UTF_8));
+            orbitalConfig.setDefaults(defaultConfig);
+        }
+
+        // Save the configuration
+        try {
+            orbitalConfig.save(orbitalConfigFile);
+        } catch (Exception e) {
+            getLogger().severe("Failed to save orbital-tnt-config.yml: " + e.getMessage());
+        }
+
+        getLogger().info("Loaded Orbital TNT configuration");
     }
 
     // 自定义命令注册方法
