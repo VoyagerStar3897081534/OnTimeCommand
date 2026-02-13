@@ -23,6 +23,7 @@ import java.util.Objects;
 public final class OnTimeCommand extends JavaPlugin {
     private RunCommandOnTime runCommandOnTime;
     private FishingRodListener fishingRodListener;
+    private YamlConfiguration orbitalTNTConfig;
 
     @Override
     public void onEnable() {
@@ -109,19 +110,19 @@ public final class OnTimeCommand extends JavaPlugin {
 
         // Load the orbital-tnt-config.yml file
         File orbitalConfigFile = new File(getDataFolder(), "orbital-tnt-config.yml");
-        YamlConfiguration orbitalConfig = YamlConfiguration.loadConfiguration(orbitalConfigFile);
+        orbitalTNTConfig = YamlConfiguration.loadConfiguration(orbitalConfigFile);
 
         // Also load default from jar to merge
         InputStream defaultStream = getResource("orbital-tnt-config.yml");
         if (defaultStream != null) {
             YamlConfiguration defaultConfig = YamlConfiguration.loadConfiguration(
                     new InputStreamReader(defaultStream, StandardCharsets.UTF_8));
-            orbitalConfig.setDefaults(defaultConfig);
+            orbitalTNTConfig.setDefaults(defaultConfig);
         }
 
         // Save the configuration
         try {
-            orbitalConfig.save(orbitalConfigFile);
+            orbitalTNTConfig.save(orbitalConfigFile);
         } catch (Exception e) {
             getLogger().severe("Failed to save orbital-tnt-config.yml: " + e.getMessage());
         }
@@ -154,6 +155,10 @@ public final class OnTimeCommand extends JavaPlugin {
     
     public RunCommandOnTime getRunCommandOnTime() {
         return runCommandOnTime;
+    }
+
+    public YamlConfiguration getOrbitalTNTConfig() {
+        return orbitalTNTConfig;
     }
     
     // 内部类定义自定义命令

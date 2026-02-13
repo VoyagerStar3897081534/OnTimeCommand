@@ -68,8 +68,8 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
-        // 获取配置中的命令列表
-        List<String> commands = plugin.getConfig().getStringList("orbital-tnt.commands");
+        // 获取Orbital TNT配置中的命令列表
+        List<String> commands = plugin.getOrbitalTNTConfig().getStringList("orbital-tnt.commands");
 
         if (commands.isEmpty()) {
             // 如果没有配置命令，则使用默认行为
