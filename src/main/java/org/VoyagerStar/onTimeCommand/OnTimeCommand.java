@@ -99,6 +99,38 @@ public final class OnTimeCommand extends JavaPlugin {
         }
     }
 
+
+    // 自定义命令注册方法
+    private void registerCustomCommand(String name, String description, String usage, String[] aliases,
+                                       String permission, CommandExecutor executor, TabCompleter tabCompleter) {
+        // 获取命令映射
+        org.bukkit.command.CommandMap commandMap = this.getServer().getCommandMap();
+
+        // 创建自定义命令
+        CustomCommand customCommand = new CustomCommand(name, description, usage, aliases);
+        customCommand.setExecutor(executor);
+        customCommand.setPermission(permission);
+        customCommand.setPermissionMessage("You don't have permission to use this command.");
+        if (tabCompleter != null) {
+            customCommand.setTabCompleter(tabCompleter);
+        }
+
+        // 注册命令
+        commandMap.register(this.getName(), customCommand);
+    }
+
+    private void registerPermission(String permission, String description) {
+        this.getServer().getPluginManager().addPermission(new org.bukkit.permissions.Permission(permission, description));
+    }
+
+    public RunCommandOnTime getRunCommandOnTime() {
+        return runCommandOnTime;
+    }
+
+    public YamlConfiguration getOrbitalTNTConfig() {
+        return orbitalTNTConfig;
+    }
+    
     private void loadOrbitalTNTConfig() {
         // Check if orbital-tnt-config.yml exists in plugin data folder
         File configFile = new File(getDataFolder(), "orbital-tnt-config.yml");
@@ -130,37 +162,7 @@ public final class OnTimeCommand extends JavaPlugin {
         getLogger().info("Loaded Orbital TNT configuration");
     }
 
-    // 自定义命令注册方法
-    private void registerCustomCommand(String name, String description, String usage, String[] aliases,
-                                       String permission, CommandExecutor executor, TabCompleter tabCompleter) {
-        // 获取命令映射
-        org.bukkit.command.CommandMap commandMap = this.getServer().getCommandMap();
-        
-        // 创建自定义命令
-        CustomCommand customCommand = new CustomCommand(name, description, usage, aliases);
-        customCommand.setExecutor(executor);
-        customCommand.setPermission(permission);
-        customCommand.setPermissionMessage("You don't have permission to use this command.");
-        if (tabCompleter != null) {
-            customCommand.setTabCompleter(tabCompleter);
-        }
-        
-        // 注册命令
-        commandMap.register(this.getName(), customCommand);
-    }
 
-    private void registerPermission(String permission, String description) {
-        this.getServer().getPluginManager().addPermission(new org.bukkit.permissions.Permission(permission, description));
-    }
-    
-    public RunCommandOnTime getRunCommandOnTime() {
-        return runCommandOnTime;
-    }
-
-    public YamlConfiguration getOrbitalTNTConfig() {
-        return orbitalTNTConfig;
-    }
-    
     // 内部类定义自定义命令
     private static class CustomCommand extends Command {
         private CommandExecutor executor;

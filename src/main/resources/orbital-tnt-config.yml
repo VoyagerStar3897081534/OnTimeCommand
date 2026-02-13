@@ -1,5 +1,4 @@
 # Orbital TNT 钓鱼竿配置文件
-# 当玩家挥动名为 "Orbital TNT" 的钓鱼竿时执行的命令
 
 orbital-tnt:
   # 是否启用此功能
@@ -7,26 +6,3 @@ orbital-tnt:
   
   # 钓鱼竿显示名称（必须完全匹配）
   fishing-rod-name: "Orbital TNT"
-  
-  # 在浮标位置执行的命令列表
-  # 可用变量：
-  # {world} - 世界名称
-  # {x}, {y}, {z} - 精确坐标
-  # {block_x}, {block_y}, {block_z} - 方块坐标
-  commands:
-    # 示例：在浮标位置生成TNT
-    - "summon minecraft:armor_stand {x} {y} {z}"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~ ~20 ~"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~2 ~20 ~"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~-2 ~20 ~"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~ ~20 ~2"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~ ~20 ~-2"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~4 ~20 ~"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~-4 ~20 ~"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~ ~20 ~4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~ ~20 ~-4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~4 ~20 ~4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~-4 ~20 ~4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~4 ~20 ~-4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run summon minecraft:tnt ~-4 ~20 ~-4"
-    - "excute as @e[type=minecraft:armor_stand,x={x},y={y},z={z} at @s run kill @s"

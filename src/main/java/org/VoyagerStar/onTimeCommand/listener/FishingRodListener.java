@@ -1,7 +1,6 @@
 package org.VoyagerStar.onTimeCommand.listener;
 
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.FishHook;
@@ -34,19 +33,6 @@ public class FishingRodListener implements Listener {
             return;
         }
 
-        // 检查钓鱼竿是否有自定义名称
-        ItemMeta meta = fishingRod.getItemMeta();
-        if (meta == null || !meta.hasDisplayName()) {
-            return;
-        }
-
-        String displayName = meta.getDisplayName();
-
-        // 检查是否是Orbital TNT钓鱼竿
-        if (!displayName.equals("Orbital TNT")) {
-            return;
-        }
-
         // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
         if (event.getState() != PlayerFishEvent.State.FISHING) {
             Thread.sleep(2000);
@@ -68,54 +54,64 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
-        // 获取Orbital TNT配置中的命令列表
+        // 检查功能是否启用
+        boolean enabled = plugin.getOrbitalTNTConfig().getBoolean("orbital-tnt.enabled", true);
+        if (!enabled) {
+            logger.info("Orbital TNT feature is disabled in configuration");
+            return;
+        }
+
+        // 获取配置的钓鱼竿名称
+        String requiredName = plugin.getOrbitalTNTConfig().getString("orbital-tnt.fishing-rod-name", "Orbital TNT");
+
+        // 检查钓鱼竿名称是否匹配
+        ItemStack fishingRod = player.getInventory().getItemInMainHand();
+        ItemMeta meta = fishingRod.getItemMeta();
+        String displayName = meta != null && meta.hasDisplayName() ? meta.getDisplayName() : "";
+
+        if (!displayName.equals(requiredName)) {
+            logger.info("Fishing rod name mismatch. Expected: " + requiredName + ", Actual: " + displayName);
+            return;
+        }
+
+        // 获取配置中的命令列表
         List<String> commands = plugin.getOrbitalTNTConfig().getStringList("orbital-tnt.commands");
 
-        if (commands.isEmpty()) {
             // 如果没有配置命令，则使用默认行为
             logger.info("No commands configured, using default behavior");
             executeDefaultOrbitalTNTBehavior(location, player);
-        } else {
-            // 执行配置的命令
-            logger.info("Executing " + commands.size() + " configured commands");
-            executeConfiguredCommands(location, commands);
-        }
     }
 
     private void executeDefaultOrbitalTNTBehavior(Location location, Player player) throws InterruptedException {
-        for (int i = 0; i < 10; i++) {
-            location.getWorld().spawnEntity(location, org.bukkit.entity.EntityType.TNT);
-            Thread.sleep(10);
+        // 在钓竿中心上方20格召唤中心TNT
+        Location centerLocation = location.clone().add(0, 20, 0);
+        location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT);
+
+        // 生成5个圆环，每个圆环间隔3格
+        for (int ring = 1; ring <= 5; ring++) {
+            int radius = ring * 3; // 每个圆环半径递增3格
+            spawnTNTRing(centerLocation, radius);
+            Thread.sleep(100); // 圆环之间的小延迟
         }
 
-        logger.info("Default command location: " + locationToString(location));
+        logger.info("Orbital TNT launched at: " + locationToString(location));
     }
 
-    private void executeConfiguredCommands(Location location, List<String> commands) {
-        String worldName = location.getWorld().getName();
-        double x = location.getX();
-        double y = location.getY();
-        double z = location.getZ();
+    private void spawnTNTRing(Location center, int radius) {
+        // 在指定半径的圆环上生成TNT
+        int points = Math.max(8, radius * 2); // 根据半径确定点数
 
-        for (String command : commands) {
-            // 替换位置变量
-            String processedCommand = command
-                    .replace("{world}", worldName)
-                    .replace("{x}", String.valueOf(x))
-                    .replace("{y}", String.valueOf(y))
-                    .replace("{z}", String.valueOf(z))
-                    .replace("{block_x}", String.valueOf(location.getBlockX()))
-                    .replace("{block_y}", String.valueOf(location.getBlockY()))
-                    .replace("{block_z}", String.valueOf(location.getBlockZ()));
+        for (int i = 0; i < points; i++) {
+            double angle = 2 * Math.PI * i / points;
+            double x = center.getX() + radius * Math.cos(angle);
+            double z = center.getZ() + radius * Math.sin(angle);
 
-            try {
-                Bukkit.dispatchCommand(Bukkit.getConsoleSender(), processedCommand);
-                logger.info("Command: " + processedCommand);
-            } catch (Exception e) {
-                logger.severe("Command failed: " + processedCommand + " - fault: " + e.getMessage());
-            }
+            Location tntLocation = new Location(center.getWorld(), x, center.getY(), z);
+            center.getWorld().spawnEntity(tntLocation, org.bukkit.entity.EntityType.TNT);
         }
     }
+
+
 
     private String locationToString(Location location) {
         return location.getWorld().getName() + " (" +
