@@ -49,7 +49,7 @@ public class FishingRodListener implements Listener {
 
         // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
         if (event.getState() != PlayerFishEvent.State.FISHING) {
-            Thread.sleep(500);
+            Thread.sleep(2000);
             return;
         }
 
@@ -57,7 +57,7 @@ public class FishingRodListener implements Listener {
         FishHook fishHook = event.getHook();
         Location hookLocation = fishHook.getLocation();
 
-        logger.info("玩家 " + player.getName() + " 挥动了 Orbital TNT 钓鱼竿，浮标位置: " +
+        logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
                 hookLocation.getWorld().getName() + " (" +
                 hookLocation.getBlockX() + ", " +
                 hookLocation.getBlockY() + ", " +
@@ -67,22 +67,25 @@ public class FishingRodListener implements Listener {
         executeCommandsAtLocation(hookLocation, player);
     }
 
-    private void executeCommandsAtLocation(Location location, Player player) {
+    private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
         // 获取配置中的命令列表
         List<String> commands = plugin.getConfig().getStringList("orbital-tnt.commands");
 
         if (commands.isEmpty()) {
             // 如果没有配置命令，则使用默认行为
+            logger.info("No commands configured, using default behavior");
             executeDefaultOrbitalTNTBehavior(location, player);
         } else {
             // 执行配置的命令
+            logger.info("Executing " + commands.size() + " configured commands");
             executeConfiguredCommands(location, commands);
         }
     }
 
-    private void executeDefaultOrbitalTNTBehavior(Location location, Player player) {
+    private void executeDefaultOrbitalTNTBehavior(Location location, Player player) throws InterruptedException {
         for (int i = 0; i < 10; i++) {
             location.getWorld().spawnEntity(location, org.bukkit.entity.EntityType.TNT);
+            Thread.sleep(10);
         }
 
         logger.info("Default command location: " + locationToString(location));
