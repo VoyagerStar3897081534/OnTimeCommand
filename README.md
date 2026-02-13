@@ -6,6 +6,8 @@
 
 一个强大的Minecraft Paper服务器插件，允许您按设定的时间间隔自动执行命令。
 
+[:gb: English](README-en.md) | [:fr: Français](README-fr.md) | [:es: Español](README-es.md) | [:ru: Русский](README-ru.md) | [:sa: العربية](README-ar.md)
+
 ## 🌟 功能特性
 
 - ⏰ **定时命令执行** - 按指定时间间隔自动执行Minecraft命令
