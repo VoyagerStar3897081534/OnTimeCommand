@@ -1,13 +1,13 @@
 # OnTimeCommand
 
-[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](LICENSE)
+[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](../LICENSE)
 [![Release](https://img.shields.io/github/v/release/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/releases)
 [![Issues](https://img.shields.io/github/issues/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/issues)
 
 Un plugin puissant pour les serveurs Minecraft Paper qui vous permet d'exécuter automatiquement des commandes à des
 intervalles de temps définis.
 
-[:cn: 中文](README.md) | [:gb: English](README-en.md) | [:es: Español](README-es.md) | [:ru: Русский](README-ru.md) | [:sa: العربية](README-ar.md)
+[:cn: 中文](../README.md) | [:gb: English](README-en.md) | [:es: Español](README-es.md) | [:ru: Русский](README-ru.md) | [:sa: العربية](README-ar.md)
 
 ## 🌟 Fonctionnalités
 
@@ -199,7 +199,7 @@ Bienvenue pour soumettre des Issues et des Pull Requests !
 
 ## 📝 Licence
 
-Ce projet est sous licence MIT - voir le fichier [LICENSE](LICENSE) pour plus de détails
+Ce projet est sous licence MIT - voir le fichier [LICENSE](../LICENSE) pour plus de détails
 
 ## 🆘 Support et aide
 

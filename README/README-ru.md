@@ -1,13 +1,13 @@
 # OnTimeCommand
 
-[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](LICENSE)
+[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](../LICENSE)
 [![Release](https://img.shields.io/github/v/release/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/releases)
 [![Issues](https://img.shields.io/github/issues/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/issues)
 
 Мощный плагин для серверов Minecraft Paper, который позволяет автоматически выполнять команды через заданные промежутки
 времени.
 
-[:cn: 中文](README.md) | [:gb: English](README-en.md) | [:fr: Français](README-fr.md) | [:es: Español](README-es.md) | [:sa: العربية](README-ar.md)
+[:cn: 中文](../README.md) | [:gb: English](README-en.md) | [:fr: Français](README-fr.md) | [:es: Español](README-es.md) | [:sa: العربية](README-ar.md)
 
 ## 🌟 Возможности
 
@@ -196,7 +196,7 @@ src/
 
 ## 📝 Лицензия
 
-Этот проект лицензирован по лицензии MIT - см. файл [LICENSE](LICENSE) для подробностей
+Этот проект лицензирован по лицензии MIT - см. файл [LICENSE](../LICENSE) для подробностей
 
 ## 🆘 Поддержка и помощь
 

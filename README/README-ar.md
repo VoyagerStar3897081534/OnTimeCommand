@@ -1,12 +1,12 @@
 # OnTimeCommand
 
-[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](LICENSE)
+[![License](https://img.shields.io/github/license/VoyagerStar3897081534/OnTimeCommand)](../LICENSE)
 [![Release](https://img.shields.io/github/v/release/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/releases)
 [![Issues](https://img.shields.io/github/issues/VoyagerStar3897081534/OnTimeCommand)](https://github.com/VoyagerStar3897081534/OnTimeCommand/issues)
 
 برنامج مكون قوي لخوادم ماين كرافت بايبر يتيح لك تنفيذ الأوامر تلقائيًا في فترات زمنية محددة.
 
-[:cn: 中文](README.md) | [:gb: English](README-en.md) | [:fr: Français](README-fr.md) | [:es: Español](README-es.md) | [:ru: Русский](README-ru.md)
+[:cn: 中文](../README.md) | [:gb: English](README-en.md) | [:fr: Français](README-fr.md) | [:es: Español](README-es.md) | [:ru: Русский](README-ru.md)
 
 ## 🌟 الميزات
 
@@ -194,7 +194,7 @@ src/
 
 ## 📝 الترخيص
 
-هذا المشروع مرخص بموجب ترخيص MIT - انظر ملف [LICENSE](LICENSE) للحصول على التفاصيل
+هذا المشروع مرخص بموجب ترخيص MIT - انظر ملف [LICENSE](../LICENSE) للحصول على التفاصيل
 
 ## 🆘 الدعم والمساعدة
 
