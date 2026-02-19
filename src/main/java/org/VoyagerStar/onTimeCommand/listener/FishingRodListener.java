@@ -39,9 +39,8 @@ public class FishingRodListener implements Listener {
             return;
         }
 
-        // 获取浮标实体
-        FishHook fishHook = event.getHook();
-        Location hookLocation = fishHook.getLocation();
+        // 获取释放位置;
+        Location hookLocation = player.getEyeLocation();
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
                 hookLocation.getWorld().getName() + " (" +
@@ -54,6 +53,29 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
+        Location playerLocation = player.getLocation();
+        double x = playerLocation.getX();
+        double y = playerLocation.getY();
+        double z = playerLocation.getZ();
+        double dx = playerLocation.getX() - location.getX();
+        double dy = playerLocation.getY() - location.getY();
+        double dz = playerLocation.getZ() - location.getZ();
+        if (dx >= 100) {
+            dx = 100;
+        } else if (dx <= -100) {
+            dx = -100;
+        }
+        if (dy >= 100) {
+            dy = 100;
+        } else if (dy <= -100) {
+            dy = -100;
+        }
+        if (dz >= 100) {
+            dz = 100;
+        } else if (dz <= -100) {
+            dz = -100;
+        }
+        location = location.add(x + dx, y + dy, z + dz);
         // 检查功能是否启用
         boolean enabled = plugin.getOrbitalTNTConfig().getBoolean("orbital-tnt.enabled", true);
         if (!enabled) {
