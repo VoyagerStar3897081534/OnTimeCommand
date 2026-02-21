@@ -3,7 +3,6 @@ package org.VoyagerStar.onTimeCommand.listener;
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.entity.FishHook;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -40,16 +39,16 @@ public class FishingRodListener implements Listener {
         }
 
         // 获取释放位置;
-        Location hookLocation = player.getEyeLocation();
+        Location lookLocation = player.getEyeLocation();
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
-                hookLocation.getWorld().getName() + " (" +
-                hookLocation.getBlockX() + ", " +
-                hookLocation.getBlockY() + ", " +
-                hookLocation.getBlockZ() + ")");
+                lookLocation.getWorld().getName() + " (" +
+                lookLocation.getBlockX() + ", " +
+                lookLocation.getBlockY() + ", " +
+                lookLocation.getBlockZ() + ")");
 
         // 执行相关命令
-        executeCommandsAtLocation(hookLocation, player);
+        executeCommandsAtLocation(lookLocation, player);
     }
 
     private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
@@ -89,6 +88,7 @@ public class FishingRodListener implements Listener {
         // 检查钓鱼竿名称是否匹配
         ItemStack fishingRod = player.getInventory().getItemInMainHand();
         ItemMeta meta = fishingRod.getItemMeta();
+        @Deprecated
         String displayName = meta != null && meta.hasDisplayName() ? meta.getDisplayName() : "";
 
         if (!displayName.equals(requiredName)) {
@@ -120,6 +120,7 @@ public class FishingRodListener implements Listener {
         }
 
         logger.info("Orbital TNT launched at: " + locationToString(location));
+        player.getInventory().setItemInMainHand(null);
     }
 
     private void spawnTNTRing(Location center, int radius) {
