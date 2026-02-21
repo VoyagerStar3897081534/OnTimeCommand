@@ -21,22 +21,8 @@
         <maven.compiler.source>21</maven.compiler.source>
         <maven.compiler.target>21</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <!-- Load external properties file -->
-        <maven.properties.file>maven.properties</maven.properties.file>
-        <!-- Version properties - major.minor.patch-packageType+yyyyMMdd+gitnumber -->
         <!-- Custom timestamp format for versioning -->
         <maven.build.timestamp.format>yyyyMMdd</maven.build.timestamp.format>
-        <!-- Define the project version format as per requirements -->
-        <!-- Conditional version suffix based on package type -->
-        <!-- For release/stable: only version-packageType -->
-        <!-- For alpha/beta: version-packageType+timestamp+buildNumber -->
-        <!--suppress UnresolvedMavenProperty -->
-        <project.version>${versionNumber}-${versionPackageType}${version.suffix}</project.version>
-        <!--suppress UnresolvedMavenProperty -->
-        <project.url>${website}</project.url>
-        <project.description>${description}</project.description>
-        <!--suppress UnresolvedMavenProperty -->
-        <project.versionAPIURL>${versionAPIURL}</project.versionAPIURL>
         <!-- JVM 参数配置以处理 Java 21 的警告 -->
         <maven.compiler.args>--add-opens java.base/java.lang=ALL-UNNAMED --add-opens
             java.base/java.lang.reflect=ALL-UNNAMED --add-opens java.base/java.util=ALL-UNNAMED --add-opens
@@ -102,45 +88,7 @@
                 </executions>
             </plugin>
 
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>properties-maven-plugin</artifactId>
-                <version>1.2.1</version>
-                <executions>
-                    <execution>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>read-project-properties</goal>
-                        </goals>
-                        <configuration>
-                            <files>
-                                <file>${project.basedir}/maven.properties</file>
-                            </files>
-                        </configuration>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.codehaus.mojo</groupId>
-                <artifactId>buildnumber-maven-plugin</artifactId>
-                <version>3.2.0</version>
-                <executions>
-                    <execution>
-                        <id>get-git-info</id>
-                        <phase>initialize</phase>
-                        <goals>
-                            <goal>create</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <doCheck>false</doCheck>
-                    <doUpdate>false</doUpdate>
-                    <revisionOnScmFailure>unknown</revisionOnScmFailure>
-                    <shortRevisionLength>8</shortRevisionLength>
-                    <buildNumberPropertyName>buildNumber</buildNumberPropertyName>
-                </configuration>
-            </plugin>
+
             <!-- Surefire 插件配置以处理测试执行时的警告 -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -158,10 +106,7 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <!--suppress UnresolvedMavenProperty -->
-                    <finalName>
-                        ${project.artifactId}-${versionNumber}-${versionPackageType}${version.suffix}
-                    </finalName>
+                    <finalName>${project.artifactId}-${project.version}</finalName>
                     <archive>
                         <manifestEntries>
                             <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
@@ -169,7 +114,7 @@
                             <Build-Jdk>${maven.compiler.target}</Build-Jdk>
                             <Build-OS>${os.name}</Build-OS>
                             <Created-By>${maven.version}</Created-By>
-                            <Git-Commit-Id>${buildNumber}</Git-Commit-Id>
+
                         </manifestEntries>
                     </archive>
                 </configuration>
@@ -226,72 +171,5 @@
         </dependency>
     </dependencies>
 
-    <profiles>
-        <!-- Release profile - no timestamp or build number -->
-        <profile>
-            <id>release</id>
-            <activation>
-                <property>
-                    <name>versionPackageType</name>
-                    <value>release</value>
-                </property>
-            </activation>
-            <properties>
-                <version.suffix/>
-            </properties>
-        </profile>
 
-        <!-- Stable profile - no timestamp or build number -->
-        <profile>
-            <id>stable</id>
-            <activation>
-                <property>
-                    <name>versionPackageType</name>
-                    <value>stable</value>
-                </property>
-            </activation>
-            <properties>
-                <version.suffix/>
-            </properties>
-        </profile>
-
-        <!-- Alpha profile - includes timestamp and build number -->
-        <profile>
-            <id>alpha</id>
-            <activation>
-                <property>
-                    <name>versionPackageType</name>
-                    <value>alpha</value>
-                </property>
-            </activation>
-            <properties>
-                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
-            </properties>
-        </profile>
-
-        <!-- Beta profile - includes timestamp and build number -->
-        <profile>
-            <id>beta</id>
-            <activation>
-                <property>
-                    <name>versionPackageType</name>
-                    <value>beta</value>
-                </property>
-            </activation>
-            <properties>
-                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
-            </properties>
-        </profile>
-
-        <!-- Default profile - includes timestamp and build number -->
-        <profile>
-            <id>default</id>
-            <activation>
-                <activeByDefault>true</activeByDefault>
-            </activation>
-            <properties>
-                <version.suffix>+${maven.build.timestamp}${buildNumber}</version.suffix>
-            </properties>
-        </profile>
-    </profiles>
 </project>
