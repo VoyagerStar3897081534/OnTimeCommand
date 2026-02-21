@@ -6,7 +6,7 @@
 
     <groupId>org.VoyagerStar</groupId>
     <artifactId>ontimecommand</artifactId>
-    <version>1.1.1</version>
+    <version>1.1.1-release</version>
     <packaging>jar</packaging>
 
     <scm>
@@ -41,24 +41,6 @@
                 <version>3.13.0</version>
                 <configuration>
                     <release>${java.version}</release>
-                    <compilerArgs>
-                        <arg>--add-opens</arg>
-                        <module>java.base/java.lang=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/java.lang.reflect=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/java.util=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/java.util.concurrent=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/sun.nio.ch=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.management=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/sun.util.calendar=ALL-UNNAMED</module>
-                        <arg>--add-opens</arg>
-                        <module>java.base/java.security=ALL-UNNAMED</module>
-                    </compilerArgs>
                 </configuration>
             </plugin>
             <plugin>
@@ -72,7 +54,6 @@
                             <goal>shade</goal>
                         </goals>
                         <configuration>
-                            <finalName>${project.artifactId}-${project.version}</finalName>
                             <filters>
                                 <filter>
                                     <artifact>*:*</artifact>
