@@ -24,6 +24,11 @@ public class FishingRodListener implements Listener {
 
     @EventHandler
     public void onPlayerFish(PlayerFishEvent event) {
+        // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
+        if (event.getState() != PlayerFishEvent.State.FISHING) {
+            return;
+        }
+
         Player player = event.getPlayer();
         ItemStack fishingRod;
 
@@ -50,13 +55,8 @@ public class FishingRodListener implements Listener {
                     .serialize(Objects.requireNonNull(fishingRod.getItemMeta().displayName()));
         }
 
-        // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
-        if (event.getState() != PlayerFishEvent.State.FISHING) {
-            return;
-        }
-
         // 如果是配置的特定名称的钓鱼竿，则不执行后续逻辑
-        if (displayName.equals(requiredName)) {
+        if (!displayName.equals(requiredName)) {
             return;
         }
 
