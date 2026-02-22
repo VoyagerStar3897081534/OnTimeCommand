@@ -1,11 +1,8 @@
 package org.VoyagerStar.onTimeCommand;
 
-import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
-import org.VoyagerStar.onTimeCommand.command.executor.ReloadOTCCommandExecutor;
-import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
-import org.VoyagerStar.onTimeCommand.command.executor.SetLanguageCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.*;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.EnableOrbitalTNTTabCompleter;
 import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
-import org.VoyagerStar.onTimeCommand.command.tabCompleter.SeeTabCompleter;
 import org.VoyagerStar.onTimeCommand.init.Initialize;
 import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.VoyagerStar.onTimeCommand.listener.FishingRodListener;
@@ -81,7 +78,7 @@ public final class OnTimeCommand extends JavaPlugin {
                 null,
                 "ontimecommand.player",
                 new SeeCommandExecutor(),
-                new SeeTabCompleter());
+                null);
 
         // 注册reloadotc命令
         this.registerCustomCommand("reloadotc",
@@ -98,6 +95,14 @@ public final class OnTimeCommand extends JavaPlugin {
                 "ontimecommand.admin",
                 new SetLanguageCommandExecutor(this),
                 null);
+
+        this.registerCustomCommand("enableorbitaltnt",
+                "Set status of onbital tnt",
+                "/enableorbitaltnt <true|false>",
+                new String[]{"enabletnt", "eot"},
+                "ontimecommand.admin",
+                new EnableOrbitalTNTCommandExecutor(this),
+                new EnableOrbitalTNTTabCompleter());
 
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
