@@ -1,11 +1,11 @@
-package org.VoyagerStar.onTimeCommand.command.executor;
+package org.VoyagerStar.pureOnTimeCommand.command.executor;
 
 import net.kyori.adventure.text.Component;
 import net.kyori.adventure.text.event.ClickEvent;
 import net.kyori.adventure.text.event.HoverEvent;
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
-import org.VoyagerStar.onTimeCommand.RunCommandOnTime;
-import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
+import org.VoyagerStar.pureOnTimeCommand.RunCommandOnTime;
+import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.configuration.ConfigurationSection;

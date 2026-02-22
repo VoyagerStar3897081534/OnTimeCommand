@@ -1,6 +1,6 @@
-package org.VoyagerStar.onTimeCommand.utils;
+package org.VoyagerStar.pureOnTimeCommand.utils;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
 
 import java.io.File;

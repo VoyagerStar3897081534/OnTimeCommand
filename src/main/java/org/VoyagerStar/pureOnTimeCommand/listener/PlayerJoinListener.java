@@ -1,9 +1,9 @@
-package org.VoyagerStar.onTimeCommand.listener;
+package org.VoyagerStar.pureOnTimeCommand.listener;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
-import org.VoyagerStar.onTimeCommand.init.Initialize;
-import org.VoyagerStar.onTimeCommand.init.VersionChecker;
-import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
+import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
+import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
+import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -62,6 +62,7 @@ public class PlayerJoinListener implements Listener {
                 player.sendMessage(langManager.getMessage("version_thanks"));
                 player.sendMessage(langManager.getMessage("version_follow"));
             }
+            player.sendMessage(langManager.getMessage("version_pure"));
         } catch (Exception e) {
             logger.warning("Failed to send version check message to OP player: " + e.getMessage());
             // 发送简化版消息

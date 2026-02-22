@@ -73,6 +73,7 @@ zh:
   version_thanks: "§7感谢使用 OnTimeCommand 插件！"
   version_follow: "§7关注作者: §bhttps://github.com/VoyagerStar3897081534"
   version_check_complete: "§6[OnTimeCommand] §7版本检查完成 (当前版本: {0})"
+  version_pure: "§7你正在使用OnTimeCommand纯净插件版本，该版本不含有TNT轨道炮功能。"
 
   # 语言提示
   lang_using: "服务器正在使用{0}语言"
@@ -163,6 +164,7 @@ en:
   version_thanks: "§7Thank you for using the OnTimeCommand plugin!"
   version_follow: "§7Follow the author: §bhttps://github.com/VoyagerStar3897081534"
   version_check_complete: "§6[OnTimeCommand] §7Version check completed (Current version: {0})"
+  version_pure: "§7You are using OnTimeCommand Pure Version,It has not Orbital TNT function."
   
   # 语言提示
   lang_using: "The server is using the {0} language"

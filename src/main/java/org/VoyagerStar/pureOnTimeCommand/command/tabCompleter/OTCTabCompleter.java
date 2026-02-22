@@ -1,6 +1,6 @@
-package org.VoyagerStar.onTimeCommand.command.tabCompleter;
+package org.VoyagerStar.pureOnTimeCommand.command.tabCompleter;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.TabCompleter;

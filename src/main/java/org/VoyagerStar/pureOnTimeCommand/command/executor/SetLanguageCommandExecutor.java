@@ -1,7 +1,7 @@
-package org.VoyagerStar.onTimeCommand.command.executor;
+package org.VoyagerStar.pureOnTimeCommand.command.executor;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
-import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
+import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;

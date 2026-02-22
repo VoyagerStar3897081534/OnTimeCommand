@@ -1,13 +1,14 @@
-package org.VoyagerStar.onTimeCommand;
+package org.VoyagerStar.pureOnTimeCommand;
 
-import org.VoyagerStar.onTimeCommand.command.executor.*;
-import org.VoyagerStar.onTimeCommand.command.tabCompleter.EnableOrbitalTNTTabCompleter;
-import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
-import org.VoyagerStar.onTimeCommand.init.Initialize;
-import org.VoyagerStar.onTimeCommand.init.VersionChecker;
-import org.VoyagerStar.onTimeCommand.listener.FishingRodListener;
-import org.VoyagerStar.onTimeCommand.listener.PlayerJoinListener;
-import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.pureOnTimeCommand.command.executor.OTCCommandExecutor;
+import org.VoyagerStar.pureOnTimeCommand.command.executor.ReloadOTCCommandExecutor;
+import org.VoyagerStar.pureOnTimeCommand.command.executor.SeeCommandExecutor;
+import org.VoyagerStar.pureOnTimeCommand.command.executor.SetLanguageCommandExecutor;
+import org.VoyagerStar.pureOnTimeCommand.command.tabCompleter.OTCTabCompleter;
+import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
+import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
+import org.VoyagerStar.pureOnTimeCommand.listener.PlayerJoinListener;
+import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
@@ -96,21 +97,9 @@ public final class OnTimeCommand extends JavaPlugin {
                 new SetLanguageCommandExecutor(this),
                 null);
 
-        this.registerCustomCommand("enableorbitaltnt",
-                "Set status of onbital tnt",
-                "/enableorbitaltnt <true|false>",
-                new String[]{"enabletnt", "eot"},
-                "ontimecommand.admin",
-                new EnableOrbitalTNTCommandExecutor(this),
-                new EnableOrbitalTNTTabCompleter());
-
         // Register and schedule timed commands
         runCommandOnTime = new RunCommandOnTime(this);
         runCommandOnTime.loadAndScheduleCommands();
-
-        // Register fishing rod listener
-        FishingRodListener fishingRodListener = new FishingRodListener(this);
-        getServer().getPluginManager().registerEvents(fishingRodListener, this);
 
         // Register player join listener
         PlayerJoinListener playerJoinListener = new PlayerJoinListener(this);
@@ -165,10 +154,6 @@ public final class OnTimeCommand extends JavaPlugin {
 
     public RunCommandOnTime getRunCommandOnTime() {
         return runCommandOnTime;
-    }
-
-    public YamlConfiguration getOrbitalTNTConfig() {
-        return orbitalTNTConfig;
     }
 
     public void loadOrbitalTNTConfig() {
