@@ -3,6 +3,8 @@
     <words>
       <w>addcommand</w>
       <w>ontimecommand</w>
+      <w>seecommand</w>
+      <w>seeinfo</w>
       <w>taskname</w>
     </words>
   </dictionary>

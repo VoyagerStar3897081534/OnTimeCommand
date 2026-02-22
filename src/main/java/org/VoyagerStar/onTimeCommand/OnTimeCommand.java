@@ -39,10 +39,10 @@ public final class OnTimeCommand extends JavaPlugin {
      */
     public static boolean checkPermission(org.bukkit.command.CommandSender sender, String permission, String permissionMessage) {
         if (sender.hasPermission(permission) || sender.isOp()) {
-            return true;
+            return false;
         }
         sender.sendMessage(permissionMessage != null ? permissionMessage : "§cYou don't have permission to use this command.");
-        return false;
+        return true;
     }
 
     @Override
@@ -81,7 +81,7 @@ public final class OnTimeCommand extends JavaPlugin {
                 null,
                 "ontimecommand.player",
                 new SeeCommandExecutor(),
-                new SeeTabCompleter(this));
+                new SeeTabCompleter());
 
         // 注册reloadotc命令
         this.registerCustomCommand("reloadotc",

@@ -21,7 +21,7 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
     @Override
     public boolean onCommand(@NotNull CommandSender sender, @NotNull Command command, @NotNull String label, String[] args) {
         // 检查权限
-        if (!OnTimeCommand.checkPermission(sender, "ontimecommand.admin",
+        if (OnTimeCommand.checkPermission(sender, "ontimecommand.admin",
                 plugin.getLanguageManager().getMessage("permission_denied"))) {
             return true;
         }
@@ -57,9 +57,6 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
             // 设置新语言
             langManager.setCurrentLanguage(newLanguage);
 
-            // 重新获取语言管理器（因为语言已改变）
-            LanguageManager newLangManager = plugin.getLanguageManager();
-
             // 发送成功消息
             sender.sendMessage("§a语言已从" + getLanguageName(currentLanguage) + "切换到" + getLanguageName(newLanguage));
             sender.sendMessage("§e语言配置已重新加载");
@@ -89,13 +86,10 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
      * @return 语言显示名称
      */
     private String getLanguageName(String languageCode) {
-        switch (languageCode.toLowerCase()) {
-            case "zh":
-                return "中文";
-            case "en":
-                return "English";
-            default:
-                return languageCode;
-        }
+        return switch (languageCode.toLowerCase()) {
+            case "zh" -> "中文";
+            case "en" -> "English";
+            default -> languageCode;
+        };
     }
 }

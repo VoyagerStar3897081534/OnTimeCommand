@@ -1,6 +1,7 @@
 package org.VoyagerStar.onTimeCommand.listener;
 
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
@@ -8,8 +9,8 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.ItemMeta;
 
+import java.util.Objects;
 import java.util.logging.Logger;
 
 public class FishingRodListener implements Listener {
@@ -22,19 +23,40 @@ public class FishingRodListener implements Listener {
     }
 
     @EventHandler
-    public void onPlayerFish(PlayerFishEvent event) throws InterruptedException {
+    public void onPlayerFish(PlayerFishEvent event) {
         Player player = event.getPlayer();
-        ItemStack fishingRod = player.getInventory().getItemInMainHand();
-        int waitTime = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.wait-time", 5000);
+        ItemStack fishingRod;
 
-        // 检查是否是钓鱼竿
-        if (fishingRod.getType() != Material.FISHING_ROD) {
+        // 检查主手是否为钓鱼竿
+        if (player.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
+            fishingRod = player.getInventory().getItemInMainHand();
+        }
+        // 检查副手是否为钓鱼竿
+        else if (player.getInventory().getItemInOffHand().getType() == Material.FISHING_ROD) {
+            fishingRod = player.getInventory().getItemInOffHand();
+        }
+        // 都不是钓鱼竿则返回
+        else {
             return;
+        }
+
+        // 获取配置的钓鱼竿名称
+        String requiredName = plugin.getOrbitalTNTConfig().getString("orbital-tnt.fishing-rod-name", "Orbital TNT");
+
+        // 获取钓鱼竿显示名称
+        String displayName = "";
+        if (fishingRod.hasItemMeta() && fishingRod.getItemMeta().hasDisplayName()) {
+            displayName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText()
+                    .serialize(Objects.requireNonNull(fishingRod.getItemMeta().displayName()));
         }
 
         // 只在抛竿时触发（STATE.FISHING表示正在抛竿）
         if (event.getState() != PlayerFishEvent.State.FISHING) {
-            Thread.sleep(waitTime);
+            return;
+        }
+
+        // 如果是配置的特定名称的钓鱼竿，则不执行后续逻辑
+        if (displayName.equals(requiredName)) {
             return;
         }
 
@@ -51,14 +73,11 @@ public class FishingRodListener implements Listener {
         executeCommandsAtLocation(lookLocation, player);
     }
 
-    private void executeCommandsAtLocation(Location location, Player player) throws InterruptedException {
+    private void executeCommandsAtLocation(Location lookLocation, Player player) {
         Location playerLocation = player.getLocation();
-        double x = playerLocation.getX();
-        double y = playerLocation.getY();
-        double z = playerLocation.getZ();
-        double dx = playerLocation.getX() - location.getX();
-        double dy = playerLocation.getY() - location.getY();
-        double dz = playerLocation.getZ() - location.getZ();
+        double dx = playerLocation.getX() - lookLocation.getX();
+        double dy = playerLocation.getY() - lookLocation.getY();
+        double dz = playerLocation.getZ() - lookLocation.getZ();
         if (dx >= 100) {
             dx = 100;
         } else if (dx <= -100) {
@@ -74,37 +93,17 @@ public class FishingRodListener implements Listener {
         } else if (dz <= -100) {
             dz = -100;
         }
-        location = location.add(x + dx, y + dy, z + dz);
+        Location centreLocation = playerLocation.add(dx, dy, dz);
         // 检查功能是否启用
         boolean enabled = plugin.getOrbitalTNTConfig().getBoolean("orbital-tnt.enabled", true);
         if (!enabled) {
             logger.info("Orbital TNT feature is disabled in configuration");
             return;
         }
-
-        // 获取配置的钓鱼竿名称
-        String requiredName = plugin.getOrbitalTNTConfig().getString("orbital-tnt.fishing-rod-name", "Orbital TNT");
-
-        // 检查钓鱼竿名称是否匹配
-        ItemStack fishingRod = player.getInventory().getItemInMainHand();
-        ItemMeta meta = fishingRod.getItemMeta();
-        @Deprecated
-        String displayName = meta != null && meta.hasDisplayName() ? meta.getDisplayName() : "";
-
-        if (!displayName.equals(requiredName)) {
-            logger.info("Fishing rod name mismatch. Expected: " + requiredName + ", Actual: " + displayName);
-            return;
-        }
-
-        // 获取配置中的命令列表
-        plugin.getOrbitalTNTConfig().getStringList("orbital-tnt.commands");
-
-        // 如果没有配置命令，则使用默认行为
-            logger.info("No commands configured, using default behavior");
-            executeDefaultOrbitalTNTBehavior(location, player);
+        executeDefaultOrbitalTNTBehavior(centreLocation, player);
     }
 
-    private void executeDefaultOrbitalTNTBehavior(Location location, Player player) throws InterruptedException {
+    private void executeDefaultOrbitalTNTBehavior(Location location, Player player) {
         int circleHeight = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-height", 20);
         int circleCount = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-count", 5);
         int circleInterval = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-interval", 5);
@@ -114,9 +113,9 @@ public class FishingRodListener implements Listener {
         location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT);
 
         for (int ring = 1; ring <= circleCount; ring++) {
-            int radius = ring * circleInterval;
-            spawnTNTRing(centerLocation, radius);
-            Thread.sleep(waitTime); // 圆环之间的小延迟
+            // 使用异步调度处理每个圆环的延迟生成
+            final int currentRing = ring;
+            Bukkit.getScheduler().runTaskLater(plugin, () -> spawnTNTRing(centerLocation, currentRing * circleInterval), (long) currentRing * waitTime);
         }
 
         logger.info("Orbital TNT launched at: " + locationToString(location));

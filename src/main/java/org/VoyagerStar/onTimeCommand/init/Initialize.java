@@ -18,7 +18,9 @@ public class Initialize {
                 properties.setProperty("git.commit.id", "unknown");
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            // 使用标准日志记录替代printStackTrace
+            java.util.logging.Logger.getLogger(Initialize.class.getName())
+                    .severe("Failed to load version properties: " + e.getMessage());
         }
     }
     
@@ -32,9 +34,5 @@ public class Initialize {
     
     public static String getGitCommitId() {
         return properties.getProperty("git.commit.id", "unknown");
-    }
-
-    public static String versionAPIURL() {
-        return properties.getProperty("project.versionAPIURL");
     }
 }

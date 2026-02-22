@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.URI;
 import java.net.URL;
 import java.util.logging.Logger;
 import java.util.regex.Matcher;
@@ -46,7 +47,7 @@ public class VersionChecker {
         try {
             // 使用GitHub API获取最新的发布版本
             String apiUrl = "https://api.github.com/repos/VoyagerStar3897081534/OnTimeCommand/releases/latest";
-            URL url = new URL(apiUrl);
+            URL url = URI.create(apiUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
             connection.setRequestMethod("GET");
