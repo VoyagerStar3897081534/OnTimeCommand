@@ -31,14 +31,17 @@ public class FishingRodListener implements Listener {
 
         Player player = event.getPlayer();
         ItemStack fishingRod;
+        String fishingRodInventory;
 
         // 检查主手是否为钓鱼竿
         if (player.getInventory().getItemInMainHand().getType() == Material.FISHING_ROD) {
             fishingRod = player.getInventory().getItemInMainHand();
+            fishingRodInventory = "main hand";
         }
         // 检查副手是否为钓鱼竿
         else if (player.getInventory().getItemInOffHand().getType() == Material.FISHING_ROD) {
             fishingRod = player.getInventory().getItemInOffHand();
+            fishingRodInventory = "off hand";
         }
         // 都不是钓鱼竿则返回
         else {
@@ -75,20 +78,20 @@ public class FishingRodListener implements Listener {
                 lookLocation.getBlockZ() + ")");
 
         // 执行相关命令
-        executeCommandsAtLocation(lookLocation, player);
+        executeCommandsAtLocation(lookLocation, player, fishingRodInventory);
     }
 
-    private void executeCommandsAtLocation(Location lookLocation, Player player) {
+    private void executeCommandsAtLocation(Location lookLocation, Player player, String fishingRodInventory) {
         // 检查功能是否启用
         boolean enabled = plugin.getOrbitalTNTConfig().getBoolean("orbital-tnt.enabled", true);
         if (!enabled) {
             logger.info("Orbital TNT feature is disabled in configuration");
             return;
         }
-        executeDefaultOrbitalTNTBehavior(lookLocation, player);
+        executeDefaultOrbitalTNTBehavior(lookLocation, player, fishingRodInventory);
     }
 
-    private void executeDefaultOrbitalTNTBehavior(Location location, Player player) {
+    private void executeDefaultOrbitalTNTBehavior(Location location, Player player, String fishingRodInventory) {
         int circleHeight = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-height", 20);
         int circleCount = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-count", 5);
         int circleInterval = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.circle-interval", 5);
@@ -104,7 +107,11 @@ public class FishingRodListener implements Listener {
         }
 
         logger.info("Orbital TNT launched at: " + locationToString(location));
-        player.getInventory().setItemInMainHand(null);
+        if (fishingRodInventory.equals("main hand")) {
+            player.getInventory().setItemInMainHand(null);
+        } else if (fishingRodInventory.equals("off hand")) {
+            player.getInventory().setItemInOffHand(null);
+        }
     }
 
     private void spawnTNTRing(Location center, int radius) {
