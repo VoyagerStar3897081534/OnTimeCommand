@@ -67,8 +67,12 @@ public class FishingRodListener implements Listener {
         if (targetBlock != null) {
             lookLocation = targetBlock.getLocation();
         } else {
-            // 如果没有看到方块，则使用眼睛位置作为备选
-            lookLocation = player.getEyeLocation();
+            // 如果没有看到方块，则使用玩家朝向方向100格的位置
+            lookLocation = player.getEyeLocation().clone();
+            // 获取玩家视线方向向量并标准化
+            org.bukkit.util.Vector direction = player.getLocation().getDirection().normalize();
+            // 在该方向上移动100格
+            lookLocation.add(direction.multiply(100));
         }
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
