@@ -10,6 +10,8 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import static org.VoyagerStar.onTimeCommand.init.Initialize.getVersionAPI;
+
 /**
  * VersionChecker 类用于检查当前插件版本和最新版本
  */
@@ -46,7 +48,7 @@ public class VersionChecker {
     public static String getLatestVersionFromRemote() {
         try {
             // 使用GitHub API获取最新的发布版本
-            String apiUrl = "https://api.github.com/repos/VoyagerStar3897081534/OnTimeCommand/releases/latest";
+            String apiUrl = getVersionAPI();
             URL url = URI.create(apiUrl).toURL();
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 

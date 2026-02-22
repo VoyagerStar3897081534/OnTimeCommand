@@ -35,4 +35,8 @@ public class Initialize {
     public static String getGitCommitId() {
         return properties.getProperty("git.commit.id", "unknown");
     }
+
+    public static String getVersionAPI() {
+        return properties.getProperty("versionAPIURL", "unknown");
+    }
 }

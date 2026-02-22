@@ -4,7 +4,6 @@ import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -62,18 +61,13 @@ public class FishingRodListener implements Listener {
         }
 
         // 获取玩家视线所看到的方块位置
-        Block targetBlock = player.getTargetBlockExact(100);
         Location lookLocation;
-        if (targetBlock != null) {
-            lookLocation = targetBlock.getLocation();
-        } else {
-            // 如果没有看到方块，则使用玩家朝向方向100格的位置
-            lookLocation = player.getEyeLocation().clone();
-            // 获取玩家视线方向向量并标准化
-            org.bukkit.util.Vector direction = player.getLocation().getDirection().normalize();
-            // 在该方向上移动100格
-            lookLocation.add(direction.multiply(100));
-        }
+        lookLocation = player.getEyeLocation().clone();
+        // 获取玩家视线方向向量并标准化
+        org.bukkit.util.Vector direction = player.getLocation().getDirection().normalize();
+        // 在该方向上移动100格
+        plugin.getOrbitalTNTConfig().getInt("orbital-tnt.release-distance", 100);
+        lookLocation.add(direction.multiply(100));
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
                 lookLocation.getWorld().getName() + " (" +
@@ -86,33 +80,13 @@ public class FishingRodListener implements Listener {
     }
 
     private void executeCommandsAtLocation(Location lookLocation, Player player) {
-        Location playerLocation = player.getLocation();
-        double dx = playerLocation.getX() - lookLocation.getX();
-        double dy = playerLocation.getY() - lookLocation.getY();
-        double dz = playerLocation.getZ() - lookLocation.getZ();
-        if (dx >= 100) {
-            dx = 100;
-        } else if (dx <= -100) {
-            dx = -100;
-        }
-        if (dy >= 100) {
-            dy = 100;
-        } else if (dy <= -100) {
-            dy = -100;
-        }
-        if (dz >= 100) {
-            dz = 100;
-        } else if (dz <= -100) {
-            dz = -100;
-        }
-        Location centreLocation = playerLocation.add(dx, dy, dz);
         // 检查功能是否启用
         boolean enabled = plugin.getOrbitalTNTConfig().getBoolean("orbital-tnt.enabled", true);
         if (!enabled) {
             logger.info("Orbital TNT feature is disabled in configuration");
             return;
         }
-        executeDefaultOrbitalTNTBehavior(centreLocation, player);
+        executeDefaultOrbitalTNTBehavior(lookLocation, player);
     }
 
     private void executeDefaultOrbitalTNTBehavior(Location location, Player player) {
