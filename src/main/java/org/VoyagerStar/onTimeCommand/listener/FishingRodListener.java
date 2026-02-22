@@ -4,6 +4,7 @@ import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
+import org.bukkit.block.Block;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -60,8 +61,15 @@ public class FishingRodListener implements Listener {
             return;
         }
 
-        // 获取释放位置;
-        Location lookLocation = player.getEyeLocation();
+        // 获取玩家视线所看到的方块位置
+        Block targetBlock = player.getTargetBlockExact(100);
+        Location lookLocation;
+        if (targetBlock != null) {
+            lookLocation = targetBlock.getLocation();
+        } else {
+            // 如果没有看到方块，则使用眼睛位置作为备选
+            lookLocation = player.getEyeLocation();
+        }
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
                 lookLocation.getWorld().getName() + " (" +
