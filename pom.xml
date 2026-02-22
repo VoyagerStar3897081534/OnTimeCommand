@@ -6,8 +6,12 @@
 
     <groupId>org.VoyagerStar</groupId>
     <artifactId>ontimecommand</artifactId>
-    <version>1.1.2-release</version>
+    <version>1.1.2</version>
     <packaging>jar</packaging>
+    <description>A powerful Minecraft Paper server plugin that allows you to automatically execute commands at set time
+        intervals.
+    </description>
+    <url>https://github.com/VoyagerStar3897081534/OnTimeCommand</url>
 
     <scm>
         <connection>scm:git:https://github.com/VoyagerStar3897081534/OnTimeCommand.git</connection>
@@ -103,7 +107,9 @@
                         <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
                         <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
                     </includeOnlyProperties>
+                    <format>properties</format>
                     <commitIdGenerationMode>full</commitIdGenerationMode>
+                    <dotGitDirectory>${project.basedir}/.git</dotGitDirectory>
                 </configuration>
             </plugin>
             <plugin>
@@ -119,7 +125,8 @@
                             <Build-Jdk>${maven.compiler.target}</Build-Jdk>
                             <Build-OS>${os.name}</Build-OS>
                             <Created-By>${maven.version}</Created-By>
-                            <Git-Commit-Id>${git.commit.id.abbrev}</Git-Commit-Id>
+                            <!--suppress UnresolvedMavenProperty -->
+                            <Build-Number>${git.commit.id.abbrev}</Build-Number>
                         </manifestEntries>
                     </archive>
                 </configuration>

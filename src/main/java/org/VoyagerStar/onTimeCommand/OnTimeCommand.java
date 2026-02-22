@@ -118,7 +118,7 @@ public final class OnTimeCommand extends JavaPlugin {
         getLogger().info(" ----------------");
         getLogger().info("Version: " + Initialize.getVersion());
         getLogger().info("Build Date: " + Initialize.getBuildDate());
-        getLogger().info("Git Commit ID: " + Initialize.getGitCommitId());
+        getLogger().info("Git Commit ID: " + Initialize.getBuildNumber());
 
         // 检查版本更新
         VersionChecker.printVersionCheckResult();

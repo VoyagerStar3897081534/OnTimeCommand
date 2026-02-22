@@ -15,7 +15,7 @@ public class Initialize {
                 // Set default values if properties file is not found
                 properties.setProperty("version", "unknown");
                 properties.setProperty("build.date", "unknown");
-                properties.setProperty("git.commit.id", "unknown");
+                properties.setProperty("buildNumber", "unknown");
             }
         } catch (IOException e) {
             // 使用标准日志记录替代printStackTrace
@@ -31,9 +31,9 @@ public class Initialize {
     public static String getBuildDate() {
         return properties.getProperty("build.date", "unknown");
     }
-    
-    public static String getGitCommitId() {
-        return properties.getProperty("git.commit.id", "unknown");
+
+    public static String getBuildNumber() {
+        return properties.getProperty("buildNumber", "unknown");
     }
 
     public static String getVersionAPI() {

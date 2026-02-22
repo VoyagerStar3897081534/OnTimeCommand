@@ -82,6 +82,10 @@
             <includeOnlyProperty>^git.commit.id.abbrev$</includeOnlyProperty>
             <includeOnlyProperty>^git.commit.time$</includeOnlyProperty>
           </includeOnlyProperties>
+            <format>properties</format>
+            <generateGitPropertiesFile>true</generateGitPropertiesFile>
+            <generateGitPropertiesFilename>${project.build.outputDirectory}/git.properties
+            </generateGitPropertiesFilename>
           <commitIdGenerationMode>full</commitIdGenerationMode>
         </configuration>
       </plugin>
@@ -96,7 +100,7 @@
               <Build-Jdk>${maven.compiler.target}</Build-Jdk>
               <Build-OS>${os.name}</Build-OS>
               <Created-By>${maven.version}</Created-By>
-              <Git-Commit-Id>${git.commit.id.abbrev}</Git-Commit-Id>
+                <Build-Number>${git.commit.id.abbrev}</Build-Number>
             </manifestEntries>
           </archive>
         </configuration>

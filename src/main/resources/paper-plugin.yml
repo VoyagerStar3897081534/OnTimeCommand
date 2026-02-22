@@ -3,6 +3,6 @@ version: '${project.version}'
 main: org.VoyagerStar.onTimeCommand.OnTimeCommand
 api-version: '1.21'
 authors: [ VoyagerStar ]
-description: ${project.description}
-website: ${project.url}
+description: '${project.description}'
+website: '${project.url}'
 icon: icon.png
