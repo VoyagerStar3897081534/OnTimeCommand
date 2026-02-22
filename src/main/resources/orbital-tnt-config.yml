@@ -20,7 +20,7 @@ orbital-tnt:
   circle-height: 5
 
   #每个圆环等待时长（毫秒）
-  per-circle-wait-time: 100
+  per-circle-wait-time: 10
 
   # 抛竿后释放的距离(格)
-  release-distance: 100
+  release-distance: 10

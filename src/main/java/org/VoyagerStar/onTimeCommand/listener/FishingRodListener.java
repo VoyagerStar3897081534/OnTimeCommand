@@ -65,9 +65,8 @@ public class FishingRodListener implements Listener {
         lookLocation = player.getEyeLocation().clone();
         // 获取玩家视线方向向量并标准化
         org.bukkit.util.Vector direction = player.getLocation().getDirection().normalize();
-        // 在该方向上移动100格
-        plugin.getOrbitalTNTConfig().getInt("orbital-tnt.release-distance", 100);
-        lookLocation.add(direction.multiply(100));
+
+        lookLocation.add(direction.multiply(plugin.getOrbitalTNTConfig().getInt("orbital-tnt.release-distance", 100)));
 
         logger.info("Player " + player.getName() + " use Costume fishing_rod ,rod location: " +
                 lookLocation.getWorld().getName() + " (" +
