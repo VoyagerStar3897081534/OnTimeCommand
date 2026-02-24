@@ -12,7 +12,7 @@ A powerful Minecraft Paper server plugin that allows you to automatically execut
 
 - ⏰ **Scheduled Command Execution** - Automatically execute Minecraft commands at specified time intervals
 - 🔧 **Flexible Command Management** - Support adding, deleting, enabling, and disabling scheduled tasks
-- 🎣 **Orbital TNT Feature** - Special fishing rod function that generates TNT explosion effects
+
 - 🔍 **Interactive Interface** - Clickable task list viewing and management
 - 🛡️ **Permission System** - Fine-grained permission control
 - 🔄 **Hot Reload** - Support configuration file hot reload without server restart
@@ -83,6 +83,20 @@ A powerful Minecraft Paper server plugin that allows you to automatically execut
 /ontimecommand seeinfo <task-name>
 ```
 
+**View All Commands**
+
+```bash
+/seecommand
+# Opens an interactive GUI showing all scheduled commands with their status
+```
+
+**Reload Configuration**
+
+```bash
+/reloadotc
+# Reloads all configuration files without restarting the server
+```
+
 ### Permission Nodes
 
 | Permission Node        | Description                    | Default     |
@@ -110,29 +124,6 @@ commands:
       - "say Items cleaned up"
     disabled: true
 ```
-
-#### Orbital TNT Configuration (`orbital-tnt-config.yml`)
-
-```yaml
-orbital-tnt:
-  enabled: true
-  fishing-rod-name: "Orbital TNT"
-  wait-time: 5000
-  circle-count: 5
-  circle-interval: 2
-  circle-height: 5
-  per-circle-wait-time: 100
-```
-
-## 🎣 Orbital TNT Feature
-
-When players use a special fishing rod named "Orbital TNT" to cast, TNT explosion effects will be generated at the
-casting position:
-
-1. Generate central TNT at the casting position
-2. Generate multiple TNT rings around the center point
-3. Each ring is spaced at certain distances and times
-4. Create spectacular chain explosion effects
 
 ## 🔧 Developer Information
 

@@ -1,13 +1,13 @@
-package org.VoyagerStar.pureOnTimeCommand.command.executor;
+package org.mscsmc.pureOnTimeCommand.command.executor;
 
-import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.mscsmc.pureOnTimeCommand.OnTimeCommand;
+import org.mscsmc.pureOnTimeCommand.utils.LanguageManager;
 
-import static org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager.reloadLanguageConfig;
+import static org.mscsmc.pureOnTimeCommand.utils.LanguageManager.reloadLanguageConfig;
 
 public class ReloadOTCCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
@@ -31,10 +31,6 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
             // 重新加载定时命令配置
             plugin.getRunCommandOnTime().loadAndScheduleCommands();
             sender.sendMessage(langManager.getMessage("reload_command_success"));
-
-            // 重新加载Orbital TNT配置
-            plugin.loadOrbitalTNTConfig();
-            sender.sendMessage(langManager.getMessage("reload_orbital_success"));
 
             // 刷新语言配置
             reloadLanguageConfig();

@@ -1,4 +1,4 @@
-package org.VoyagerStar.pureOnTimeCommand;
+package org.mscsmc.pureOnTimeCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;

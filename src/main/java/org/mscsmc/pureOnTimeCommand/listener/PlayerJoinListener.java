@@ -1,13 +1,13 @@
-package org.VoyagerStar.pureOnTimeCommand.listener;
+package org.mscsmc.pureOnTimeCommand.listener;
 
-import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
-import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerJoinEvent;
+import org.mscsmc.pureOnTimeCommand.OnTimeCommand;
+import org.mscsmc.pureOnTimeCommand.init.Initialize;
+import org.mscsmc.pureOnTimeCommand.init.VersionChecker;
+import org.mscsmc.pureOnTimeCommand.utils.LanguageManager;
 
 import java.util.logging.Logger;
 

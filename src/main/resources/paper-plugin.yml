@@ -1,6 +1,6 @@
 name: OnTimeCommand
 version: '${project.version}'
-main: org.VoyagerStar.pureOnTimeCommand.OnTimeCommand
+main: org.mscsmc.pureOnTimeCommand.OnTimeCommand
 api-version: '1.21'
 authors: [ VoyagerStar ]
 description: '${project.description}'

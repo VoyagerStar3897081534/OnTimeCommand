@@ -1,11 +1,11 @@
-package org.VoyagerStar.pureOnTimeCommand.command.executor;
+package org.mscsmc.pureOnTimeCommand.command.executor;
 
-import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.mscsmc.pureOnTimeCommand.OnTimeCommand;
+import org.mscsmc.pureOnTimeCommand.utils.LanguageManager;
 
 import java.io.File;
 import java.util.List;

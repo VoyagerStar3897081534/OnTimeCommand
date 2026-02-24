@@ -1,7 +1,7 @@
-package org.VoyagerStar.pureOnTimeCommand;
+package org.mscsmc.pureOnTimeCommand;
 
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
 import org.junit.jupiter.api.Test;
+import org.mscsmc.pureOnTimeCommand.init.VersionChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 

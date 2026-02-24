@@ -1,19 +1,19 @@
-package org.VoyagerStar.pureOnTimeCommand;
+package org.mscsmc.pureOnTimeCommand;
 
-import org.VoyagerStar.pureOnTimeCommand.command.executor.OTCCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.ReloadOTCCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.SeeCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.SetLanguageCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.tabCompleter.OTCTabCompleter;
-import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
-import org.VoyagerStar.pureOnTimeCommand.listener.PlayerJoinListener;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.NotNull;
+import org.mscsmc.pureOnTimeCommand.command.executor.OTCCommandExecutor;
+import org.mscsmc.pureOnTimeCommand.command.executor.ReloadOTCCommandExecutor;
+import org.mscsmc.pureOnTimeCommand.command.executor.SeeCommandExecutor;
+import org.mscsmc.pureOnTimeCommand.command.executor.SetLanguageCommandExecutor;
+import org.mscsmc.pureOnTimeCommand.command.tabCompleter.OTCTabCompleter;
+import org.mscsmc.pureOnTimeCommand.init.Initialize;
+import org.mscsmc.pureOnTimeCommand.init.VersionChecker;
+import org.mscsmc.pureOnTimeCommand.listener.PlayerJoinListener;
+import org.mscsmc.pureOnTimeCommand.utils.LanguageManager;
 
 import java.util.Objects;
 
