@@ -6,10 +6,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-/**
- * 语言设置命令执行器
- * 用于动态切换插件语言
- */
 public class EnableOrbitalTNTCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
 
