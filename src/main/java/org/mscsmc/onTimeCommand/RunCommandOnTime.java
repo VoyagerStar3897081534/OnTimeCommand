@@ -1,4 +1,4 @@
-package org.VoyagerStar.onTimeCommand;
+package org.mscsmc.onTimeCommand;
 
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;

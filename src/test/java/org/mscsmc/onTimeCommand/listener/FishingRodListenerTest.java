@@ -1,15 +1,15 @@
-package org.VoyagerStar.onTimeCommand.listener;
+package org.mscsmc.onTimeCommand.listener;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.io.TempDir;
+import org.mscsmc.onTimeCommand.OnTimeCommand;
 
 import java.io.File;
 import java.io.IOException;

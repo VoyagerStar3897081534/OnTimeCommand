@@ -1,7 +1,7 @@
-package org.VoyagerStar.onTimeCommand.utils;
+package org.mscsmc.onTimeCommand.utils;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.configuration.file.YamlConfiguration;
+import org.mscsmc.onTimeCommand.OnTimeCommand;
 
 import java.io.File;
 import java.io.InputStream;

@@ -1,4 +1,4 @@
-package org.VoyagerStar.onTimeCommand.init;
+package org.mscsmc.onTimeCommand.init;
 
 import java.io.IOException;
 import java.io.InputStream;

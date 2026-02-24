@@ -1,4 +1,4 @@
-package org.VoyagerStar.onTimeCommand.command.tabCompleter;
+package org.mscsmc.onTimeCommand.command.tabCompleter;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

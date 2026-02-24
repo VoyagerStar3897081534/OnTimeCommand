@@ -1,13 +1,13 @@
-package org.VoyagerStar.onTimeCommand.command.executor;
+package org.mscsmc.onTimeCommand.command.executor;
 
-import org.VoyagerStar.onTimeCommand.OnTimeCommand;
-import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
+import org.mscsmc.onTimeCommand.OnTimeCommand;
+import org.mscsmc.onTimeCommand.utils.LanguageManager;
 
-import static org.VoyagerStar.onTimeCommand.utils.LanguageManager.reloadLanguageConfig;
+import static org.mscsmc.onTimeCommand.utils.LanguageManager.reloadLanguageConfig;
 
 public class ReloadOTCCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
