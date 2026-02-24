@@ -24,3 +24,17 @@ orbital-tnt:
 
   # 抛竿后释放的距离(格)
   release-distance: 10
+  
+  # 性能优化设置
+  
+  # 每个圆环的最大TNT点数（限制服务器负载）
+  max-points-per-ring: 16
+  
+  # TNT引信时间（ticks，20 ticks = 1秒）
+  fuse-duration: 80
+  
+  # 是否禁用方块破坏（true=只产生爆炸效果，不破坏方块）
+  disable-block-damage: false
+  
+  # 每次爆炸最多影响的方块数量
+  max-blocks-affected: 100
