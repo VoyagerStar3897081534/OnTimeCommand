@@ -1,5 +1,4 @@
 # Orbital TNT 钓鱼竿配置文件
-# /give @s minecraft:fishing_rod[minecraft:custom_name=NukeTNT,minecraft:damage=1000000000,minecraft:custom_data={"is_tnt":1b}]
 
 orbital-tnt:
   # 是否启用此功能
@@ -39,17 +38,3 @@ orbital-tnt:
   
   # 每次爆炸最多影响的方块数量
   max-blocks-affected: 100
-  
-  # NBT条件设置
-  
-  # 是否启用NBT条件检查
-  enable-nbt-check: true
-  
-  # 必需的NBT布尔标签键名
-  required-nbt-boolean-key: "orbital_tnt_enabled"
-  
-  # 必需的NBT字符串标签键名
-  required-nbt-string-key: "special_type"
-  
-  # 期望的字符串标签值
-  expected-string-value: "orbital_tnt"

@@ -7,7 +7,6 @@ import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
-import org.bukkit.NamespacedKey;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -111,16 +110,6 @@ public class FishingRodListener implements Listener {
         if (fishingRod.hasItemMeta() && fishingRod.getItemMeta().hasDisplayName()) {
             displayName = net.kyori.adventure.text.serializer.plain.PlainTextComponentSerializer.plainText()
                     .serialize(Objects.requireNonNull(fishingRod.getItemMeta().displayName()));
-        }
-
-        // 获取钓鱼竿NBT键集合用于调试
-        java.util.Set<org.bukkit.NamespacedKey> nbtKeys = fishingRod.getItemMeta().getPersistentDataContainer().getKeys();
-
-
-        // 检查是否包含特定的NBT条件
-        boolean hasRequiredNBT = checkRequiredNBT(fishingRod);
-        if (!hasRequiredNBT) {
-            return;
         }
 
         // 如果是配置的特定名称的钓鱼竿，则不执行后续逻辑
@@ -304,54 +293,5 @@ public class FishingRodListener implements Listener {
 
         // 记录优化信息
         logger.info("Optimized Orbital TNT explosion: " + event.blockList().size() + " blocks affected");
-    }
-
-    /**
-     * 检查钓鱼竿是否包含必需的NBT标签
-     *
-     * @param fishingRod 钓鱼竿物品
-     * @return 是否满足NBT条件
-     */
-    private boolean checkRequiredNBT(ItemStack fishingRod) {
-        if (!fishingRod.hasItemMeta()) {
-            return false;
-        }
-
-        org.bukkit.persistence.PersistentDataContainer container =
-                fishingRod.getItemMeta().getPersistentDataContainer();
-
-        NamespacedKey isTNT = new NamespacedKey(plugin, "is_tnt");
-
-        if (container.has(isTNT, org.bukkit.persistence.PersistentDataType.BOOLEAN)) {
-            Boolean value = container.get(isTNT, org.bukkit.persistence.PersistentDataType.BOOLEAN);
-            return value != null && value;
-        }
-
-        // 检查是否包含特定的NBT键
-        // org.bukkit.NamespacedKey requiredKey = new org.bukkit.NamespacedKey(
-        //     plugin, "orbital_tnt_enabled");
-
-        // 检查布尔值NBT标签
-        // if (container.has(requiredKey, org.bukkit.persistence.PersistentDataType.BOOLEAN)) {
-        //     Boolean value = container.get(requiredKey, org.bukkit.persistence.PersistentDataType.BOOLEAN);
-        //     if (value != null && value) {
-        //         logger.info("Found required NBT tag: " + requiredKey.toString() + " = " + value);
-        //         return true;
-        //     }
-        // }
-
-        // 也可以检查其他类型的NBT标签
-        // org.bukkit.NamespacedKey stringKey = new org.bukkit.NamespacedKey(
-        //     plugin, "");
-
-        // if (container.has(stringKey, org.bukkit.persistence.PersistentDataType.STRING)) {
-        //     String value = container.get(stringKey, org.bukkit.persistence.PersistentDataType.STRING);
-        //     if ("orbital_tnt".equals(value)) {
-        //         logger.info("Found string NBT tag: " + stringKey.toString() + " = " + value);
-        //         return true;
-        //     }
-        // }
-
-        return false;
     }
 }
