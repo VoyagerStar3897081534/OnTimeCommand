@@ -15,7 +15,7 @@ intervalles de temps définis.
   spécifiés
 - 🔧 **Gestion flexible des commandes** - Prise en charge de l'ajout, de la suppression, de l'activation et de la
   désactivation des tâches planifiées
-- 🎣 **Fonction Orbital TNT** - Fonction spéciale de canne à pêche qui génère des effets d'explosion TNT
+
 - 🔍 **Interface interactive** - Liste de tâches cliquable pour consultation et gestion
 - 🛡️ **Système de permissions** - Contrôle granulaire des permissions
 - 🔄 **Rechargement à chaud** - Prise en charge du rechargement à chaud des fichiers de configuration sans redémarrage du
@@ -87,6 +87,20 @@ intervalles de temps définis.
 /ontimecommand seeinfo <nom-tâche>
 ```
 
+**Voir toutes les commandes**
+
+```bash
+/seecommand
+# Ouvre une interface graphique interactive montrant toutes les commandes planifiées avec leur statut
+```
+
+**Recharger la configuration**
+
+```bash
+/reloadotc
+# Recharge tous les fichiers de configuration sans redémarrer le serveur
+```
+
 ### Nœuds de permission
 
 | Nœud de permission     | Description                                         | Par défaut       |
@@ -114,29 +128,6 @@ commands:
       - "say Objets nettoyés"
     disabled: true
 ```
-
-#### Configuration Orbital TNT (`orbital-tnt-config.yml`)
-
-```yaml
-orbital-tnt:
-  enabled: true
-  fishing-rod-name: "Orbital TNT"
-  wait-time: 5000
-  circle-count: 5
-  circle-interval: 2
-  circle-height: 5
-  per-circle-wait-time: 100
-```
-
-## 🎣 Fonction Orbital TNT
-
-Lorsque les joueurs utilisent une canne à pêche spéciale nommée "Orbital TNT" pour lancer, des effets d'explosion TNT
-seront générés à la position de lancement :
-
-1. Générer un TNT central à la position de lancement
-2. Générer plusieurs anneaux TNT autour du point central
-3. Chaque anneau est espacé à certaines distances et moments
-4. Créer des effets spectaculaires d'explosions en chaîne
 
 ## 🔧 Informations développeur
 
