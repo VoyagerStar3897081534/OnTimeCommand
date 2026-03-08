@@ -62,6 +62,7 @@ public class PlayerJoinListener implements Listener {
                 player.sendMessage(langManager.getMessage("version_thanks"));
                 player.sendMessage(langManager.getMessage("version_follow"));
             }
+            player.sendMessage(langManager.getMessage("version_pure"));
         } catch (Exception e) {
             logger.warning("Failed to send version check message to OP player: " + e.getMessage());
             // 发送简化版消息
