@@ -14,7 +14,7 @@ tiempo establecidos.
 - ⏰ **Ejecución de comandos programados** - Ejecuta automáticamente comandos de Minecraft en intervalos de tiempo
   especificados
 - 🔧 **Gestión flexible de comandos** - Soporta agregar, eliminar, habilitar y deshabilitar tareas programadas
-
+- 🎣 **Función Orbital TNT** - Función especial de caña de pescar que genera efectos de explosión TNT
 - 🔍 **Interfaz interactiva** - Lista de tareas cliqueable para consulta y gestión
 - 🛡️ **Sistema de permisos** - Control de permisos granular
 - 🔄 **Recarga en caliente** - Soporta recarga en caliente de archivos de configuración sin reiniciar el servidor
@@ -85,20 +85,6 @@ tiempo establecidos.
 /ontimecommand seeinfo <nombre-tarea>
 ```
 
-**Ver todas las comandos**
-
-```bash
-/seecommand
-# Abre una interfaz gráfica interactiva mostrando todos los comandos programados con su estado
-```
-
-**Recargar configuración**
-
-```bash
-/reloadotc
-# Recarga todos los archivos de configuración sin reiniciar el servidor
-```
-
 ### Nodos de permiso
 
 | Nodo de permiso        | Descripción                               | Por defecto         |
@@ -126,6 +112,29 @@ commands:
       - "say Objetos limpiados"
     disabled: true
 ```
+
+#### Configuración Orbital TNT (`orbital-tnt-config.yml`)
+
+```yaml
+orbital-tnt:
+  enabled: true
+  fishing-rod-name: "Orbital TNT"
+  wait-time: 5000
+  circle-count: 5
+  circle-interval: 2
+  circle-height: 5
+  per-circle-wait-time: 100
+```
+
+## 🎣 Función Orbital TNT
+
+Cuando los jugadores usan una caña de pescar especial llamada "Orbital TNT" para lanzar, se generarán efectos de
+explosión TNT en la posición de lanzamiento:
+
+1. Generar TNT central en la posición de lanzamiento
+2. Generar múltiples anillos TNT alrededor del punto central
+3. Cada anillo está espaciado a ciertas distancias y momentos
+4. Crear efectos espectaculares de explosiones en cadena
 
 ## 🔧 Información del desarrollador
 

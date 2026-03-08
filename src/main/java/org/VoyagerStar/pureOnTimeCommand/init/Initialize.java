@@ -1,4 +1,4 @@
-package org.mscsmc.pureOnTimeCommand.init;
+package org.VoyagerStar.pureOnTimeCommand.init;
 
 import java.io.IOException;
 import java.io.InputStream;

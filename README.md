@@ -12,6 +12,7 @@
 
 - ⏰ **定时命令执行** - 按指定时间间隔自动执行Minecraft命令
 - 🔧 **灵活的命令管理** - 支持添加、删除、启用、禁用定时任务
+- 🎣 **Orbital TNT功能** - 特殊的钓鱼竿功能，可生成TNT爆炸效果
 - 🔍 **交互式界面** - 可点击的任务列表查看和管理
 - 🛡️ **权限系统** - 细粒度的权限控制
 - 🔄 **热重载** - 支持配置文件热重载，无需重启服务器
@@ -110,6 +111,28 @@ commands:
     disabled: true
 ```
 
+#### Orbital TNT配置 (`orbital-tnt-config.yml`)
+
+```yaml
+orbital-tnt:
+  enabled: true
+  fishing-rod-name: "Orbital TNT"
+  wait-time: 5000
+  circle-count: 5
+  circle-interval: 2
+  circle-height: 5
+  per-circle-wait-time: 100
+```
+
+## 🎣 Orbital TNT 功能
+
+当玩家使用名为"Orbital TNT"的特殊钓鱼竿抛竿时，会在抛竿位置生成TNT爆炸效果：
+
+1. 在抛竿位置生成中心TNT
+2. 围绕中心点生成多个TNT圆环
+3. 每个圆环间隔一定距离和时间
+4. 创建壮观的连锁爆炸效果
+
 ## 🔧 开发者信息
 
 ### 构建项目
@@ -120,6 +143,21 @@ git clone https://github.com/VoyagerStar3897081534/OnTimeCommand.git
 cd OnTimeCommand
 
 # 构建项目
+mvn clean package
+```
+
+### Maven配置
+
+项目使用Maven进行构建管理，支持多种构建配置：
+
+```bash
+# 发布稳定版本
+mvn clean package -DversionPackageType=release
+
+# 发布测试版本
+mvn clean package -DversionPackageType=beta
+
+# 开发版本（默认）
 mvn clean package
 ```
 
