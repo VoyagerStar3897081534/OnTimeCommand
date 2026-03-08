@@ -32,10 +32,6 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
             plugin.getRunCommandOnTime().loadAndScheduleCommands();
             sender.sendMessage(langManager.getMessage("reload_command_success"));
 
-            // 重新加载Orbital TNT配置
-            plugin.loadOrbitalTNTConfig();
-            sender.sendMessage(langManager.getMessage("reload_orbital_success"));
-
             // 刷新语言配置
             reloadLanguageConfig();
             sender.sendMessage(langManager.getMessage("reload_language_success"));
