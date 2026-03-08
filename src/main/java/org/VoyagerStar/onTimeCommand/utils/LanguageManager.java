@@ -8,6 +8,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
 import java.text.MessageFormat;
+import java.util.Arrays;
 import java.util.logging.Logger;
 
 /**
@@ -101,9 +102,18 @@ public class LanguageManager {
     }
 
     /**
+     * 获取语言列表
+     *
+     * @return 语言列表
+     */
+    public String[] getLanguageList() {
+        return languageConfig.getKeys(false).toArray(new String[0]);
+    }
+
+    /**
      * 获取当前语言代码
      *
-     * @return 语言代码 (zh 或 en)
+     * @return 语言代码
      */
     public String getCurrentLanguage() {
         return currentLanguage;
@@ -112,10 +122,10 @@ public class LanguageManager {
     /**
      * 设置当前语言
      *
-     * @param language 语言代码 (zh 或 en)
+     * @param language 语言代码
      */
     public void setCurrentLanguage(String language) {
-        if ("zh".equals(language) || "en".equals(language)) {
+        if (Arrays.asList(plugin.getLanguageManager().getLanguageList()).contains(language)) {
             currentLanguage = language;
             languageConfig.set("language", language);
 
@@ -128,7 +138,7 @@ public class LanguageManager {
                 logger.severe("Failed to save language configuration: " + e.getMessage());
             }
         } else {
-            logger.warning("Invalid language code: " + language + ". Supported languages: zh, en");
+            logger.warning("Invalid language code: " + language + ". Supported languages:" + Arrays.toString(plugin.getLanguageManager().getLanguageList()));
         }
     }
 }
