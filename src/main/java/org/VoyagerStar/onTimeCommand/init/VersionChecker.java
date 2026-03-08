@@ -1,4 +1,4 @@
-package org.mscsmc.onTimeCommand.init;
+package org.VoyagerStar.onTimeCommand.init;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -10,7 +10,7 @@ import java.util.logging.Logger;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static org.mscsmc.onTimeCommand.init.Initialize.getVersionAPI;
+import static org.VoyagerStar.onTimeCommand.init.Initialize.getVersionAPI;
 
 /**
  * VersionChecker 类用于检查当前插件版本和最新版本

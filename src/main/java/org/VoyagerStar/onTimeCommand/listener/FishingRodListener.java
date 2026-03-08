@@ -1,8 +1,9 @@
-package org.mscsmc.onTimeCommand.listener;
+package org.VoyagerStar.onTimeCommand.listener;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -12,7 +13,6 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerFishEvent;
 import org.bukkit.inventory.ItemStack;
-import org.mscsmc.onTimeCommand.OnTimeCommand;
 
 import java.io.File;
 import java.io.FileWriter;
