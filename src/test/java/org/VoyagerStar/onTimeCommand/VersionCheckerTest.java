@@ -1,7 +1,7 @@
-package org.mscsmc.onTimeCommand;
+package org.VoyagerStar.onTimeCommand;
 
+import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.junit.jupiter.api.Test;
-import org.mscsmc.onTimeCommand.init.VersionChecker;
 
 import static org.junit.jupiter.api.Assertions.*;
 
