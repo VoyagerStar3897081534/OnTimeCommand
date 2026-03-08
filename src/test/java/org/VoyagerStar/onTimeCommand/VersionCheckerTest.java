@@ -1,6 +1,6 @@
-package org.VoyagerStar.pureOnTimeCommand;
+package org.VoyagerStar.onTimeCommand;
 
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
+import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.junit.jupiter.api.Test;
 
 import static org.junit.jupiter.api.Assertions.*;

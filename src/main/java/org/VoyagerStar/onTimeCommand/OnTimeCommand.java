@@ -1,14 +1,14 @@
-package org.VoyagerStar.pureOnTimeCommand;
+package org.VoyagerStar.onTimeCommand;
 
-import org.VoyagerStar.pureOnTimeCommand.command.executor.OTCCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.ReloadOTCCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.SeeCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.executor.SetLanguageCommandExecutor;
-import org.VoyagerStar.pureOnTimeCommand.command.tabCompleter.OTCTabCompleter;
-import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
-import org.VoyagerStar.pureOnTimeCommand.listener.PlayerJoinListener;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.onTimeCommand.command.executor.OTCCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.ReloadOTCCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.SeeCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.executor.SetLanguageCommandExecutor;
+import org.VoyagerStar.onTimeCommand.command.tabCompleter.OTCTabCompleter;
+import org.VoyagerStar.onTimeCommand.init.Initialize;
+import org.VoyagerStar.onTimeCommand.init.VersionChecker;
+import org.VoyagerStar.onTimeCommand.listener.PlayerJoinListener;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.TabCompleter;

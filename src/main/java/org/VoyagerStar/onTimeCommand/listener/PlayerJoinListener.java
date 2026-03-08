@@ -1,9 +1,9 @@
-package org.VoyagerStar.pureOnTimeCommand.listener;
+package org.VoyagerStar.onTimeCommand.listener;
 
-import org.VoyagerStar.pureOnTimeCommand.OnTimeCommand;
-import org.VoyagerStar.pureOnTimeCommand.init.Initialize;
-import org.VoyagerStar.pureOnTimeCommand.init.VersionChecker;
-import org.VoyagerStar.pureOnTimeCommand.utils.LanguageManager;
+import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.onTimeCommand.init.Initialize;
+import org.VoyagerStar.onTimeCommand.init.VersionChecker;
+import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
