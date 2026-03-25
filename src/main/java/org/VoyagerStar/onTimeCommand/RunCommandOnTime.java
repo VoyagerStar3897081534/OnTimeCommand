@@ -1,10 +1,10 @@
 package org.VoyagerStar.onTimeCommand;
 
+import org.VoyagerStar.onTimeCommand.utils.FoliaScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.plugin.java.JavaPlugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import java.io.File;
 import java.io.InputStream;
@@ -14,7 +14,7 @@ import java.util.*;
 
 public class RunCommandOnTime {
     private final JavaPlugin plugin;
-    private final Map<String, BukkitTask> scheduledTasks = new HashMap<>();
+    private final Map<String, Object> scheduledTasks = new HashMap<>();
     private File configFile;
     private YamlConfiguration commandConfig;
 
@@ -59,16 +59,16 @@ public class RunCommandOnTime {
                 if (interval > 0 && !commands.isEmpty()) {
                     // Cancel existing task if present
                     if (scheduledTasks.containsKey(commandName)) {
-                        scheduledTasks.get(commandName).cancel();
+                        FoliaScheduler.cancelTask(scheduledTasks.get(commandName));
                     }
 
-                    // Schedule new task
-                    BukkitTask task = Bukkit.getScheduler().runTaskTimer(plugin, () -> {
+                    // Schedule new task using cross-platform scheduler
+                    Object task = FoliaScheduler.runAtFixedRate(plugin, () -> {
                         for (String cmd : commands) {
                             Bukkit.dispatchCommand(Bukkit.getConsoleSender(), cmd);
                         }
                         plugin.getLogger().info("Executed scheduled command group: " + commandName);
-                    }, interval * 20L, interval * 20L); // Convert seconds to ticks (20 ticks = 1 second)
+                    }, interval * 20L, interval * 20L);
 
                     scheduledTasks.put(commandName, task);
                     plugin.getLogger().info("Scheduled command group '" + commandName + "' to run every " + interval + " seconds");
@@ -82,7 +82,7 @@ public class RunCommandOnTime {
     }
 
     public void cancelAllTasks() {
-        scheduledTasks.values().forEach(BukkitTask::cancel);
+        scheduledTasks.values().forEach(FoliaScheduler::cancelTask);
         scheduledTasks.clear();
         plugin.getLogger().info("Cancelled all scheduled tasks");
     }
@@ -94,7 +94,7 @@ public class RunCommandOnTime {
                 commandConfig.save(configFile);
                 // Cancel the scheduled task if it's running
                 if (scheduledTasks.containsKey(taskName)) {
-                    scheduledTasks.get(taskName).cancel();
+                    FoliaScheduler.cancelTask(scheduledTasks.get(taskName));
                     scheduledTasks.remove(taskName);
                 }
                 return true;
@@ -126,7 +126,7 @@ public class RunCommandOnTime {
         if (commandConfig.contains("commands." + taskName)) {
             // Cancel the scheduled task if it's running
             if (scheduledTasks.containsKey(taskName)) {
-                scheduledTasks.get(taskName).cancel();
+                FoliaScheduler.cancelTask(scheduledTasks.get(taskName));
                 scheduledTasks.remove(taskName);
             }
             

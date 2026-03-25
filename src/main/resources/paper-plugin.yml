@@ -6,3 +6,4 @@ authors: [ VoyagerStar ]
 description: '${project.description}'
 website: '${project.url}'
 icon: icon.png
+folia-supported: true

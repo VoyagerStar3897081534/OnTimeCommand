@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
+import org.VoyagerStar.onTimeCommand.utils.FoliaScheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
@@ -113,9 +114,6 @@ public class FishingRodListener implements Listener {
                     .serialize(Objects.requireNonNull(fishingRod.getItemMeta().displayName()));
         }
 
-        // 获取钓鱼竿NBT键集合用于调试
-        java.util.Set<org.bukkit.NamespacedKey> nbtKeys = fishingRod.getItemMeta().getPersistentDataContainer().getKeys();
-
 
         // 检查是否包含特定的NBT条件
         boolean hasRequiredNBT = checkRequiredNBT(fishingRod);
@@ -157,12 +155,14 @@ public class FishingRodListener implements Listener {
         int waitTime = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.per-circle-wait-time", 100);
 
         Location centerLocation = location.clone().add(0, circleHeight, 0);
-        location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT);
+
+        // Use cross-platform scheduler for TNT spawning
+        FoliaScheduler.runAtLocation(plugin, centerLocation, () -> location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT));
 
         for (int ring = 1; ring <= circleCount; ring++) {
             // 使用异步调度处理每个圆环的延迟生成
             final int currentRing = ring;
-            Bukkit.getScheduler().runTaskLater(plugin, () -> spawnTNTRing(centerLocation, currentRing * circleInterval), (long) currentRing * waitTime);
+            FoliaScheduler.runDelayed(plugin, () -> spawnTNTRing(centerLocation, currentRing * circleInterval), (long) currentRing * waitTime);
         }
 
         if (fishingRodInventory.equals("main hand")) {
@@ -231,7 +231,7 @@ public class FishingRodListener implements Listener {
     }
     
     private void spawnTNTRing(Location center, int radius) {
-        // 在指定半径的圆环上生成TNT
+        // 在指定半径的圆环上生成 TNT
         int points = Math.max(8, radius * 2); // 根据半径确定点数
 
         // 限制最大点数以减少服务器负载
@@ -244,8 +244,8 @@ public class FishingRodListener implements Listener {
 
             Location tntLocation = new Location(center.getWorld(), x, center.getY(), z);
 
-            // 使用异步调度来减轻主线程压力
-            Bukkit.getScheduler().runTask(plugin, () -> {
+            // 使用跨平台调度来减轻主线程压力
+            FoliaScheduler.runAtLocation(plugin, tntLocation, () -> {
                 org.bukkit.entity.TNTPrimed tnt = (org.bukkit.entity.TNTPrimed)
                         center.getWorld().spawnEntity(tntLocation, org.bukkit.entity.EntityType.TNT);
 
@@ -272,14 +272,14 @@ public class FishingRodListener implements Listener {
      */
     private void optimizeExplosionEffects(org.bukkit.entity.TNTPrimed tnt) {
         // 注册爆炸事件监听器来进行优化
-        Bukkit.getPluginManager().registerEvents(new org.bukkit.event.Listener() {
-            @org.bukkit.event.EventHandler(priority = org.bukkit.event.EventPriority.HIGH)
+        FoliaScheduler.runNextTick(plugin, () -> Bukkit.getPluginManager().registerEvents(new Listener() {
+            @EventHandler(priority = org.bukkit.event.EventPriority.HIGH)
             public void onEntityExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
                 if (event.getEntity().equals(tnt)) {
                     optimizeExplosion(event);
                 }
             }
-        }, plugin);
+        }, plugin));
     }
 
     /**

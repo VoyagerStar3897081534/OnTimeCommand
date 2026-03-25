@@ -7,6 +7,7 @@ import org.VoyagerStar.onTimeCommand.init.Initialize;
 import org.VoyagerStar.onTimeCommand.init.VersionChecker;
 import org.VoyagerStar.onTimeCommand.listener.FishingRodListener;
 import org.VoyagerStar.onTimeCommand.listener.PlayerJoinListener;
+import org.VoyagerStar.onTimeCommand.utils.FoliaScheduler;
 import org.VoyagerStar.onTimeCommand.utils.LanguageManager;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
@@ -124,6 +125,13 @@ public final class OnTimeCommand extends JavaPlugin {
         getLogger().info("Version: " + Initialize.getVersion());
         getLogger().info("Build Date: " + Initialize.getBuildDate());
         getLogger().info("Git Commit ID: " + Initialize.getBuildNumber());
+
+        // Log Folia support status
+        if (FoliaScheduler.isFolia()) {
+            getLogger().info("✓ Running on Folia with multi-threading support enabled!");
+        } else {
+            getLogger().info("✓ Running on Paper/Spigot with standard scheduler");
+        }
 
         // 检查版本更新
         VersionChecker.printVersionCheckResult();
