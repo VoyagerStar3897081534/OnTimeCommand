@@ -30,8 +30,8 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
 
         // 检查参数
         if (args.length < 1) {
-            sender.sendMessage("§c用法: /otcsetlang <zh|en>");
-            sender.sendMessage("§e可用语言: zh(中文), en(English)");
+            sender.sendMessage(langManager.getMessage("language_setlang_usage"));
+            sender.sendMessage(langManager.getMessage("language_available"));
             return true;
         }
 
@@ -39,8 +39,8 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
 
         // 验证语言代码
         if (!isValidLanguage(newLanguage)) {
-            sender.sendMessage("§c无效的语言代码: " + newLanguage);
-            sender.sendMessage("§e请使用: zh(中文) 或 en(English)");
+            sender.sendMessage(langManager.getMessage("language_invalid_code", newLanguage));
+            sender.sendMessage(langManager.getMessage("language_please_use"));
             return true;
         }
 
@@ -49,7 +49,7 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
 
         // 如果语言相同，不需要更改
         if (currentLanguage.equals(newLanguage)) {
-            sender.sendMessage("§e语言已经是" + getLanguageName(newLanguage) + "了");
+            sender.sendMessage(langManager.getMessage("language_already_set", getLanguageName(newLanguage)));
             return true;
         }
 
@@ -58,11 +58,11 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
             langManager.setCurrentLanguage(newLanguage);
 
             // 发送成功消息
-            sender.sendMessage("§a语言已从" + getLanguageName(currentLanguage) + "切换到" + getLanguageName(newLanguage));
-            sender.sendMessage("§e语言配置已重新加载");
+            sender.sendMessage(langManager.getMessage("language_switched", getLanguageName(currentLanguage), getLanguageName(newLanguage)));
+            sender.sendMessage(langManager.getMessage("language_reloaded"));
 
         } catch (Exception e) {
-            sender.sendMessage("§c切换语言失败: " + e.getMessage());
+            sender.sendMessage(langManager.getMessage("language_switch_failed", e.getMessage()));
             plugin.getLogger().severe("Failed to change language: " + e.getMessage());
         }
 
@@ -76,7 +76,9 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
      * @return 是否有效
      */
     private boolean isValidLanguage(String language) {
-        return "zh".equals(language) || "en".equals(language);
+        return "zh".equals(language) || "en".equals(language) ||
+                "fr".equals(language) || "ru".equals(language) ||
+                "es".equals(language) || "ar".equals(language);
     }
 
     /**
@@ -89,6 +91,10 @@ public class SetLanguageCommandExecutor implements CommandExecutor {
         return switch (languageCode.toLowerCase()) {
             case "zh" -> "中文";
             case "en" -> "English";
+            case "fr" -> "Français";
+            case "ru" -> "Русский";
+            case "es" -> "Español";
+            case "ar" -> "العربية";
             default -> languageCode;
         };
     }

@@ -42,6 +42,8 @@ zh:
   task_failed_to_add: "§c添加任务失败: {0}"
   usage_addcommand: "§c用法: /ontimecommand addcommand <任务> [命令1] [命令2] [命令3] ... (使用 _ 代替空格或用双引号包裹命令)"
   example_addcommand: "§c示例: /ontimecommand addcommand 我的任务 \"say 你好\" \"title @a title 欢迎\""
+  usage_deletecommand: "§c用法: /ontimecommand deletecommand <任务> <命令编号>"
+  example_deletecommand: "§c示例: /ontimecommand deletecommand 我的任务 1"
   no_commands_to_add: "§c没有要添加的命令！"
   commands_successfully_added: "§a成功向任务 '{0}' 添加了 {1} 个命令"
   commands_failed_to_add: "§c向任务 '{0}' 添加命令失败"
@@ -75,8 +77,20 @@ zh:
   version_check_complete: "§6[OnTimeCommand] §7版本检查完成 (当前版本: {0})"
   version_pure: "§7你正在使用OnTimeCommand纯净插件版本，该版本不含有TNT轨道炮功能。"
 
-  # 语言提示
-  lang_using: "服务器正在使用{0}语言"
+  # Orbital TNT 相关消息
+  orbital_tnt_usage: "§c用法: /enableorbitaltnt <true|false>"
+  orbital_tnt_updated: "§aOrbital TNT 状态已更新并保存: {0}"
+  orbital_tnt_save_failed: "§c保存配置失败: {0}"
+  
+  # 语言设置相关消息
+  language_setlang_usage: "§c用法: /otcsetlang <zh|en|fr|ru|es|ar>"
+  language_available: "§e可用语言: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§c无效的语言代码: {0}"
+  language_please_use: "§e请使用: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§e语言已经是{0}了"
+  language_switched: "§a语言已从{0}切换到{1}"
+  language_reloaded: "§e语言配置已重新加载"
+  language_switch_failed: "§c切换语言失败: {0}"
 
   # 重载命令相关消息
   reload_start: "§6正在重新加载所有配置文件..."
@@ -133,6 +147,8 @@ fr:
   task_failed_to_add: "§cÉchec de l'ajout de la tâche: {0}"
   usage_addcommand: "§cUtilisation: /ontimecommand addcommand <tâche> [commande1] [commande2] [commande3] ... (Utilisez _ pour les espaces ou entourez les commandes de guillemets)"
   example_addcommand: "§cExemple: /ontimecommand addcommand maTache \"say Bonjour\" \"title @a title Bienvenue\""
+  usage_deletecommand: "§cUtilisation: /ontimecommand deletecommand <tâche> <numéroCommande>"
+  example_deletecommand: "§cExemple: /ontimecommand deletecommand maTache 1"
   no_commands_to_add: "§cAucune commande à ajouter !"
   commands_successfully_added: "§a{1} commandes ajoutées avec succès à la tâche '{0}'"
   commands_failed_to_add: "§cÉchec de l'ajout des commandes à la tâche: {0}"
@@ -166,8 +182,23 @@ fr:
   version_check_complete: "§6[OnTimeCommand] §7Vérification de version terminée (Version actuelle: {0})"
   version_pure: "§7Vous utilisez la version Pure d'OnTimeCommand, elle ne contient pas la fonctionnalité Orbital TNT."
 
+  # Orbital TNT related messages
+  orbital_tnt_usage: "§cUsage: /enableorbitaltnt <true|false>"
+  orbital_tnt_updated: "§aOrbital TNT status updated and saved: {0}"
+  orbital_tnt_save_failed: "§cFailed to save config: {0}"
+  
+  # Language settings related messages
+  language_setlang_usage: "§cUsage: /otcsetlang <zh|en|fr|ru|es|ar>"
+  language_available: "§eAvailable languages: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§cInvalid language code: {0}"
+  language_please_use: "§ePlease use: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§eLanguage is already {0}"
+  language_switched: "§aLanguage switched from {0} to {1}"
+  language_reloaded: "§eLanguage configuration reloaded"
+  language_switch_failed: "§cFailed to switch language: {0}"
+  
   # Language prompt
-  lang_using: "Le serveur utilise la langue {0}"
+  lang_using: "The server is using the {0} language"
 
   # Reload command related messages
   reload_start: "§6Rechargement de tous les fichiers de configuration..."
@@ -224,6 +255,8 @@ ru:
   task_failed_to_add: "§cНе удалось добавить задачу: {0}"
   usage_addcommand: "§cИспользование: /ontimecommand addcommand <задача> [команда1] [команда2] [команда3] ... (Используйте _ для пробелов или заключите команды в кавычки)"
   example_addcommand: "§cПример: /ontimecommand addcommand мояЗадача \"say Привет\" \"title @a title Добро пожаловать\""
+  usage_deletecommand: "§cИспользование: /ontimecommand deletecommand <задача> <номерКоманды>"
+  example_deletecommand: "§cПример: /ontimecommand deletecommand мояЗадача 1"
   no_commands_to_add: "§cНет команд для добавления!"
   commands_successfully_added: "§aУспешно добавлено {1} команд к задаче '{0}'"
   commands_failed_to_add: "§cНе удалось добавить команды к задаче: {0}"
@@ -257,6 +290,21 @@ ru:
   version_check_complete: "§6[OnTimeCommand] §7Проверка версии завершена (Текущая версия: {0})"
   version_pure: "§7Вы используете чистую версию OnTimeCommand, в ней нет функции Orbital TNT."
 
+  # Orbital TNT related messages
+  orbital_tnt_usage: "§cИспользование: /enableorbitaltnt <true|false>"
+  orbital_tnt_updated: "§aСтатус Orbital TNT обновлен и сохранен: {0}"
+  orbital_tnt_save_failed: "§cНе удалось сохранить конфигурацию: {0}"
+  
+  # Language settings related messages
+  language_setlang_usage: "§cИспользование: /otcsetlang <zh|en|fr|ru|es|ar>"
+  language_available: "§eДоступные языки: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§cНеверный код языка: {0}"
+  language_please_use: "§eПожалуйста используйте: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§eЯзык уже установлен на {0}"
+  language_switched: "§aЯзык переключен с {0} на {1}"
+  language_reloaded: "§eЯзыковая конфигурация перезагружена"
+  language_switch_failed: "§cНе удалось переключить язык: {0}"
+  
   # Language prompt
   lang_using: "Сервер использует язык {0}"
 
@@ -315,6 +363,8 @@ es:
   task_failed_to_add: "§cError al agregar la tarea: {0}"
   usage_addcommand: "§cUso: /ontimecommand addcommand <tarea> [comando1] [comando2] [comando3] ... (Usa _ para espacios o envuelve los comandos entre comillas)"
   example_addcommand: "§cEjemplo: /ontimecommand addcommand miTarea \"say Hola\" \"title @a title Bienvenido\""
+  usage_deletecommand: "§cUso: /ontimecommand deletecommand <tarea> <númeroComando>"
+  example_deletecommand: "§cEjemplo: /ontimecommand deletecommand miTarea 1"
   no_commands_to_add: "§c¡No hay comandos para agregar!"
   commands_successfully_added: "§aSe agregaron {1} comandos exitosamente a la tarea '{0}'"
   commands_failed_to_add: "§cError al agregar comandos a la tarea: {0}"
@@ -348,6 +398,21 @@ es:
   version_check_complete: "§6[OnTimeCommand] §7Verificación de versión completada (Versión actual: {0})"
   version_pure: "§7Estás usando la versión Pure de OnTimeCommand, no tiene la función Orbital TNT."
 
+  # Orbital TNT related messages
+  orbital_tnt_usage: "§cUso: /enableorbitaltnt <true|false>"
+  orbital_tnt_updated: "§aEstado de Orbital TNT actualizado y guardado: {0}"
+  orbital_tnt_save_failed: "§cError al guardar la configuración: {0}"
+  
+  # Language settings related messages
+  language_setlang_usage: "§cUso: /otcsetlang <zh|en|fr|ru|es|ar>"
+  language_available: "§eIdiomas disponibles: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§cCódigo de idioma inválido: {0}"
+  language_please_use: "§ePor favor usa: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§eEl idioma ya está configurado como {0}"
+  language_switched: "§aIdioma cambiado de {0} a {1}"
+  language_reloaded: "§eConfiguración de idioma recargada"
+  language_switch_failed: "§cError al cambiar el idioma: {0}"
+  
   # Language prompt
   lang_using: "El servidor está usando el idioma {0}"
 
@@ -406,6 +471,8 @@ ar:
   task_failed_to_add: "§cفشل إضافة المهمة: {0}"
   usage_addcommand: "§cالاستخدام: /ontimecommand addcommand <مهمة> [أمر1] [أمر2] [أمر3] ... (استخدم _ للمسافات أو اغلف الأوامر بين علامتي اقتباس)"
   example_addcommand: "§cمثال: /ontimecommand addcommand مهمتي \"say مرحباً\" \"title @a title مرحباً\""
+  usage_deletecommand: "§cالاستخدام: /ontimecommand deletecommand <مهمة> <رقم_الأمر>"
+  example_deletecommand: "§cمثال: /ontimecommand deletecommand مهمتي 1"
   no_commands_to_add: "§cلا توجد أوامر للإضافة!"
   commands_successfully_added: "§aتمت إضافة {1} أوامر بنجاح إلى المهمة '{0}'"
   commands_failed_to_add: "§cفشل إضافة الأوامر إلى المهمة: {0}"
@@ -439,6 +506,21 @@ ar:
   version_check_complete: "§6[OnTimeCommand] §7اكتمل فحص الإصدار (الإصدار الحالي: {0})"
   version_pure: "§7أنت تستخدم الإصدار النقي من OnTimeCommand، لا يحتوي على وظيفة Orbital TNT."
 
+  # Orbital TNT related messages
+  orbital_tnt_usage: "§cالاستخدام: /enableorbitaltnt <true|false>"
+  orbital_tnt_updated: "§aتم تحديث وحفظ حالة Orbital TNT: {0}"
+  orbital_tnt_save_failed: "§cفشل حفظ التكوين: {0}"
+  
+  # Language settings related messages
+  language_setlang_usage: "§cالاستخدام: /otcsetlang <zh|en|fr|ru|es|ar>"
+  language_available: "§eاللغات المتاحة: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§cرمز اللغة غير صالح: {0}"
+  language_please_use: "§eالرجاء استخدام: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§eاللغة بالفعل {0}"
+  language_switched: "§aتم تغيير اللغة من {0} إلى {1}"
+  language_reloaded: "§eتم إعادة تحميل تكوين اللغة"
+  language_switch_failed: "§cفشل تغيير اللغة: {0}"
+  
   # Language prompt
   lang_using: "الخادم يستخدم اللغة {0}"
 
@@ -497,6 +579,8 @@ en:
   task_failed_to_add: "§cFailed to add task: {0}"
   usage_addcommand: "§cUsage: /ontimecommand addcommand <task> [command1] [command2] [command3] ... (Use _ for spaces or wrap commands in double quotes)"
   example_addcommand: "§cExample: /ontimecommand addcommand mytask \"say Hello\" \"title @a title Welcome\""
+  usage_deletecommand: "§cUsage: /ontimecommand deletecommand <task> <commandNumber>"
+  example_deletecommand: "§cExample: /ontimecommand deletecommand mytask 1"
   no_commands_to_add: "§cNo commands to add!"
   commands_successfully_added: "§aSuccessfully added {1} commands to task: {0}"
   commands_failed_to_add: "§cFailed to add commands to task: {0}"

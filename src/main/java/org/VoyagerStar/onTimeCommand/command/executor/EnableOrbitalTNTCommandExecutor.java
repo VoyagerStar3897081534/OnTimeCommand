@@ -6,6 +6,8 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.File;
+
 public class EnableOrbitalTNTCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
 
@@ -23,18 +25,26 @@ public class EnableOrbitalTNTCommandExecutor implements CommandExecutor {
 
         // 检查参数
         if (args.length < 1) {
-            sender.sendMessage("§c用法: /enableorbitaltnt <true|false>");
+            sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_usage"));
             return true;
         }
 
         String newStatus = args[0].toLowerCase();
 
         if (newStatus.equals("true") || newStatus.equals("false")) {
-            plugin.getOrbitalTNTConfig().set("enable", newStatus);
-            sender.sendMessage("§aOrbital TNT enabled: " + newStatus);
+            plugin.getOrbitalTNTConfig().set("orbital-tnt.enabled", Boolean.parseBoolean(newStatus));
+
+            try {
+                File configFile = new File(plugin.getDataFolder(), "orbital-tnt-config.yml");
+                plugin.getOrbitalTNTConfig().save(configFile);
+                sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_updated", newStatus));
+            } catch (Exception e) {
+                sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_save_failed", e.getMessage()));
+                plugin.getLogger().severe("Failed to save orbital-tnt-config.yml: " + e.getMessage());
+            }
             return true;
         } else {
-            sender.sendMessage("§cUsage: /enableorbitaltnt <true|false>");
+            sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_usage"));
             return true;
         }
     }

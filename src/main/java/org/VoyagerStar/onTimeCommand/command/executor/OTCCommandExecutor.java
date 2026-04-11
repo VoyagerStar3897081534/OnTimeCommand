@@ -72,15 +72,16 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     private void sendHelpMessage(CommandSender sender) {
-        sender.sendMessage("§6--- OnTimeCommand Help ---");
-        sender.sendMessage("§e/ontimecommand disable <task>" + "§f" + " - Disable a scheduled task");
-        sender.sendMessage("§e/ontimecommand enable <task>" + "§f" + " - Enable a scheduled task");
-        sender.sendMessage("§e/ontimecommand add <taskname> <interval>" + "§f" + " - Add a new scheduled task");
-        sender.sendMessage("§e/ontimecommand addcommand <task> [commands...]" + "§f" + " - Add commands to a task (Use _ for spaces or wrap commands in double quotes)");
-        sender.sendMessage("§e/ontimecommand deletecommand <task> <commandNumber>" + "§f" + " - Delete a command from a task");
-        sender.sendMessage("§e/ontimecommand delete <task>" + "§f" + " - Delete a scheduled task");
-        sender.sendMessage("§e/ontimecommand seeinfo <task>" + "§f" + " - View detailed information about a task");
-        sender.sendMessage("§e/ontimecommand help" + "§f" + " - Show this help message");
+        LanguageManager langManager = plugin.getLanguageManager();
+        sender.sendMessage(langManager.getMessage("help_title"));
+        sender.sendMessage(langManager.getMessage("help_disable"));
+        sender.sendMessage(langManager.getMessage("help_enable"));
+        sender.sendMessage(langManager.getMessage("help_add"));
+        sender.sendMessage(langManager.getMessage("help_addcommand"));
+        sender.sendMessage(langManager.getMessage("help_deletecommand"));
+        sender.sendMessage(langManager.getMessage("help_delete"));
+        sender.sendMessage(langManager.getMessage("help_seeinfo"));
+        sender.sendMessage(langManager.getMessage("help_help"));
     }
 
     private void handleSeeInfo(CommandSender sender, String[] args) {
@@ -154,8 +155,10 @@ public class OTCCommandExecutor implements CommandExecutor {
     }
 
     private void handleEnable(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 2) {
-            sender.sendMessage("§cUsage: /ontimecommand enable <task>");
+            sender.sendMessage(langManager.getMessage("usage_enable"));
             return;
         }
 
@@ -163,28 +166,30 @@ public class OTCCommandExecutor implements CommandExecutor {
         
         // Check if task exists
         if (!plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' not found!");
+            sender.sendMessage(langManager.getMessage("task_not_found", taskName));
             return;
         }
         
         // Check if task is already enabled
         if (!plugin.getRunCommandOnTime().getConfig().getBoolean("commands." + taskName + ".disabled", false)) {
-            sender.sendMessage("§eTask '" + taskName + "' is already enabled!");
+            sender.sendMessage(langManager.getMessage("task_already_enabled", taskName));
             return;
         }
         
         boolean success = plugin.getRunCommandOnTime().enableTask(taskName);
         if (success) {
-            sender.sendMessage("§aSuccessfully enabled task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_successfully_enabled", taskName));
         } else {
-            sender.sendMessage("§cFailed to enable task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_failed_to_enable", taskName));
         }
     }
 
     private void handleAdd(CommandSender sender, String[] args) {
+        LanguageManager langManager = plugin.getLanguageManager();
+        
         if (args.length < 3) {
-            sender.sendMessage("§cUsage: /ontimecommand add <taskname> <interval> [commands]");
-            sender.sendMessage("§cExample: /ontimecommand add mytask 60");
+            sender.sendMessage(langManager.getMessage("usage_add"));
+            sender.sendMessage(langManager.getMessage("example_add"));
             return;
         }
         
@@ -194,23 +199,23 @@ public class OTCCommandExecutor implements CommandExecutor {
         try {
             interval = Integer.parseInt(args[2]);
         } catch (NumberFormatException e) {
-            sender.sendMessage("§cInterval must be a number!");
+            sender.sendMessage(langManager.getMessage("interval_must_be_number"));
             return;
         }
         
         // Check if task already exists
         if (plugin.getRunCommandOnTime().getConfig().contains("commands." + taskName)) {
-            sender.sendMessage("§cTask '" + taskName + "' already exists!");
+            sender.sendMessage(langManager.getMessage("task_already_exists", taskName));
             return;
         }
         
         boolean success = plugin.getRunCommandOnTime().addTask(taskName, interval);
         if (success) {
-            sender.sendMessage("§aSuccessfully added task: " + taskName);
-            sender.sendMessage("§eInterval: " + interval + " seconds");
-            sender.sendMessage("§eNote: Commands list is empty and needs to be configured manually in the config file.");
+            sender.sendMessage(langManager.getMessage("task_successfully_added", taskName));
+            sender.sendMessage(langManager.getMessage("task_interval", interval));
+            sender.sendMessage(langManager.getMessage("task_note"));
         } else {
-            sender.sendMessage("§cFailed to add task: " + taskName);
+            sender.sendMessage(langManager.getMessage("task_failed_to_add", taskName));
         }
     }
 
