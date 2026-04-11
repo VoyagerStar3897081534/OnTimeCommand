@@ -7,8 +7,6 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.jetbrains.annotations.NotNull;
 
-import static org.VoyagerStar.onTimeCommand.utils.LanguageManager.reloadLanguageConfig;
-
 public class ReloadOTCCommandExecutor implements CommandExecutor {
     private final OnTimeCommand plugin;
 
@@ -33,7 +31,7 @@ public class ReloadOTCCommandExecutor implements CommandExecutor {
             sender.sendMessage(langManager.getMessage("reload_command_success"));
 
             // 刷新语言配置
-            reloadLanguageConfig();
+            langManager.reloadLanguageConfig();
             sender.sendMessage(langManager.getMessage("reload_language_success"));
 
             sender.sendMessage(langManager.getMessage("reload_complete"));

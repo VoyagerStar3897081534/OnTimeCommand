@@ -184,21 +184,21 @@ fr:
 
   # Orbital TNT related messages
   orbital_tnt_usage: "§cUsage: /enableorbitaltnt <true|false>"
-  orbital_tnt_updated: "§aOrbital TNT status updated and saved: {0}"
-  orbital_tnt_save_failed: "§cFailed to save config: {0}"
+  orbital_tnt_updated: "§aStatut Orbital TNT mis à jour et sauvegardé: {0}"
+  orbital_tnt_save_failed: "§cÉchec de la sauvegarde de la configuration: {0}"
   
   # Language settings related messages
   language_setlang_usage: "§cUsage: /otcsetlang <zh|en|fr|ru|es|ar>"
-  language_available: "§eAvailable languages: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
-  language_invalid_code: "§cInvalid language code: {0}"
-  language_please_use: "§ePlease use: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
-  language_already_set: "§eLanguage is already {0}"
-  language_switched: "§aLanguage switched from {0} to {1}"
-  language_reloaded: "§eLanguage configuration reloaded"
-  language_switch_failed: "§cFailed to switch language: {0}"
+  language_available: "§eLangues disponibles: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_invalid_code: "§cCode de langue invalide: {0}"
+  language_please_use: "§eVeuillez utiliser: zh(中文), en(English), fr(Français), ru(Русский), es(Español), ar(العربية)"
+  language_already_set: "§eLa langue est déjà {0}"
+  language_switched: "§aLangue changée de {0} à {1}"
+  language_reloaded: "§eConfiguration de la langue rechargée"
+  language_switch_failed: "§cÉchec du changement de langue: {0}"
   
   # Language prompt
-  lang_using: "The server is using the {0} language"
+  lang_using: "Le serveur utilise la langue {0}"
 
   # Reload command related messages
   reload_start: "§6Rechargement de tous les fichiers de configuration..."

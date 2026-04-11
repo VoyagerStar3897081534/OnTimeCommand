@@ -5,7 +5,6 @@ import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import org.VoyagerStar.onTimeCommand.OnTimeCommand;
 import org.VoyagerStar.onTimeCommand.utils.FoliaScheduler;
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
@@ -72,6 +71,8 @@ class TNTPRecord {
 public class FishingRodListener implements Listener {
     private final OnTimeCommand plugin;
     private final Logger logger;
+    // 存储待优化的TNT实体UUID（使用HashSet提高查找效率）
+    private final java.util.Set<java.util.UUID> pendingOptimizedTNTs = new java.util.HashSet<>();
 
     public FishingRodListener(OnTimeCommand plugin) {
         this.plugin = plugin;
@@ -157,7 +158,8 @@ public class FishingRodListener implements Listener {
         Location centerLocation = location.clone().add(0, circleHeight, 0);
 
         // Use cross-platform scheduler for TNT spawning
-        FoliaScheduler.runAtLocation(plugin, centerLocation, () -> location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT));
+        org.bukkit.entity.Entity centerTNT = location.getWorld().spawnEntity(centerLocation, org.bukkit.entity.EntityType.TNT);
+        pendingOptimizedTNTs.add(centerTNT.getUniqueId());
 
         for (int ring = 1; ring <= circleCount; ring++) {
             // 使用异步调度处理每个圆环的延迟生成
@@ -263,23 +265,21 @@ public class FishingRodListener implements Listener {
         int fuseDuration = plugin.getOrbitalTNTConfig().getInt("orbital-tnt.fuse-duration", 80);
         tnt.setFuseTicks(fuseDuration);
 
-        // 优化爆炸效果
-        optimizeExplosionEffects(tnt);
+        // 将TNT添加到待优化列表
+        pendingOptimizedTNTs.add(tnt.getUniqueId());
     }
 
     /**
-     * 优化爆炸效果以减少服务器负载
+     * 处理TNT爆炸事件，应用优化设置
+     * 这个方法在类级别注册一次，避免每次TNT生成都注册新监听器
      */
-    private void optimizeExplosionEffects(org.bukkit.entity.TNTPrimed tnt) {
-        // 注册爆炸事件监听器来进行优化
-        FoliaScheduler.runNextTick(plugin, () -> Bukkit.getPluginManager().registerEvents(new Listener() {
-            @EventHandler(priority = org.bukkit.event.EventPriority.HIGH)
-            public void onEntityExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
-                if (event.getEntity().equals(tnt)) {
-                    optimizeExplosion(event);
-                }
-            }
-        }, plugin));
+    @EventHandler(priority = org.bukkit.event.EventPriority.HIGH)
+    public void onEntityExplode(org.bukkit.event.entity.EntityExplodeEvent event) {
+
+        // 检查是否是待优化的TNT（O(1)查找）
+        if (pendingOptimizedTNTs.remove(event.getEntity().getUniqueId())) {
+            optimizeExplosion(event);
+        }
     }
 
     /**

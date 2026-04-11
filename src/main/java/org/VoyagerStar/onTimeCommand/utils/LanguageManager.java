@@ -15,21 +15,21 @@ import java.util.logging.Logger;
  * 语言管理器 - 处理插件的多语言支持
  */
 public class LanguageManager {
-    private static OnTimeCommand plugin = null;
-    private static Logger logger = null;
-    private static YamlConfiguration languageConfig;
-    private static String currentLanguage;
+    private final OnTimeCommand plugin;
+    private final Logger logger;
+    private YamlConfiguration languageConfig;
+    private String currentLanguage;
 
     public LanguageManager(OnTimeCommand plugin) {
-        LanguageManager.plugin = plugin;
-        logger = plugin.getLogger();
+        this.plugin = plugin;
+        this.logger = plugin.getLogger();
         loadLanguageConfig();
     }
 
     /**
      * 加载语言配置文件
      */
-    public static void loadLanguageConfig() {
+    private void loadLanguageConfig() {
         File langFile = new File(plugin.getDataFolder(), "lang.yml");
 
         // 如果文件不存在，从jar中复制默认配置
@@ -64,7 +64,7 @@ public class LanguageManager {
     /**
      * 重新加载语言配置
      */
-    public static void reloadLanguageConfig() {
+    public void reloadLanguageConfig() {
         loadLanguageConfig();
     }
 
@@ -104,10 +104,12 @@ public class LanguageManager {
     /**
      * 获取语言列表
      *
-     * @return 语言列表
+     * @return 语言代码数组（排除"language"配置键）
      */
     public String[] getLanguageList() {
-        return languageConfig.getKeys(false).toArray(new String[0]);
+        return languageConfig.getKeys(false).stream()
+                .filter(key -> !key.equals("language"))
+                .toArray(String[]::new);
     }
 
     /**
