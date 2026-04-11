@@ -15,8 +15,6 @@ on:
 
   pull_request: 
 
-  pull_request_comment: 
-
 jobs:
   build:
 
