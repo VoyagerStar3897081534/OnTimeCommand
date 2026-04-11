@@ -30,32 +30,12 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Delete existing package version
-        if: github.event_name == 'push'
-        env:
-          GITHUB_TOKEN: ${{ github.token }}
-          PACKAGE_NAME: ontimecommand
-        run: |
-          PACKAGE_VERSION=$(grep -oP '<version>\K[^<]+' pom.xml | head -1)
-          echo "Current version: $PACKAGE_VERSION"
-          
-          VERSION_ID=$(curl -s -H "Authorization: token $GITHUB_TOKEN" \
-            "https://api.github.com/users/VoyagerStar3897081534/packages/maven/$PACKAGE_NAME/versions?version=$PACKAGE_VERSION" \
-            | jq -r '.[0].id')
-          
-          if [ "$VERSION_ID" != "null" ] && [ ! -z "$VERSION_ID" ]; then
-            echo "Deleting existing package version: $PACKAGE_VERSION (ID: $VERSION_ID)"
-            curl -X DELETE -H "Authorization: token $GITHUB_TOKEN" \
-              "https://api.github.com/users/VoyagerStar3897081534/packages/maven/$PACKAGE_NAME/versions/$VERSION_ID"
-            echo "Package version deleted successfully"
-          else
-            echo "No existing package version found for $PACKAGE_VERSION"
-          fi
-
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
       - name: Publish to GitHub Packages Apache Maven
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml
+        if: github.event_name == 'push'
+        continue-on-error: true
+        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DretryFailedDeployment=true
         env:
           GITHUB_TOKEN: ${{ github.token }}

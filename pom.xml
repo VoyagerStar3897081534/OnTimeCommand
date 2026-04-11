@@ -38,6 +38,7 @@
 
     <build>
         <defaultGoal>clean package</defaultGoal>
+        <finalName>${project.artifactId}-${project.version}</finalName>
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
@@ -135,7 +136,6 @@
                 <artifactId>maven-jar-plugin</artifactId>
                 <version>3.3.0</version>
                 <configuration>
-                    <finalName>${project.artifactId}-${project.version}</finalName>
                     <archive>
                         <manifestEntries>
                             <Build-Timestamp>${maven.build.timestamp}</Build-Timestamp>
