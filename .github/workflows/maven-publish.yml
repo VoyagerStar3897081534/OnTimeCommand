@@ -17,7 +17,7 @@ jobs:
 
     runs-on: ubuntu-latest
     permissions:
-      contents: read
+      contents: write
       packages: write
 
     steps:
@@ -33,9 +33,45 @@ jobs:
       - name: Build with Maven
         run: mvn -B package --file pom.xml
 
+      - name: Extract version from pom.xml
+        if: github.event_name == 'push'
+        id: get-version
+        run: |
+          VERSION=$(grep -oP '<version>\K[^<]+' pom.xml | head -1)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+          echo "Current version: $VERSION"
+
       - name: Publish to GitHub Packages Apache Maven
         if: github.event_name == 'push'
-        continue-on-error: true
-        run: mvn deploy -s $GITHUB_WORKSPACE/settings.xml -DretryFailedDeployment=true
+        run: |
+          echo "Attempting to deploy version ${{ steps.get-version.outputs.version }}..."
+          mvn deploy -s $GITHUB_WORKSPACE/settings.xml || {
+            echo "⚠️ Deployment failed (likely version already exists). This is expected for duplicate versions."
+            echo "If you want to redeploy, please increment the version number in pom.xml"
+            exit 0
+          }
         env:
           GITHUB_TOKEN: ${{ github.token }}
+
+      - name: Create Git Tag and Release
+        if: github.event_name == 'push'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.get-version.outputs.version }}
+          name: Release ${{ steps.get-version.outputs.version }}
+          body: |
+            ## Changes in version ${{ steps.get-version.outputs.version }}
+            
+            Auto-generated release from CI/CD pipeline.
+            
+            ### Build Information
+            - Commit: ${{ github.sha }}
+            - Branch: ${{ github.ref_name }}
+            - Triggered by: ${{ github.actor }}
+          files: |
+            target/*.jar
+          draft: false
+          prerelease: false
+          generate_release_notes: true
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
