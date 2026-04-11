@@ -127,7 +127,7 @@ public class LanguageManager {
      * @param language 语言代码
      */
     public void setCurrentLanguage(String language) {
-        if (Arrays.asList(plugin.getLanguageManager().getLanguageList()).contains(language)) {
+        if (Arrays.asList(getLanguageList()).contains(language)) {
             currentLanguage = language;
             languageConfig.set("language", language);
 
@@ -140,7 +140,7 @@ public class LanguageManager {
                 logger.severe("Failed to save language configuration: " + e.getMessage());
             }
         } else {
-            logger.warning("Invalid language code: " + language + ". Supported languages:" + Arrays.toString(plugin.getLanguageManager().getLanguageList()));
+            logger.warning("Invalid language code: " + language + ". Supported languages:" + Arrays.toString(getLanguageList()));
         }
     }
 }
