@@ -3,9 +3,13 @@
 
 name: Maven Package
 
-on:
-  release:
-    types: [created]
+on: 
+  schedule:
+    - cron: '30 2 * * 1-6'
+      timezone: "China/Beijing"
+      
+    - cron: '30 14 * * 1-6'
+      timezone: "China/Beijing"
 
 jobs:
   build:
