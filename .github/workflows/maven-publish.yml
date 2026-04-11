@@ -33,13 +33,6 @@ jobs:
           server-id: github # Value of the distributionManagement/repository/id field of the pom.xml
           settings-path: ${{ github.workspace }} # location for the settings.xml file
 
-      - name: Delete old artifacts
-        uses: c-hive/gha-remove-artifacts@v1
-        with:
-          age: '7 days'
-          skip-recent: 5
-        continue-on-error: true
-
       - name: Delete existing package version
         if: github.event_name == 'push'
         env:
