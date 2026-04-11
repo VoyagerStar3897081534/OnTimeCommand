@@ -12,8 +12,10 @@ on:
       timezone: "Asia/Shanghai"
 
   push:
-    paths:
-      - '!.idea/**'
+
+  pull_request: 
+
+  pull_request_comment: 
 
 jobs:
   build:
