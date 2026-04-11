@@ -11,6 +11,10 @@ on:
     - cron: '30 14 * * 1-6'
       timezone: "China/Beijing"
 
+  push:
+    paths:
+      - '!.idea/**'
+
 jobs:
   build:
 
