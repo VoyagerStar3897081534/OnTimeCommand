@@ -326,32 +326,6 @@ public class FishingRodListener implements Listener {
             Boolean value = container.get(isTNT, org.bukkit.persistence.PersistentDataType.BOOLEAN);
             return value != null && value;
         }
-
-        // 检查是否包含特定的NBT键
-        // org.bukkit.NamespacedKey requiredKey = new org.bukkit.NamespacedKey(
-        //     plugin, "orbital_tnt_enabled");
-
-        // 检查布尔值NBT标签
-        // if (container.has(requiredKey, org.bukkit.persistence.PersistentDataType.BOOLEAN)) {
-        //     Boolean value = container.get(requiredKey, org.bukkit.persistence.PersistentDataType.BOOLEAN);
-        //     if (value != null && value) {
-        //         logger.info("Found required NBT tag: " + requiredKey.toString() + " = " + value);
-        //         return true;
-        //     }
-        // }
-
-        // 也可以检查其他类型的NBT标签
-        // org.bukkit.NamespacedKey stringKey = new org.bukkit.NamespacedKey(
-        //     plugin, "");
-
-        // if (container.has(stringKey, org.bukkit.persistence.PersistentDataType.STRING)) {
-        //     String value = container.get(stringKey, org.bukkit.persistence.PersistentDataType.STRING);
-        //     if ("orbital_tnt".equals(value)) {
-        //         logger.info("Found string NBT tag: " + stringKey.toString() + " = " + value);
-        //         return true;
-        //     }
-        // }
-
         return false;
     }
 }

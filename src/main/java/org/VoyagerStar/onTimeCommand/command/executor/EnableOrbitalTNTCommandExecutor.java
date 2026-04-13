@@ -42,10 +42,9 @@ public class EnableOrbitalTNTCommandExecutor implements CommandExecutor {
                 sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_save_failed", e.getMessage()));
                 plugin.getLogger().severe("Failed to save orbital-tnt-config.yml: " + e.getMessage());
             }
-            return true;
         } else {
             sender.sendMessage(plugin.getLanguageManager().getMessage("orbital_tnt_usage"));
-            return true;
         }
+        return true;
     }
 }
