@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/ontimecommand.iml" filepath="$PROJECT_DIR$/.idea/modules/ontimecommand.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/ontimecommand.main.iml" filepath="$PROJECT_DIR$/.idea/modules/ontimecommand.main.iml" />
     </modules>
   </component>
