@@ -7,10 +7,9 @@ on:
   schedule:
     - cron: '30 18 * * 0-6'
     - cron: '30 6 * * 0-6'
-
   push:
-
   pull_request:
+  workflow_dispatch:
 
 jobs:
   build:
